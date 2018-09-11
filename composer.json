@@ -1,0 +1,18 @@
+{
+  "name": "fusionauth/fusionauth-client",
+  "type": "library",
+  "description": "FusionAuth Client written in PHP",
+  "keywords": ["rest","api", "fusionauth"],
+  "homepage": "https://github.com/FusionAuth/fusionauth-php-client",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Daniel DeGroff",
+      "email": "daniel@fuaionauth.io"
+    },
+    {
+      "name": "Brian Pontarelli",
+      "email": "brian@fusionauth.io"
+    }
+  ]
+}
