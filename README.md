@@ -7,7 +7,16 @@ For additional information and documentation on FusionAuth refer to [https://fus
 
 #### Install the Code
 
-To use the client library on your project simply copy the PHP source files from the `src` directory to your project.
+To use the client library on your project simply copy the PHP source files from the `src` directory to your project or the following
+ Composer package.
+
+Packagist
+
+* https://packagist.org/packages/fusionauth/fusionauth-client
+
+```bash
+composer require fusionauth/fusionauth-client
+```
 
 #### Create the Client
 
