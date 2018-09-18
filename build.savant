@@ -25,9 +25,7 @@ project(group: "io.fusionauth", name: "fusionauth-php-client", version: "1.0.14"
   }
 
   publications {
-    main {
-      publication(name: "fusionauth-php-client", type: "zip", file: "build/fusionauth-php-client.zip")
-    }
+    standard()
   }
 }
 
