@@ -15,7 +15,7 @@
  */
 savantVersion = "1.0.0"
 
-project(group: "io.fusionauth", name: "fusionauth-php-client", version: "1.0.14",licenses: ["ApacheV2_0"]) {
+project(group: "io.fusionauth", name: "fusionauth-php-client", version: "1.0.14", licenses: ["ApacheV2_0"]) {
   workflow {
     standard()
   }
@@ -23,14 +23,9 @@ project(group: "io.fusionauth", name: "fusionauth-php-client", version: "1.0.14"
   publishWorkflow {
     subversion(repository: "http://svn.inversoft.org/savant")
   }
-
-  publications {
-    standard()
-  }
 }
 
 // Plugins
-dependency = loadPlugin(id: "org.savantbuild.plugin:dependency:${savantVersion}")
 file = loadPlugin(id: "org.savantbuild.plugin:file:${savantVersion}")
 idea = loadPlugin(id: "org.savantbuild.plugin:idea:1.0.1")
 release = loadPlugin(id: "org.savantbuild.plugin:release-git:${savantVersion}")
@@ -40,19 +35,6 @@ target(name: "clean", description: "Cleans build directory") {
 }
 
 target(name: "int", description: "Releases a local integration build of the project") {
-  file.copy(to: "build/php") {
-    fileSet(dir: "src")
-  }
-
-  file.delete {
-    fileSet(dir: "build", includePatterns: [~/fusionauth-php-client.+\.zip/])
-  }
-
-  file.zip(file: "build/fusionauth-php-client.zip") {
-    fileSet(dir: "build/php", includePatterns: [])
-  }
-
-  dependency.integrate()
 }
 
 target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
@@ -72,15 +54,6 @@ target(name: "test", description: "Runs the tests", dependsOn: "int") {
 
   def proc = "phpunit --include-path src -v tests".execute()
   proc.consumeProcessOutput(System.out, System.err)
-}
-
-target(name: "bundle", description: "Builds the project release bundle", dependsOn: "int") {
-  // Copy the zip to the bundle directory
-  file.prune(dir: "build/bundles/")
-  file.mkdir(dir: "build/bundles")
-  file.copy(to: "build/bundles") {
-    fileSet(dir: "build", includePatterns: [~/fusionauth-php-client\.zip/])
-  }
 }
 
 target(name: "release", description: "Releases a full version of the project", dependsOn: ["int"]) {
