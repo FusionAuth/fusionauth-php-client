@@ -14,5 +14,10 @@
       "name": "Brian Pontarelli",
       "email": "brian@fusionauth.io"
     }
-  ]
+  ],
+  "autoload": {
+    "psr-4": {
+      "fusionauth\\": "src/"
+    }
+  }
 }
