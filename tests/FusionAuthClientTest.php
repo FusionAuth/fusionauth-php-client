@@ -145,6 +145,20 @@ final class FusionAuthClientTest extends TestCase
     $this->assertEquals($response->status, 404);
   }
 
+  public function test_logout() {
+    // Without parameter
+    $response = $this->client->logout(true);
+    $this->handleResponse($response);
+
+    // With NULL
+    $response = $this->client->logout(true, NULL);
+    $this->handleResponse($response);
+
+    // With bogus token
+    $response = $this->client->logout(false, "token");
+    $this->handleResponse($response);
+  }
+
   /**
    * @param $response ClientResponse
    */

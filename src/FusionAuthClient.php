@@ -754,6 +754,23 @@ class FusionAuthClient
   }
 
   /**
+   * Handles login via third-parties including Social login, external OAuth and OpenID Connect, and other
+   * login systems.
+   *
+   * @param array $request The third-party login request that contains information from the third-party login
+  *     providers that FusionAuth uses to reconcile the user's account.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function identityProviderLogin($request)
+  {
+    return $this->start()->uri("/api/identity-provider/login")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Bulk imports multiple users. This does some validation, but then tries to run batch inserts of users. This reduces
    * latency when inserting lots of users. Therefore, the error response might contain some information about failures,
    * but it will likely be pretty generic.
@@ -819,7 +836,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function loginPing($userId, $applicationId, $callerIPAddress)
+  public function loginPing($userId, $applicationId, $callerIPAddress = NULL)
   {
     return $this->start()->uri("/api/login")
         ->urlSegment($userId)
@@ -834,14 +851,14 @@ class FusionAuthClient
    * client and revoke the refresh token stored. This API does nothing if the request does not contain an access
    * token or refresh token cookies.
    *
-   * @param array $global When this value is set to true all of the refresh tokens issued to the owner of the
+   * @param boolean $global When this value is set to true all of the refresh tokens issued to the owner of the
   *     provided token will be revoked.
    * @param string $refreshToken (Optional) The refresh_token as a request parameter instead of coming in via a cookie.
   *     If provided this takes precedence over the cookie.
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function logout($global, $refreshToken)
+  public function logout($global, $refreshToken = NULL)
   {
     return $this->start()->uri("/api/logout")
         ->urlParameter("global", $global)
@@ -1037,7 +1054,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveApplication($applicationId)
+  public function retrieveApplication($applicationId = NULL)
   {
     return $this->start()->uri("/api/application")
         ->urlSegment($applicationId)
@@ -1061,7 +1078,7 @@ class FusionAuthClient
   /**
    * Retrieves a single audit log for the given Id.
    *
-   * @param array $auditLogId The Id of the audit log to retrieve.
+   * @param int $auditLogId The Id of the audit log to retrieve.
    *
    * @return ClientResponse The ClientResponse.
    */
@@ -1100,7 +1117,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveEmailTemplate($emailTemplateId)
+  public function retrieveEmailTemplate($emailTemplateId = NULL)
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
@@ -1173,7 +1190,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveIdentityProvider($identityProviderId)
+  public function retrieveIdentityProvider($identityProviderId = NULL)
   {
     return $this->start()->uri("/api/identity-provider")
         ->urlSegment($identityProviderId)
@@ -1244,7 +1261,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveJWTPublicKey($keyId)
+  public function retrieveJWTPublicKey($keyId = NULL)
   {
     return $this->start()->uri("/api/jwt/public-key")
         ->urlSegment($keyId)
@@ -1464,7 +1481,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveUserAction($userActionId)
+  public function retrieveUserAction($userActionId = NULL)
   {
     return $this->start()->uri("/api/user-action")
         ->urlSegment($userActionId)
@@ -1480,7 +1497,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveUserActionReason($userActionReasonId)
+  public function retrieveUserActionReason($userActionReasonId = NULL)
   {
     return $this->start()->uri("/api/user-action-reason")
         ->urlSegment($userActionReasonId)
@@ -1610,8 +1627,8 @@ class FusionAuthClient
    * Retrieves the last number of login records for a user.
    *
    * @param string $userId The Id of the user.
-   * @param array $offset The initial record. e.g. 0 is the last login, 100 will be the 100th most recent login.
-   * @param array $limit (Optional, defaults to 10) The number of records to retrieve.
+   * @param int $offset The initial record. e.g. 0 is the last login, 100 will be the 100th most recent login.
+   * @param int $limit (Optional, defaults to 10) The number of records to retrieve.
    *
    * @return ClientResponse The ClientResponse.
    */
@@ -1647,7 +1664,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveWebhook($webhookId)
+  public function retrieveWebhook($webhookId = NULL)
   {
     return $this->start()->uri("/api/webhook")
         ->urlSegment($webhookId)
@@ -1678,7 +1695,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function revokeRefreshToken($token, $userId, $applicationId)
+  public function revokeRefreshToken($token, $userId, $applicationId = NULL)
   {
     return $this->start()->uri("/api/jwt/refresh")
         ->urlParameter("token", $token)
