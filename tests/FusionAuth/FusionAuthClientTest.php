@@ -3,9 +3,9 @@ namespace fusionauth;
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/FusionAuthClient.php';
-require_once __DIR__ . '/../src/RESTClient.php';
-require_once __DIR__ . '/../src/ClientResponse.php';
+require_once __DIR__ . '/../../src/FusionAuth/FusionAuthClient.php';
+require_once __DIR__ . '/../../src/FusionAuth/RESTClient.php';
+require_once __DIR__ . '/../../src/FusionAuth/ClientResponse.php';
 
 /**
  * @covers FusionAuthClient
