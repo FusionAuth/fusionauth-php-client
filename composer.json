@@ -17,7 +17,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "FusionAuth\\": "src/"
+      "FusionAuth\\": "src/FusionAuth/"
     }
   }
 }
