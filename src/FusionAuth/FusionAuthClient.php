@@ -1,8 +1,8 @@
 <?php
-namespace FusionAuth;
+namespace fusionauth;
 
 /*
- * Copyright (c) 2018, FusionAuth, All Rights Reserved
+ * Copyright (c) 2018-2019, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1033,7 +1033,8 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the actions for the user with the given Id.
+   * Retrieves all of the actions for the user with the given Id. This will return all time based actions that are active,
+   * and inactive as well as non-time based actions.
    *
    * @param string $userId The Id of the user to fetch the actions for.
    *
@@ -1043,6 +1044,39 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/action")
         ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the actions for the user with the given Id that are currently preventing the User from logging in.
+   *
+   * @param string $userId The Id of the user to fetch the actions for.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function retrieveActionsPreventingLogin($userId)
+  {
+    return $this->start()->uri("/api/user/action")
+        ->urlParameter("userId", $userId)
+        ->urlParameter("preventingLogin", true)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the actions for the user with the given Id that are currently active.
+   * An active action means one that is time based and has not been canceled, and has not ended.
+   *
+   * @param string $userId The Id of the user to fetch the actions for.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function retrieveActiveActions($userId)
+  {
+    return $this->start()->uri("/api/user/action")
+        ->urlParameter("userId", $userId)
+        ->urlParameter("active", true)
         ->get()
         ->go();
   }
@@ -1352,6 +1386,23 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the last number of login records.
+   *
+   * @param int $offset The initial record. e.g. 0 is the last login, 100 will be the 100th most recent login.
+   * @param int $limit (Optional, defaults to 10) The number of records to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function retrieveRecentLogins($offset, $limit)
+  {
+    return $this->start()->uri("/api/user/recent-login")
+        ->urlParameter("offset", $offset)
+        ->urlParameter("limit", $limit)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the refresh tokens that belong to the user with the given Id.
    *
    * @param string $userId The Id of the user.
@@ -1624,6 +1675,50 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
+   * login counts for that application.
+   *
+   * @param string $applicationId (Optional) The application id.
+   * @param string $userId The userId id.
+   * @param array $start The start instant as UTC milliseconds since Epoch.
+   * @param array $end The end instant as UTC milliseconds since Epoch.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function retrieveUserLoginReport($applicationId, $userId, $start, $end)
+  {
+    return $this->start()->uri("/api/report/login")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("userId", $userId)
+        ->urlParameter("start", $start)
+        ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the login report between the two instants for a particular user by login Id. If you specify an application id, it will only return the
+   * login counts for that application.
+   *
+   * @param string $applicationId (Optional) The application id.
+   * @param string $loginId The userId id.
+   * @param array $start The start instant as UTC milliseconds since Epoch.
+   * @param array $end The end instant as UTC milliseconds since Epoch.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function retrieveUserLoginReportByLoginId($applicationId, $loginId, $start, $end)
+  {
+    return $this->start()->uri("/api/report/login")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("start", $start)
+        ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the last number of login records for a user.
    *
    * @param string $userId The Id of the user.
@@ -1632,9 +1727,9 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    */
-  public function retrieveUserLoginReport($userId, $offset, $limit)
+  public function retrieveUserRecentLogins($userId, $offset, $limit)
   {
-    return $this->start()->uri("/api/report/user-login")
+    return $this->start()->uri("/api/user/recent-login")
         ->urlParameter("userId", $userId)
         ->urlParameter("offset", $offset)
         ->urlParameter("limit", $limit)
