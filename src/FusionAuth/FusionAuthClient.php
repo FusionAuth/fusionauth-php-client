@@ -1246,6 +1246,23 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves all of the actions for the user with the given Id that are currently inactive.
+   * An inactive action means one that is time based and has been canceled or has expired, or is not time based.
+   *
+   * @param string $userId The Id of the user to fetch the actions for.
+   *
+   * @return ClientResponse The ClientResponse.
+   */
+  public function retrieveInactiveActions($userId)
+  {
+    return $this->start()->uri("/api/user/action")
+        ->urlParameter("userId", $userId)
+        ->urlParameter("active", false)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves all of the applications that are currently inactive.
    *
    *
