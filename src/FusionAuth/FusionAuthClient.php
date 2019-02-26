@@ -1,5 +1,6 @@
 <?php
-namespace fusionauth;
+
+namespace FusionAuth;
 
 /*
  * Copyright (c) 2018-2019, FusionAuth, All Rights Reserved
