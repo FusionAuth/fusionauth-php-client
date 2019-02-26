@@ -67,6 +67,7 @@ class FusionAuthClient
   *     the id of the action, any options and the duration (if applicable).
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function actionUser($actioneeUserId, $request)
   {
@@ -84,6 +85,7 @@ class FusionAuthClient
    * @param array $request The action request that contains the information about the cancellation.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function cancelAction($actionId, $request)
   {
@@ -102,6 +104,7 @@ class FusionAuthClient
    * @param array $request The change password request that contains all of the information used to change the password.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function changePassword($changePasswordId, $request)
   {
@@ -120,6 +123,7 @@ class FusionAuthClient
    * @param array $request The change password request that contains all of the information used to change the password.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function changePasswordByIdentity($request)
   {
@@ -135,6 +139,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the user comment.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function commentOnUser($request)
   {
@@ -151,6 +156,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the application.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createApplication($applicationId, $request)
   {
@@ -170,6 +176,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the application role.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createApplicationRole($applicationId, $roleId, $request)
   {
@@ -190,6 +197,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the audit log entry.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createAuditLog($request)
   {
@@ -206,6 +214,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the email template.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createEmailTemplate($emailTemplateId, $request)
   {
@@ -223,6 +232,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the group.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createGroup($groupId, $request)
   {
@@ -239,6 +249,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the group member(s).
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createGroupMembers($request)
   {
@@ -255,6 +266,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the identity provider.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createIdentityProvider($identityProviderId, $request)
   {
@@ -272,6 +284,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the tenant.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createTenant($tenantId, $request)
   {
@@ -289,6 +302,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createUser($userId, $request)
   {
@@ -307,6 +321,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the user action.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createUserAction($userActionId, $request)
   {
@@ -325,6 +340,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the user action reason.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createUserActionReason($userActionReasonId, $request)
   {
@@ -342,6 +358,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to create the webhook.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function createWebhook($webhookId, $request)
   {
@@ -358,6 +375,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application to deactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deactivateApplication($applicationId)
   {
@@ -373,6 +391,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to deactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deactivateUser($userId)
   {
@@ -388,6 +407,7 @@ class FusionAuthClient
    * @param string $userActionId The Id of the user action to deactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deactivateUserAction($userActionId)
   {
@@ -403,6 +423,7 @@ class FusionAuthClient
    * @param array $userIds The ids of the users to deactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deactivateUsers($userIds)
   {
@@ -421,6 +442,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteApplication($applicationId)
   {
@@ -439,6 +461,7 @@ class FusionAuthClient
    * @param string $roleId The Id of the role to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteApplicationRole($applicationId, $roleId)
   {
@@ -456,6 +479,7 @@ class FusionAuthClient
    * @param string $emailTemplateId The Id of the email template to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteEmailTemplate($emailTemplateId)
   {
@@ -471,6 +495,7 @@ class FusionAuthClient
    * @param string $groupId The Id of the group to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteGroup($groupId)
   {
@@ -486,6 +511,7 @@ class FusionAuthClient
    * @param array $request The member request that contains all of the information used to remove members to the group.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteGroupMembers($request)
   {
@@ -501,6 +527,7 @@ class FusionAuthClient
    * @param string $identityProviderId The Id of the identity provider to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteIdentityProvider($identityProviderId)
   {
@@ -517,6 +544,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application to remove the registration for.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteRegistration($userId, $applicationId)
   {
@@ -533,6 +561,7 @@ class FusionAuthClient
    * @param string $tenantId The Id of the tenant to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteTenant($tenantId)
   {
@@ -549,6 +578,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteUser($userId)
   {
@@ -566,6 +596,7 @@ class FusionAuthClient
    * @param string $userActionId The Id of the user action to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteUserAction($userActionId)
   {
@@ -582,6 +613,7 @@ class FusionAuthClient
    * @param string $userActionReasonId The Id of the user action reason to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteUserActionReason($userActionReasonId)
   {
@@ -597,6 +629,7 @@ class FusionAuthClient
    * @param array $request The ids of the users to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteUsers($request)
   {
@@ -612,6 +645,7 @@ class FusionAuthClient
    * @param string $webhookId The Id of the webhook to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function deleteWebhook($webhookId)
   {
@@ -628,6 +662,7 @@ class FusionAuthClient
    * @param string $code The Two Factor code used verify the the caller knows the Two Factor secret.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function disableTwoFactor($userId, $code)
   {
@@ -645,6 +680,7 @@ class FusionAuthClient
    * @param array $request The two factor enable request information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function enableTwoFactor($userId, $request)
   {
@@ -661,6 +697,7 @@ class FusionAuthClient
    * @param array $request The refresh request.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function exchangeRefreshTokenForJWT($request)
   {
@@ -676,6 +713,7 @@ class FusionAuthClient
    * @param array $request The request that contains the information about the user so that they can be emailed.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function forgotPassword($request)
   {
@@ -692,6 +730,7 @@ class FusionAuthClient
    * @param string $email The email address of the user that needs a new verification email.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function generateEmailVerificationId($email)
   {
@@ -710,6 +749,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application to be verified.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function generateRegistrationVerificationId($email, $applicationId)
   {
@@ -728,6 +768,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function generateTwoFactorSecret()
   {
@@ -744,6 +785,7 @@ class FusionAuthClient
    * @param string $encodedJWT The encoded JWT (access token).
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function generateTwoFactorSecretUsingJWT($encodedJWT)
   {
@@ -761,6 +803,7 @@ class FusionAuthClient
   *     providers that FusionAuth uses to reconcile the user's account.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function identityProviderLogin($request)
   {
@@ -778,6 +821,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the information about all of the users to import.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function importUsers($request)
   {
@@ -798,6 +842,7 @@ class FusionAuthClient
    * @param string $encodedJWT The encoded JWT (access token).
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function issueJWT($applicationId, $encodedJWT)
   {
@@ -814,6 +859,7 @@ class FusionAuthClient
    * @param array $request The login request that contains the user credentials used to log them in.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function login($request)
   {
@@ -835,6 +881,7 @@ class FusionAuthClient
   *     the IP address will be that of the client or last proxy that sent the request.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function loginPing($userId, $applicationId, $callerIPAddress = NULL)
   {
@@ -857,6 +904,7 @@ class FusionAuthClient
   *     If provided this takes precedence over the cookie.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function logout($global, $refreshToken = NULL)
   {
@@ -874,6 +922,7 @@ class FusionAuthClient
    * @param string $domain The domain or email address to lookup.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function lookupIdentityProvider($domain)
   {
@@ -891,6 +940,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the information about the modification.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function modifyAction($actionId, $request)
   {
@@ -907,6 +957,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application to reactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function reactivateApplication($applicationId)
   {
@@ -923,6 +974,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to reactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function reactivateUser($userId)
   {
@@ -939,6 +991,7 @@ class FusionAuthClient
    * @param string $userActionId The Id of the user action to reactivate.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function reactivateUserAction($userActionId)
   {
@@ -955,6 +1008,7 @@ class FusionAuthClient
    * @param array $request The reconcile request that contains the data to reconcile the User.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function reconcileJWT($request)
   {
@@ -975,6 +1029,7 @@ class FusionAuthClient
    * @param array $request The request that optionally contains the User and must contain the UserRegistration.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function register($userId, $request)
   {
@@ -991,6 +1046,7 @@ class FusionAuthClient
    * @param string $email The email address of the user that needs a new verification email.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function resendEmailVerification($email)
   {
@@ -1007,6 +1063,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application to be verified.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function resendRegistrationVerification($email, $applicationId)
   {
@@ -1023,6 +1080,7 @@ class FusionAuthClient
    * @param string $actionId The Id of the action to retrieve.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveAction($actionId)
   {
@@ -1039,6 +1097,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to fetch the actions for.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveActions($userId)
   {
@@ -1054,6 +1113,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to fetch the actions for.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveActionsPreventingLogin($userId)
   {
@@ -1071,6 +1131,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to fetch the actions for.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveActiveActions($userId)
   {
@@ -1087,6 +1148,7 @@ class FusionAuthClient
    * @param string $applicationId (Optional) The application id.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveApplication($applicationId = NULL)
   {
@@ -1101,6 +1163,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveApplications()
   {
@@ -1115,6 +1178,7 @@ class FusionAuthClient
    * @param int $auditLogId The Id of the audit log to retrieve.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveAuditLog($auditLogId)
   {
@@ -1133,6 +1197,7 @@ class FusionAuthClient
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveDailyActiveReport($applicationId, $start, $end)
   {
@@ -1150,6 +1215,7 @@ class FusionAuthClient
    * @param string $emailTemplateId (Optional) The Id of the email template.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveEmailTemplate($emailTemplateId = NULL)
   {
@@ -1167,6 +1233,7 @@ class FusionAuthClient
    * @param array $request The request that contains the email template and optionally a locale to render it in.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveEmailTemplatePreview($request)
   {
@@ -1181,6 +1248,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveEmailTemplates()
   {
@@ -1195,6 +1263,7 @@ class FusionAuthClient
    * @param string $groupId The Id of the group.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveGroup($groupId)
   {
@@ -1209,6 +1278,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveGroups()
   {
@@ -1223,6 +1293,7 @@ class FusionAuthClient
    * @param string $identityProviderId (Optional) The identity provider id.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveIdentityProvider($identityProviderId = NULL)
   {
@@ -1237,6 +1308,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveIdentityProviders()
   {
@@ -1252,6 +1324,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user to fetch the actions for.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveInactiveActions($userId)
   {
@@ -1267,6 +1340,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveInactiveApplications()
   {
@@ -1281,6 +1355,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveInactiveUserActions()
   {
@@ -1295,6 +1370,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveIntegration()
   {
@@ -1311,6 +1387,7 @@ class FusionAuthClient
    * @param string $keyId (Optional) The Id of the public key.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveJWTPublicKey($keyId = NULL)
   {
@@ -1325,6 +1402,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveJWTPublicKeys()
   {
@@ -1342,6 +1420,7 @@ class FusionAuthClient
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveLoginReport($applicationId, $start, $end)
   {
@@ -1362,6 +1441,7 @@ class FusionAuthClient
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveMonthlyActiveReport($applicationId, $start, $end)
   {
@@ -1379,6 +1459,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the Application to retrieve OAuth configuration.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveOauthConfiguration($applicationId)
   {
@@ -1394,6 +1475,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrievePasswordValidationRules()
   {
@@ -1409,6 +1491,7 @@ class FusionAuthClient
    * @param int $limit (Optional, defaults to 10) The number of records to retrieve.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveRecentLogins($offset, $limit)
   {
@@ -1425,6 +1508,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveRefreshTokens($userId)
   {
@@ -1441,6 +1525,7 @@ class FusionAuthClient
    * @param string $applicationId The Id of the application.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveRegistration($userId, $applicationId)
   {
@@ -1460,6 +1545,7 @@ class FusionAuthClient
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveRegistrationReport($applicationId, $start, $end)
   {
@@ -1476,6 +1562,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveSystemConfiguration()
   {
@@ -1490,6 +1577,7 @@ class FusionAuthClient
    * @param string $tenantId The Id of the tenant.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveTenant($tenantId)
   {
@@ -1504,6 +1592,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveTenants()
   {
@@ -1518,6 +1607,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveTotalReport()
   {
@@ -1532,6 +1622,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUser($userId)
   {
@@ -1548,6 +1639,7 @@ class FusionAuthClient
    * @param string $userActionId (Optional) The Id of the user action.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserAction($userActionId = NULL)
   {
@@ -1564,6 +1656,7 @@ class FusionAuthClient
    * @param string $userActionReasonId (Optional) The Id of the user action reason.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserActionReason($userActionReasonId = NULL)
   {
@@ -1578,6 +1671,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserActionReasons()
   {
@@ -1591,6 +1685,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserActions()
   {
@@ -1606,6 +1701,7 @@ class FusionAuthClient
    * @param string $changePasswordId The unique change password Id that was sent via email or returned by the Forgot Password API.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserByChangePasswordId($changePasswordId)
   {
@@ -1621,6 +1717,7 @@ class FusionAuthClient
    * @param string $email The email of the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserByEmail($email)
   {
@@ -1636,6 +1733,7 @@ class FusionAuthClient
    * @param string $loginId The email or username of the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserByLoginId($loginId)
   {
@@ -1651,6 +1749,7 @@ class FusionAuthClient
    * @param string $username The username of the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserByUsername($username)
   {
@@ -1667,6 +1766,7 @@ class FusionAuthClient
    * @param string $verificationId The unique verification Id that has been set on the user object.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserByVerificationId($verificationId)
   {
@@ -1682,6 +1782,7 @@ class FusionAuthClient
    * @param string $userId The Id of the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserComments($userId)
   {
@@ -1701,6 +1802,7 @@ class FusionAuthClient
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserLoginReport($applicationId, $userId, $start, $end)
   {
@@ -1723,6 +1825,7 @@ class FusionAuthClient
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserLoginReportByLoginId($applicationId, $loginId, $start, $end)
   {
@@ -1743,6 +1846,7 @@ class FusionAuthClient
    * @param int $limit (Optional, defaults to 10) The number of records to retrieve.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserRecentLogins($userId, $offset, $limit)
   {
@@ -1760,6 +1864,7 @@ class FusionAuthClient
    * @param string $encodedJWT The encoded JWT (access token).
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveUserUsingJWT($encodedJWT)
   {
@@ -1775,6 +1880,7 @@ class FusionAuthClient
    * @param string $webhookId (Optional) The Id of the webhook.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveWebhook($webhookId = NULL)
   {
@@ -1789,6 +1895,7 @@ class FusionAuthClient
    *
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function retrieveWebhooks()
   {
@@ -1806,6 +1913,7 @@ class FusionAuthClient
    * @param string $applicationId (Optional) The application id of the tokens to delete.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function revokeRefreshToken($token, $userId, $applicationId = NULL)
   {
@@ -1823,6 +1931,7 @@ class FusionAuthClient
    * @param array $request The search criteria and pagination information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function searchAuditLogs($request)
   {
@@ -1838,6 +1947,7 @@ class FusionAuthClient
    * @param array $ids The user ids to search for.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function searchUsers($ids)
   {
@@ -1854,6 +1964,7 @@ class FusionAuthClient
   *     and sort fields.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function searchUsersByQueryString($request)
   {
@@ -1871,6 +1982,7 @@ class FusionAuthClient
    * @param array $request The send email request that contains all of the information used to send the email.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function sendEmail($emailTemplateId, $request)
   {
@@ -1887,6 +1999,7 @@ class FusionAuthClient
    * @param array $request The request object that contains all of the information used to send the code.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function sendTwoFactorCode($request)
   {
@@ -1902,6 +2015,7 @@ class FusionAuthClient
    * @param string $twoFactorId The Id returned by the Login API necessary to complete Two Factor authentication.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function sendTwoFactorCodeForLogin($twoFactorId)
   {
@@ -1917,6 +2031,7 @@ class FusionAuthClient
    * @param array $request The login request that contains the user credentials used to log them in.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function twoFactorLogin($request)
   {
@@ -1933,6 +2048,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new application information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateApplication($applicationId, $request)
   {
@@ -1951,6 +2067,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new role information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateApplicationRole($applicationId, $roleId, $request)
   {
@@ -1970,6 +2087,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new email template information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateEmailTemplate($emailTemplateId, $request)
   {
@@ -1987,6 +2105,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new group information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateGroup($groupId, $request)
   {
@@ -2004,6 +2123,7 @@ class FusionAuthClient
    * @param array $request The request object that contains the updated identity provider.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateIdentityProvider($identityProviderId, $request)
   {
@@ -2020,6 +2140,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new integration information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateIntegrations($request)
   {
@@ -2036,6 +2157,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new registration information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateRegistration($userId, $request)
   {
@@ -2052,6 +2174,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new system configuration information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateSystemConfiguration($request)
   {
@@ -2068,6 +2191,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new tenant information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateTenant($tenantId, $request)
   {
@@ -2085,6 +2209,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new user information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateUser($userId, $request)
   {
@@ -2102,6 +2227,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new user action information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateUserAction($userActionId, $request)
   {
@@ -2119,6 +2245,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new user action reason information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateUserActionReason($userActionReasonId, $request)
   {
@@ -2136,6 +2263,7 @@ class FusionAuthClient
    * @param array $request The request that contains all of the new webhook information.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function updateWebhook($webhookId, $request)
   {
@@ -2155,6 +2283,7 @@ class FusionAuthClient
    * @param string $encodedJWT The encoded JWT (access token).
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function validateJWT($encodedJWT)
   {
@@ -2170,6 +2299,7 @@ class FusionAuthClient
    * @param string $verificationId The email verification id sent to the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function verifyEmail($verificationId)
   {
@@ -2185,6 +2315,7 @@ class FusionAuthClient
    * @param string $verificationId The registration verification Id sent to the user.
    *
    * @return ClientResponse The ClientResponse.
+   * @throws \Exception
    */
   public function verifyRegistration($verificationId)
   {
