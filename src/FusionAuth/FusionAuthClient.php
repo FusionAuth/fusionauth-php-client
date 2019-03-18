@@ -2287,7 +2287,12 @@ class FusionAuthClient
    */
   public function validateJWT($encodedJWT)
   {
-    return $this->start()->uri("/api/jwt/validate")
+    $rest = new RESTClient();
+    return $rest->url($this->baseURL)
+        ->connectTimeout($this->connectTimeout)
+        ->readTimeout($this->readTimeout)
+        ->successResponseHandler(new JSONResponseHandler())
+        ->errorResponseHandler(new JSONResponseHandler())->uri("/api/jwt/validate")
         ->authorization("JWT " . $encodedJWT)
         ->get()
         ->go();
