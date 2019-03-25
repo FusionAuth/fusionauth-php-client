@@ -1,5 +1,5 @@
 <?php
-namespace fusionauth;
+namespace FusionAuth;
 
 /*
  * Copyright (c) 2018-2019, FusionAuth, All Rights Reserved
@@ -278,6 +278,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a Lambda. You can optionally specify an Id for the lambda, if not provided one will be generated.
+   *
+   * @param string $lambdaId (Optional) The Id for the lambda. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the lambda.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createLambda($lambdaId, $request)
+  {
+    return $this->start()->uri("/api/lambda")
+        ->urlSegment($lambdaId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
    *
    * @param string $tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -533,6 +551,22 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/identity-provider")
         ->urlSegment($identityProviderId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the lambda for the given Id.
+   *
+   * @param string $lambdaId The Id of the lambda to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteLambda($lambdaId)
+  {
+    return $this->start()->uri("/api/lambda")
+        ->urlSegment($lambdaId)
         ->delete()
         ->go();
   }
@@ -948,6 +982,22 @@ class FusionAuthClient
         ->urlSegment($actionId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
+        ->go();
+  }
+
+  /**
+   * Complete a login request using a passwordless code
+   *
+   * @param array $request The passwordless login request that contains all of the information used to complete login.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function passwordlessLogin($request)
+  {
+    return $this->start()->uri("/api/passwordless/login")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
         ->go();
   }
 
@@ -1407,6 +1457,36 @@ class FusionAuthClient
   public function retrieveJWTPublicKeys()
   {
     return $this->start()->uri("/api/jwt/public-key")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the lambda for the given Id.
+   *
+   * @param string $lambdaId The Id of the lambda.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveLambda($lambdaId)
+  {
+    return $this->start()->uri("/api/lambda")
+        ->urlSegment($lambdaId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the lambdas.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveLambdas()
+  {
+    return $this->start()->uri("/api/lambda")
         ->get()
         ->go();
   }
@@ -1942,6 +2022,22 @@ class FusionAuthClient
   }
 
   /**
+   * Searches the event logs with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEventLogs($request)
+  {
+    return $this->start()->uri("/api/system/event-log/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Retrieves the users for the given ids. If any id is invalid, it is ignored.
    *
    * @param array $ids The user ids to search for.
@@ -1988,6 +2084,22 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/send")
         ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Send a passwordless authentication code in an email to complete login.
+   *
+   * @param array $request The passwordless send request that contains all of the information used to send an email containing a code.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function sendPasswordlessCode($request)
+  {
+    return $this->start()->uri("/api/passwordless/send")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -2145,6 +2257,24 @@ class FusionAuthClient
   public function updateIntegrations($request)
   {
     return $this->start()->uri("/api/integration")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the lambda with the given Id.
+   *
+   * @param string $lambdaId The Id of the lambda to update.
+   * @param array $request The request that contains all of the new lambda information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateLambda($lambdaId, $request)
+  {
+    return $this->start()->uri("/api/lambda")
+        ->urlSegment($lambdaId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
