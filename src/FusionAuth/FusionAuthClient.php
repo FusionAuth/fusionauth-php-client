@@ -556,6 +556,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the key for the given Id.
+   *
+   * @param string $keyOd The Id of the key to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteKey($keyOd)
+  {
+    return $this->start()->uri("/api/key")
+        ->urlSegment($keyOd)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the lambda for the given Id.
    *
    * @param string $lambdaId The Id of the lambda to delete.
@@ -776,6 +792,24 @@ class FusionAuthClient
   }
 
   /**
+   * Generate a new RSA or EC key pair or an HMAC secret.
+   *
+   * @param string $keyId (Optional) The Id for the key. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the key.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function generateKey($keyId, $request)
+  {
+    return $this->start()->uri("/api/key/generate")
+        ->urlSegment($keyId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Generate a new Application Registration Verification Id to be used with the Verify Registration API. This API will not attempt to send an
    * email to the User. This API may be used to collect the verificationId for use with a third party system.
    *
@@ -842,6 +876,24 @@ class FusionAuthClient
   public function identityProviderLogin($request)
   {
     return $this->start()->uri("/api/identity-provider/login")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Import an existing RSA or EC key pair or an HMAC secret.
+   *
+   * @param string $keyId (Optional) The Id for the key. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the key.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function importKey($keyId, $request)
+  {
+    return $this->start()->uri("/api/key/import")
+        ->urlSegment($keyId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1308,6 +1360,22 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves a single event log for the given Id.
+   *
+   * @param int $eventLogId The Id of the event log to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveEventLog($eventLogId)
+  {
+    return $this->start()->uri("/api/system/event-log")
+        ->urlSegment($eventLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the group for the given Id.
    *
    * @param string $groupId The Id of the group.
@@ -1462,6 +1530,36 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the key for the given Id.
+   *
+   * @param string $keyId The Id of the key.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveKey($keyId)
+  {
+    return $this->start()->uri("/api/key")
+        ->urlSegment($keyId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the keys.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveKeys()
+  {
+    return $this->start()->uri("/api/key")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the lambda for the given Id.
    *
    * @param string $lambdaId The Id of the lambda.
@@ -1487,6 +1585,22 @@ class FusionAuthClient
   public function retrieveLambdas()
   {
     return $this->start()->uri("/api/lambda")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the lambdas for the provided type.
+   *
+   * @param array $type The type of the lambda to return.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveLambdasByType($type)
+  {
+    return $this->start()->uri("/api/lambda")
+        ->urlParameter("type", $type)
         ->get()
         ->go();
   }
@@ -2257,6 +2371,24 @@ class FusionAuthClient
   public function updateIntegrations($request)
   {
     return $this->start()->uri("/api/integration")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the key with the given Id.
+   *
+   * @param string $keyId The Id of the key to update.
+   * @param array $request The request that contains all of the new key information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateKey($keyId, $request)
+  {
+    return $this->start()->uri("/api/key")
+        ->urlSegment($keyId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
