@@ -22,7 +22,7 @@ composer require fusionauth/fusionauth-client
 
 ```PHP
 $apiKey = "5a826da2-1e3a-49df-85ba-cd88575e4e9d";
-$client = new FusionAuthClient($apiKey, "http://localhost:9011");
+$client = new FusionAuth\FusionAuthClient($apiKey, "http://localhost:9011");
 ```
 
 #### Login a user
