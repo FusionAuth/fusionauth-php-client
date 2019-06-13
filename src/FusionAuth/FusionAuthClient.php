@@ -79,6 +79,24 @@ class FusionAuthClient
   }
 
   /**
+   * Adds a user to an existing family. The family id must be specified.
+   *
+   * @param string $familyId The id of the family.
+   * @param array $request The request object that contains all of the information used to determine which user to add to the family.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function addUserToFamily($familyId, $request)
+  {
+    return $this->start()->uri("/api/user/family")
+        ->urlSegment($familyId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
    * Cancels the user action.
    *
    * @param string $actionId The action id of the action to cancel.
@@ -208,6 +226,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
+   *
+   * @param string $consentId (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the consent.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createConsent($consentId, $request)
+  {
+    return $this->start()->uri("/api/consent")
+        ->urlSegment($consentId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates an email template. You can optionally specify an Id for the template, if not provided one will be generated.
    *
    * @param string $emailTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
@@ -220,6 +256,25 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a family with the user id in the request as the owner and sole member of the family. You can optionally specify an id for the
+   * family, if not provided one will be generated.
+   *
+   * @param string $familyId (Optional) The id for the family. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the family.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createFamily($familyId, $request)
+  {
+    return $this->start()->uri("/api/user/family")
+        ->urlSegment($familyId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -370,6 +425,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a single User consent.
+   *
+   * @param string $userConsentId (Optional) The Id for the User consent. If not provided a secure random UUID will be generated.
+   * @param array $request The request that contains the user consent information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createUserConsent($userConsentId, $request)
+  {
+    return $this->start()->uri("/api/user/consent")
+        ->urlSegment($userConsentId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
    *
    * @param string $webhookId (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
@@ -487,6 +560,22 @@ class FusionAuthClient
         ->urlSegment($applicationId)
         ->urlSegment("role")
         ->urlSegment($roleId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the consent for the given Id.
+   *
+   * @param string $consentId The Id of the consent to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteConsent($consentId)
+  {
+    return $this->start()->uri("/api/consent")
+        ->urlSegment($consentId)
         ->delete()
         ->go();
   }
@@ -1143,6 +1232,24 @@ class FusionAuthClient
   }
 
   /**
+   * Removes a user from the family with the given id.
+   *
+   * @param string $familyId The id of the family to remove the user from.
+   * @param string $userId The id of the user to remove from the family.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function removeUserFromFamily($familyId, $userId)
+  {
+    return $this->start()->uri("/api/user/family")
+        ->urlSegment($familyId)
+        ->urlSegment($userId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Re-sends the verification email to the user.
    *
    * @param string $email The email address of the user that needs a new verification email.
@@ -1291,6 +1398,36 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the Consent for the given Id.
+   *
+   * @param string $consentId The Id of the consent.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveConsent($consentId)
+  {
+    return $this->start()->uri("/api/consent")
+        ->urlSegment($consentId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the consent.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveConsents()
+  {
+    return $this->start()->uri("/api/consent")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the daily active user report between the two instants. If you specify an application id, it will only
    * return the daily active counts for that application.
    *
@@ -1371,6 +1508,38 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/system/event-log")
         ->urlSegment($eventLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the families that a user belongs to.
+   *
+   * @param string $userId The User's id
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveFamilies($userId)
+  {
+    return $this->start()->uri("/api/user/family")
+        ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the members of a family by the unique Family Id.
+   *
+   * @param string $familyId The unique Id of the Family.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveFamilyMembersByFamilyId($familyId)
+  {
+    return $this->start()->uri("/api/user/family")
+        ->urlSegment($familyId)
         ->get()
         ->go();
   }
@@ -1674,6 +1843,22 @@ class FusionAuthClient
   public function retrievePasswordValidationRules()
   {
     return $this->start()->uri("/api/system-configuration/password-validation-rules")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the children for the given parent email address.
+   *
+   * @param string $parentEmail The email of the parent.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrievePendingChildren($parentEmail)
+  {
+    return $this->start()->uri("/api/user/family/pending")
+        ->urlParameter("parentEmail", $parentEmail)
         ->get()
         ->go();
   }
@@ -1987,6 +2172,38 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieve a single User consent by Id.
+   *
+   * @param string $userConsentId The User consent Id
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserConsent($userConsentId)
+  {
+    return $this->start()->uri("/api/user/consent")
+        ->urlSegment($userConsentId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the consents for a User.
+   *
+   * @param string $userId The User's Id
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserConsents($userId)
+  {
+    return $this->start()->uri("/api/user/consent")
+        ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
    * login counts for that application.
    *
@@ -2120,6 +2337,22 @@ class FusionAuthClient
   }
 
   /**
+   * Revokes a single User consent by Id.
+   *
+   * @param string $userConsentId The User Consent Id
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeUserConsent($userConsentId)
+  {
+    return $this->start()->uri("/api/user/consent")
+        ->urlSegment($userConsentId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Searches the audit logs with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -2146,6 +2379,22 @@ class FusionAuthClient
   public function searchEventLogs($request)
   {
     return $this->start()->uri("/api/system/event-log/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches the login records with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchLoginRecords($request)
+  {
+    return $this->start()->uri("/api/system/login-record/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -2198,6 +2447,22 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/send")
         ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Sends out an email to a parent that they need to register and create a family or need to log in and add a child to their existing family.
+   *
+   * @param array $request The request object that contains the parent email.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function sendFamilyRequestEmail($request)
+  {
+    return $this->start()->uri("/api/user/family/request")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -2301,6 +2566,24 @@ class FusionAuthClient
         ->urlSegment($applicationId)
         ->urlSegment("role")
         ->urlSegment($roleId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the consent with the given Id.
+   *
+   * @param string $consentId The Id of the consent to update.
+   * @param array $request The request that contains all of the new consent information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateConsent($consentId, $request)
+  {
+    return $this->start()->uri("/api/consent")
+        ->urlSegment($consentId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
@@ -2513,6 +2796,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user-action-reason")
         ->urlSegment($userActionReasonId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates a single User consent by Id.
+   *
+   * @param string $userConsentId The User Consent Id
+   * @param array $request The request that contains the user consent information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateUserConsent($userConsentId, $request)
+  {
+    return $this->start()->uri("/api/user/consent")
+        ->urlSegment($userConsentId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
