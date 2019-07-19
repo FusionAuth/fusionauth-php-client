@@ -41,11 +41,6 @@ class FusionAuthClient
   private $baseURL;
 
   /**
-   * @var string
-   */
-  private $tenantId;
-
-  /**
    * @var int
    */
   public $connectTimeout = 2000;
@@ -57,13 +52,9 @@ class FusionAuthClient
 
   public function __construct($apiKey, $baseURL)
   {
+    //include_once 'RESTClient.php';
     $this->apiKey = $apiKey;
     $this->baseURL = $baseURL;
-  }
-
-  public function withTenantId($tenantId) {
-    $this->tenantId = $tenantId;
-    return $this;
   }
 
   /**
@@ -2899,10 +2890,7 @@ class FusionAuthClient
 
   private function start()
   {
-    $rest = new RESTClient();
-    if (isset($tenantId)) {
-      $rest->header("X-FusionAuth-TenantId", $tenantId);
-    }
+    $rest = new \FusionAuth\RESTClient();
     return $rest->authorization($this->apiKey)
         ->url($this->baseURL)
         ->connectTimeout($this->connectTimeout)

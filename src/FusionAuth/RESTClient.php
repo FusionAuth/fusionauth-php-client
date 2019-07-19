@@ -162,7 +162,7 @@ class RESTClient
     if (!$this->url || (bool)parse_url($this->url, PHP_URL_HOST) === FALSE) {
       throw new \Exception('You must specify a URL');
     }
-
+	  
     if (!$this->method) {
       throw new \Exception('You must specify a HTTP method');
     }
@@ -348,73 +348,5 @@ class RESTClient
       $this->url = $this->url . $value;
     }
     return $this;
-  }
-}
-
-interface BodyHandler
-{
-  /**
-   * @return string The body as a string.
-   */
-  public function body();
-
-  /**
-   * @return mixed The body as an object (usually an array).
-   */
-  public function bodyObject();
-
-  /**
-   * Sets body handler specific headers (like Content-Type).
-   *
-   * @param array $headers The headers array to add headers to.
-   */
-  public function setHeaders(&$headers);
-}
-
-class JSONBodyHandler implements BodyHandler
-{
-  private $body;
-
-  private $bodyObject;
-
-  public function __construct(&$bodyObject)
-  {
-    $this->bodyObject = $bodyObject;
-    $this->body = json_encode(array_filter($bodyObject));
-  }
-
-  public function body()
-  {
-    return $this->body;
-  }
-
-  public function bodyObject()
-  {
-    return $this->bodyObject;
-  }
-
-  public function setHeaders(&$headers)
-  {
-    $headers[] = 'Content-Length: ' . strlen($this->body);
-    $headers[] = 'Content-Type: application/json';
-  }
-}
-
-interface ResponseHandler
-{
-  /**
-   * Handles the HTTP response.
-   *
-   * @param string $response The HTTP response as a String.
-   * @return mixed The response as an object.
-   */
-  public function call(&$response);
-}
-
-class JSONResponseHandler implements ResponseHandler
-{
-  public function call(&$response)
-  {
-    return json_decode($response);
   }
 }
