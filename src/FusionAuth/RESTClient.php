@@ -81,7 +81,7 @@ class RESTClient
 
   public function __construct()
   {
-    include_once 'ClientResponse.php';
+    
   }
 
   public function authorization($key)
