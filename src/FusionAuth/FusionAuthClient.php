@@ -2888,7 +2888,7 @@ class FusionAuthClient
         ->go();
   }
 
-  private function start()
+  protected function start()
   {
     $rest = new RESTClient();
     return $rest->authorization($this->apiKey)
