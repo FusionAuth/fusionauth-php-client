@@ -2890,7 +2890,7 @@ class FusionAuthClient
 
   private function start()
   {
-    $rest = new \FusionAuth\RESTClient();
+    $rest = new RESTClient();
     return $rest->authorization($this->apiKey)
         ->url($this->baseURL)
         ->connectTimeout($this->connectTimeout)
