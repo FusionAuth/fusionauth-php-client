@@ -2901,8 +2901,8 @@ class FusionAuthClient
   private function start()
   {
     $rest = new RESTClient();
-    if (isset($tenantId)) {
-      $rest->header("X-FusionAuth-TenantId", $tenantId);
+    if (isset($this->tenantId)) {
+      $rest->header("X-FusionAuth-TenantId", $this->tenantId);
     }
     return $rest->authorization($this->apiKey)
         ->url($this->baseURL)
