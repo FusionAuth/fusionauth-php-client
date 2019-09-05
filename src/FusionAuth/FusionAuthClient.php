@@ -379,6 +379,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
+   *
+   * @param string $themeId (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the theme.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createTheme($themeId, $request)
+  {
+    return $this->start()->uri("/api/theme")
+        ->urlSegment($themeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
    *
    * @param string $userId (Optional) The Id for the user. If not provided a secure random UUID will be generated.
@@ -721,6 +739,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the theme for the given Id.
+   *
+   * @param string $themeId The Id of the theme to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteTheme($themeId)
+  {
+    return $this->start()->uri("/api/theme")
+        ->urlSegment($themeId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the user for the given Id. This permanently deletes all information, metrics, reports and data associated
    * with the user.
    *
@@ -885,7 +919,7 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/verify-email")
         ->urlParameter("email", $email)
-        ->urlParameter("sendVerifyPasswordEmail", false)
+        ->urlParameter("sendVerifyEmail", false)
         ->put()
         ->go();
   }
@@ -1039,7 +1073,9 @@ class FusionAuthClient
   }
 
   /**
-   * Logs a user in.
+   * Authenticates a user to FusionAuth. 
+   * 
+   * This API optionally requires an API key. See <code>Application.loginConfiguration.requireAuthentication</code>.
    *
    * @param array $request The login request that contains the user credentials used to log them in.
    *
@@ -1216,6 +1252,23 @@ class FusionAuthClient
     return $this->start()->uri("/api/jwt/reconcile")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Request a refresh of the User search index. This API is not generally necessary and the search index will become consistent in a
+   * reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be 
+   * if you are using the Search API or Delete Tenant API immediately following a User Create etc, you may wish to request a refresh to
+   *  ensure the index immediately current before making a query request to the search index.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function refreshUserSearchIndex()
+  {
+    return $this->start()->uri("/api/user/search")
+        ->put()
         ->go();
   }
 
@@ -1677,19 +1730,33 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the Public Key configured for verifying JSON Web Tokens (JWT) by the key Id. If the key Id is provided a
-   * single public key will be returned if one is found by that id. If the optional parameter key Id is not provided all
-   * public keys will be returned.
+   * Retrieves the Public Key configured for verifying JSON Web Tokens (JWT) by the key Id (kid).
    *
-   * @param string $keyId (Optional) The Id of the public key.
+   * @param string $keyId The Id of the public key (kid).
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveJWTPublicKey($keyId = NULL)
+  public function retrieveJWTPublicKey($keyId)
   {
     return $this->start()->uri("/api/jwt/public-key")
-        ->urlSegment($keyId)
+        ->urlParameter("kid", $keyId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the Public Key configured for verifying the JSON Web Tokens (JWT) issued by the Login API by the Application Id.
+   *
+   * @param string $applicationId The Id of the Application for which this key is used.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveJWTPublicKeyByApplicationId($applicationId)
+  {
+    return $this->start()->uri("/api/jwt/public-key")
+        ->urlParameter("applicationId", $applicationId)
         ->get()
         ->go();
   }
@@ -1844,7 +1911,10 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the password validation rules.
+   * Retrieves the password validation rules for a specific tenant. This method requires a tenantId to be provided 
+   * through the use of a Tenant scoped API key or an HTTP header X-FusionAuth-TenantId to specify the Tenant Id.
+   * 
+   * This API does not require an API key.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -1852,7 +1922,25 @@ class FusionAuthClient
    */
   public function retrievePasswordValidationRules()
   {
-    return $this->start()->uri("/api/system-configuration/password-validation-rules")
+    return $this->start()->uri("/api/tenant/password-validation-rules")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the password validation rules for a specific tenant.
+   * 
+   * This API does not require an API key.
+   *
+   * @param string $tenantId The Id of the tenant.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrievePasswordValidationRulesWithTenantId($tenantId)
+  {
+    return $this->start()->uri("/api/tenant/password-validation-rules")
+        ->urlSegment($tenantId)
         ->get()
         ->go();
   }
@@ -1986,6 +2074,36 @@ class FusionAuthClient
   public function retrieveTenants()
   {
     return $this->start()->uri("/api/tenant")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the theme for the given Id.
+   *
+   * @param string $themeId The Id of the theme.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveTheme($themeId)
+  {
+    return $this->start()->uri("/api/theme")
+        ->urlSegment($themeId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the themes.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveThemes()
+  {
+    return $this->start()->uri("/api/theme")
         ->get()
         ->go();
   }
@@ -2752,6 +2870,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/tenant")
         ->urlSegment($tenantId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the theme with the given Id.
+   *
+   * @param string $themeId The Id of the theme to update.
+   * @param array $request The request that contains all of the new theme information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateTheme($themeId, $request)
+  {
+    return $this->start()->uri("/api/theme")
+        ->urlSegment($themeId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
