@@ -2,7 +2,7 @@
 namespace FusionAuth;
 
 /*
- * Copyright (c) 2018, FusionAuth, All Rights Reserved
+ * Copyright (c) 2018-2019, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -213,9 +213,13 @@ class RESTClient
       curl_setopt($curl, CURLOPT_TIMEOUT_MS, $this->readTimeout);
       curl_setopt($curl, CURLOPT_URL, $this->url);
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($curl, CURLOPT_POST, false);
+      if ($this->bodyHandler && $this->bodyHandler instanceof FormDataBodyHandler) {
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, false);
+      } else {
+        curl_setopt($curl, CURLOPT_POST, false);
+      }
       curl_setopt($curl, CURLOPT_FAILONERROR, false);
-
       if ($this->method == 'POST') {
         curl_setopt($curl, CURLOPT_POST, true);
       } elseif ($this->method != 'GET') {
@@ -369,6 +373,34 @@ interface BodyHandler
    * @param array $headers The headers array to add headers to.
    */
   public function setHeaders(&$headers);
+}
+
+class FormDataBodyHandler implements BodyHandler
+{
+  private $body;
+
+  private $bodyObject;
+
+  public function __construct(&$bodyObject)
+  {
+    $this->bodyObject = $bodyObject;
+    $this->body = $bodyObject;
+  }
+
+  public function body()
+  {
+    return $this->body;
+  }
+
+  public function bodyObject()
+  {
+    return $this->bodyObject;
+  }
+
+  public function setHeaders(&$headers)
+  {
+    /* Allow the headers to be set by using CURLOPT_POSTFIELDS and CURLOPT_POST */
+  }
 }
 
 class JSONBodyHandler implements BodyHandler
