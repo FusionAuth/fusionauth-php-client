@@ -213,13 +213,9 @@ class RESTClient
       curl_setopt($curl, CURLOPT_TIMEOUT_MS, $this->readTimeout);
       curl_setopt($curl, CURLOPT_URL, $this->url);
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-      if ($this->bodyHandler && $this->bodyHandler instanceof FormDataBodyHandler) {
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, false);
-      } else {
-        curl_setopt($curl, CURLOPT_POST, false);
-      }
+      curl_setopt($curl, CURLOPT_POST, false);
       curl_setopt($curl, CURLOPT_FAILONERROR, false);
+
       if ($this->method == 'POST') {
         curl_setopt($curl, CURLOPT_POST, true);
       } elseif ($this->method != 'GET') {
@@ -384,7 +380,7 @@ class FormDataBodyHandler implements BodyHandler
   public function __construct(&$bodyObject)
   {
     $this->bodyObject = $bodyObject;
-    $this->body = $bodyObject;
+    $this->body = http_build_query($bodyObject);
   }
 
   public function body()
@@ -399,7 +395,9 @@ class FormDataBodyHandler implements BodyHandler
 
   public function setHeaders(&$headers)
   {
-    /* Allow the headers to be set by using CURLOPT_POSTFIELDS and CURLOPT_POST */
+    /* body() will return a URL encoded body, CURLOPT_POSTFIELDS will then set the header
+       to ContentType: application/x-www-form-urlencoded
+    */
   }
 }
 
