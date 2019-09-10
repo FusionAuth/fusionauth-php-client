@@ -3055,8 +3055,7 @@ class FusionAuthClient
     );
     return $this->start()->uri("/oauth2/token")
       ->basicAuthorization($client_id, $client_secret)
-      ->successResponseHandler(new FormDataBodyHandler($post_data))
-      ->errorResponseHandler(new JSONResponseHandler())
+      ->bodyHandler(new FormDataBodyHandler($post_data))
       ->post()
       ->go();
   }

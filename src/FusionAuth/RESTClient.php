@@ -97,7 +97,7 @@ class RESTClient
 
   public function basicAuthorization($username, $password)
   {
-    if (!$username && !$password) {
+    if (!is_null($username) && !is_null($password)) {
       // Remove any Authorization headers before adding a new one.
       $this->resetAuthorizationHeaders();
 
