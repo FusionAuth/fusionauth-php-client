@@ -1,4 +1,7 @@
 ## FusionAuth PHP Client ![semver 2.0.0 compliant](http://img.shields.io/badge/semver-2.0.0-brightgreen.svg?style=flat-square)
+[![Build Status](https://travis-ci.org/jerryhopper/fusionauth-php-client.svg?branch=master)](https://travis-ci.org/jerryhopper/fusionauth-php-client)
+
+
 If you're integrating FusionAuth with a PHP application, this library will speed up your development time.
 
 For additional information and documentation on FusionAuth refer to [https://fusionauth.io](https://fusionauth.io).
