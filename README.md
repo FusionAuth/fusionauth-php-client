@@ -44,3 +44,14 @@ if (!$result->wasSuccessful()) {
 
 // Hooray! Success
 ```
+
+
+#### Testing this library
+
+For unittesting, make sure the following environment variables are set:
+
+FUSIONAUTH_APIKEY, FUSIONAUTH_BASEURL
+
+To run the library's unit-tests simply run:
+
+``` composer test```
