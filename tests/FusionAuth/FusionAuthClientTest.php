@@ -20,13 +20,6 @@ final class FusionAuthClientTest extends TestCase
 
   public function setUp()
   {
-      /*
-       * Use enviroment vars for testing.
-       * FUSIONAUTH_APIKEY='fusionauth-demoserver-apikey'
-       * FUSIONAUTH_BASEURL='https://fusionauth.devpoc.nl/'
-       *
-       */
-
       $this->client = new FusionAuthClient(getenv('FUSIONAUTH_APIKEY'), getenv('FUSIONAUTH_BASEURL'));
   }
 
