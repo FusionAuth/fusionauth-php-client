@@ -57,7 +57,7 @@ class FusionAuthClient
 
   public function __construct($apiKey, $baseURL)
   {
-    include_once 'RESTClient.php';
+    //include_once 'RESTClient.php';
     $this->apiKey = $apiKey;
     $this->baseURL = $baseURL;
   }

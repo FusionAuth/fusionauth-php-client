@@ -2,10 +2,7 @@
 namespace fusionauth;
 
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../../src/FusionAuth/FusionAuthClient.php';
-require_once __DIR__ . '/../../src/FusionAuth/RESTClient.php';
-require_once __DIR__ . '/../../src/FusionAuth/ClientResponse.php';
+use FusionAuth\FusionAuthClient;
 
 /**
  * @covers FusionAuthClient
@@ -23,7 +20,14 @@ final class FusionAuthClientTest extends TestCase
 
   public function setUp()
   {
-    $this->client = new FusionAuthClient('bf69486b-4733-4470-a592-f1bfce7af580', 'http://localhost:9011');
+      /*
+       * Use enviroment vars for testing.
+       * FUSIONAUTH_APIKEY='fusionauth-demoserver-apikey'
+       * FUSIONAUTH_BASEURL='https://fusionauth.devpoc.nl/'
+       *
+       */
+
+      $this->client = new FusionAuthClient(getenv('FUSIONAUTH_APIKEY'), getenv('FUSIONAUTH_BASEURL'));
   }
 
   public function tearDown()
