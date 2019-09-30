@@ -109,7 +109,7 @@ final class FusionAuthClientTest extends TestCase
     $this->assertEquals($response->successResponse->user->email, "test".$randomId."@fusionauth.io");
 
     // Login
-    $response = $this->client->login(["loginId" => "test@fusionauth.io", "password" => "password"]);
+    $response = $this->client->login(["loginId" => "test".$randomId."@fusionauth.io", "password" => "password"]);
     $this->handleResponse($response);
     $this->assertEquals($response->successResponse->user->email, "test".$randomId."@fusionauth.io");
 
