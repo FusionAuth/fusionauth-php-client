@@ -1,0 +1,11 @@
+language: php
+php:
+  - '7.1'
+  - '7.2'
+  - '7.3'
+install:
+  - composer install
+script:
+  - export FUSIONAUTH_APIKEY=fusionauth-demoserver-apikey
+  - export FUSIONAUTH_BASEURL=https://fusionauth.devpoc.nl
+  - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/FusionAuth/FusionAuthClientTest
