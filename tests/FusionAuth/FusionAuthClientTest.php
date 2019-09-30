@@ -38,8 +38,9 @@ final class FusionAuthClientTest extends TestCase
 
   public function test_applications()
   {
+    $randomId = rand(0,100);
     // Create it
-    $response = $this->client->createApplication(null, ["application" => ["name" => "PHP Client Application"]]);
+    $response = $this->client->createApplication(null, ["application" => ["name" => "PHP Client Application".$randomId ]]);
     $this->handleResponse($response);
     $this->applicationId = $response->successResponse->application->id;
 
@@ -49,14 +50,14 @@ final class FusionAuthClientTest extends TestCase
     $this->assertEquals($response->successResponse->application->name, "PHP Client Application");
 
     // Update it
-    $response = $this->client->updateApplication($this->applicationId, [ "application" => ["name" => "PHP Client Application Updated"]]);
+    $response = $this->client->updateApplication($this->applicationId, [ "application" => ["name" => "PHP Client Application Updated".$randomId]]);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated".$randomId);
 
     // Retrieve it again
     $response = $this->client->retrieveApplication($this->applicationId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated".$randomId);
 
     // Deactivate it
     $response = $this->client->deactivateApplication($this->applicationId);
@@ -69,7 +70,7 @@ final class FusionAuthClientTest extends TestCase
 
     // Retrieve inactive
     $response = $this->client->retrieveInactiveApplications();
-    $this->assertEquals($response->successResponse->applications[0]->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->applications[0]->name, "PHP Client Application Updated".$randomId);
 
     // Reactivate it
     $response = $this->client->reactivateApplication($this->applicationId);
@@ -78,7 +79,7 @@ final class FusionAuthClientTest extends TestCase
     // Retrieve it again
     $response = $this->client->retrieveApplication($this->applicationId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated".$randomId);
     $this->assertTrue($response->successResponse->application->active);
 
     // Delete it
