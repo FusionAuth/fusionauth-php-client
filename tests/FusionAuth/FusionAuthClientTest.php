@@ -47,7 +47,7 @@ final class FusionAuthClientTest extends TestCase
     // Retrieve it
     $response = $this->client->retrieveApplication($this->applicationId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application\".$randomId );
 
     // Update it
     $response = $this->client->updateApplication($this->applicationId, [ "application" => ["name" => "PHP Client Application Updated".$randomId]]);
