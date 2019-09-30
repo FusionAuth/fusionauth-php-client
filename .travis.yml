@@ -6,4 +6,4 @@ php:
 install:
   - composer install
 script:
-  - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/FusionAuth/FusionAuthClientTest
+  - composer test
