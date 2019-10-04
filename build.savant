@@ -56,6 +56,24 @@ target(name: "test", description: "Runs the tests", dependsOn: "int") {
   proc.consumeProcessOutput(System.out, System.err)
 }
 
+target(name: "publish", description: "Update packagist to sync with our GitHub tags", dependsOn: ["clean", "int"]) {
+  ProcessBuilder pb = new ProcessBuilder(
+      "curl",
+      "-XPOST",
+      "-H",
+      "Content-Type:application/json",
+      "https://packagist.org/api/update-package?username=${global.packagistUsername}&apiToken=${global.packagistAPIToken}",
+      "-d",
+      "{\"repository\":{\"url\":\"https://packagist.org/packages/fusionauth/fusionauth-client\"}}")
+      .inheritIO()
+      .directory(new File('.'))
+
+  def process = pb.start()
+  process.consumeProcessOutput(System.out, System.err)
+  process.waitFor()
+  return process.exitValue() == 0
+}
+
 target(name: "release", description: "Releases a full version of the project", dependsOn: ["int"]) {
   release.release()
 }
