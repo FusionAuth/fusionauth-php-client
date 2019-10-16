@@ -2645,6 +2645,23 @@ class FusionAuthClient
   }
 
   /**
+   * Start a passwordless login request by generating a passwordless code. This code can be sent to the User using the Send
+   * Passwordless Code API or using a mechanism outside of FusionAuth. The passwordless login is completed by using the Passwordless Login API with this code.
+   *
+   * @param array $request The passwordless start request that contains all of the information used to begin the passwordless login request.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startPasswordlessLogin($request)
+  {
+    return $this->start()->uri("/api/passwordless/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Complete login using a 2FA challenge
    *
    * @param array $request The login request that contains the user credentials used to log them in.
