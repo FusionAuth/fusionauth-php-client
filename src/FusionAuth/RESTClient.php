@@ -269,6 +269,12 @@ class RESTClient
     return $this;
   }
 
+  public function patch()
+  {
+    $this->method = 'PATCH';
+    return $this;
+  }
+
   public function post()
   {
     $this->method = 'POST';

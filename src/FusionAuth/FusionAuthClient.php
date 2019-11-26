@@ -136,7 +136,7 @@ class FusionAuthClient
    */
   public function changePassword($changePasswordId, $request)
   {
-    return $this->start()->uri("/api/user/change-password")
+    return $this->startAnonymous()->uri("/api/user/change-password")
         ->urlSegment($changePasswordId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
@@ -875,6 +875,62 @@ class FusionAuthClient
   }
 
   /**
+   * Exchanges an OAuth authorization code for an access token.
+   * If you will be using the Authorization Code grant, you will make a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint for an access token.
+   *
+   * @param string $code The authorization code returned on the /oauth2/authorize response.
+   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+   * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
+   * @param string $redirect_uri The URI to redirect to upon a successful request.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function exchangeOAuthCodeForAccessToken($code, $client_id, $client_secret, $redirect_uri)
+  {
+    $post_data = array(
+      'code' => $code,
+      'client_id' => $client_id,
+      'client_secret' => $client_secret,
+      'grant_type' => 'authorization_code',
+      'redirect_uri' => $redirect_uri
+    );
+    return $this->startAnonymous()->uri("/oauth2/token")
+        ->bodyHandler(new FormDataBodyHandler($post_data))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Exchange a Refresh Token for an Access Token.
+   * If you will be using the Refresh Token Grant, you will make a request to the Token endpoint to exchange the user’s refresh token for an access token.
+   *
+   * @param string $refresh_token The refresh token that you would like to use to exchange for an access token.
+   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+   * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
+   * @param string $scope (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
+   * @param string $user_code (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function exchangeRefreshTokenForAccessToken($refresh_token, $client_id, $client_secret, $scope, $user_code = NULL)
+  {
+    $post_data = array(
+      'refresh_token' => $refresh_token,
+      'client_id' => $client_id,
+      'client_secret' => $client_secret,
+      'grant_type' => 'refresh_token',
+      'scope' => $scope,
+      'user_code' => $user_code
+    );
+    return $this->startAnonymous()->uri("/oauth2/token")
+        ->bodyHandler(new FormDataBodyHandler($post_data))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Exchange a refresh token for a new JWT.
    *
    * @param array $request The refresh request.
@@ -884,8 +940,39 @@ class FusionAuthClient
    */
   public function exchangeRefreshTokenForJWT($request)
   {
-    return $this->start()->uri("/api/jwt/refresh")
+    return $this->startAnonymous()->uri("/api/jwt/refresh")
         ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Exchange User Credentials for a Token.
+   * If you will be using the Resource Owner Password Credential Grant, you will make a request to the Token endpoint to exchange the user’s email and password for an access token.
+   *
+   * @param string $username The login identifier of the user. The login identifier can be either the email or the username.
+   * @param string $password The user’s password.
+   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+   * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
+   * @param string $scope (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
+   * @param string $user_code (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function exchangeUserCredentialsForAccessToken($username, $password, $client_id, $client_secret, $scope, $user_code = NULL)
+  {
+    $post_data = array(
+      'username' => $username,
+      'password' => $password,
+      'client_id' => $client_id,
+      'client_secret' => $client_secret,
+      'grant_type' => 'password',
+      'scope' => $scope,
+      'user_code' => $user_code
+    );
+    return $this->startAnonymous()->uri("/oauth2/token")
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -900,7 +987,7 @@ class FusionAuthClient
    */
   public function forgotPassword($request)
   {
-    return $this->start()->uri("/api/user/forgot-password")
+    return $this->startAnonymous()->uri("/api/user/forgot-password")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1008,7 +1095,7 @@ class FusionAuthClient
    */
   public function identityProviderLogin($request)
   {
-    return $this->start()->uri("/api/identity-provider/login")
+    return $this->startAnonymous()->uri("/api/identity-provider/login")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1129,7 +1216,7 @@ class FusionAuthClient
    */
   public function logout($global, $refreshToken = NULL)
   {
-    return $this->start()->uri("/api/logout")
+    return $this->startAnonymous()->uri("/api/logout")
         ->urlParameter("global", $global)
         ->urlParameter("refreshToken", $refreshToken)
         ->post()
@@ -1182,9 +1269,296 @@ class FusionAuthClient
    */
   public function passwordlessLogin($request)
   {
-    return $this->start()->uri("/api/passwordless/login")
+    return $this->startAnonymous()->uri("/api/passwordless/login")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the application with the given Id.
+   *
+   * @param string $applicationId The Id of the application to update.
+   * @param array $request The request that contains just the new application information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchApplication($applicationId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the application role with the given id for the application.
+   *
+   * @param string $applicationId The Id of the application that the role belongs to.
+   * @param string $roleId The Id of the role to update.
+   * @param array $request The request that contains just the new role information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchApplicationRole($applicationId, $roleId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("role")
+        ->urlSegment($roleId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the consent with the given Id.
+   *
+   * @param string $consentId The Id of the consent to update.
+   * @param array $request The request that contains just the new consent information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchConsent($consentId, $request)
+  {
+    return $this->start()->uri("/api/consent")
+        ->urlSegment($consentId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the email template with the given Id.
+   *
+   * @param string $emailTemplateId The Id of the email template to update.
+   * @param array $request The request that contains just the new email template information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchEmailTemplate($emailTemplateId, $request)
+  {
+    return $this->start()->uri("/api/email/template")
+        ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the group with the given Id.
+   *
+   * @param string $groupId The Id of the group to update.
+   * @param array $request The request that contains just the new group information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchGroup($groupId, $request)
+  {
+    return $this->start()->uri("/api/group")
+        ->urlSegment($groupId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the identity provider with the given Id.
+   *
+   * @param string $identityProviderId The Id of the identity provider to update.
+   * @param array $request The request object that contains just the updated identity provider information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchIdentityProvider($identityProviderId, $request)
+  {
+    return $this->start()->uri("/api/identity-provider")
+        ->urlSegment($identityProviderId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the available integrations.
+   *
+   * @param array $request The request that contains just the new integration information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchIntegrations($request)
+  {
+    return $this->start()->uri("/api/integration")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the lambda with the given Id.
+   *
+   * @param string $lambdaId The Id of the lambda to update.
+   * @param array $request The request that contains just the new lambda information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchLambda($lambdaId, $request)
+  {
+    return $this->start()->uri("/api/lambda")
+        ->urlSegment($lambdaId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the registration for the user with the given id and the application defined in the request.
+   *
+   * @param string $userId The Id of the user whose registration is going to be updated.
+   * @param array $request The request that contains just the new registration information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchRegistration($userId, $request)
+  {
+    return $this->start()->uri("/api/user/registration")
+        ->urlSegment($userId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the system configuration.
+   *
+   * @param array $request The request that contains just the new system configuration information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchSystemConfiguration($request)
+  {
+    return $this->start()->uri("/api/system-configuration")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the tenant with the given Id.
+   *
+   * @param string $tenantId The Id of the tenant to update.
+   * @param array $request The request that contains just the new tenant information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchTenant($tenantId, $request)
+  {
+    return $this->start()->uri("/api/tenant")
+        ->urlSegment($tenantId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the theme with the given Id.
+   *
+   * @param string $themeId The Id of the theme to update.
+   * @param array $request The request that contains just the new theme information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchTheme($themeId, $request)
+  {
+    return $this->start()->uri("/api/theme")
+        ->urlSegment($themeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the user with the given Id.
+   *
+   * @param string $userId The Id of the user to update.
+   * @param array $request The request that contains just the new user information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchUser($userId, $request)
+  {
+    return $this->start()->uri("/api/user")
+        ->urlSegment($userId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the user action with the given Id.
+   *
+   * @param string $userActionId The Id of the user action to update.
+   * @param array $request The request that contains just the new user action information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchUserAction($userActionId, $request)
+  {
+    return $this->start()->uri("/api/user-action")
+        ->urlSegment($userActionId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the user action reason with the given Id.
+   *
+   * @param string $userActionReasonId The Id of the user action reason to update.
+   * @param array $request The request that contains just the new user action reason information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchUserActionReason($userActionReasonId, $request)
+  {
+    return $this->start()->uri("/api/user-action-reason")
+        ->urlSegment($userActionReasonId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, a single User consent by Id.
+   *
+   * @param string $userConsentId The User Consent Id
+   * @param array $request The request that contains just the new user consent information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchUserConsent($userConsentId, $request)
+  {
+    return $this->start()->uri("/api/user/consent")
+        ->urlSegment($userConsentId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
         ->go();
   }
 
@@ -1249,7 +1623,7 @@ class FusionAuthClient
    */
   public function reconcileJWT($request)
   {
-    return $this->start()->uri("/api/jwt/reconcile")
+    return $this->startAnonymous()->uri("/api/jwt/reconcile")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1322,7 +1696,7 @@ class FusionAuthClient
    */
   public function resendEmailVerification($email)
   {
-    return $this->start()->uri("/api/user/verify-email")
+    return $this->startAnonymous()->uri("/api/user/verify-email")
         ->urlParameter("email", $email)
         ->put()
         ->go();
@@ -1339,7 +1713,7 @@ class FusionAuthClient
    */
   public function resendRegistrationVerification($email, $applicationId)
   {
-    return $this->start()->uri("/api/user/verify-registration")
+    return $this->startAnonymous()->uri("/api/user/verify-registration")
         ->urlParameter("email", $email)
         ->urlParameter("applicationId", $applicationId)
         ->put()
@@ -1739,7 +2113,7 @@ class FusionAuthClient
    */
   public function retrieveJWTPublicKey($keyId)
   {
-    return $this->start()->uri("/api/jwt/public-key")
+    return $this->startAnonymous()->uri("/api/jwt/public-key")
         ->urlParameter("kid", $keyId)
         ->get()
         ->go();
@@ -1755,7 +2129,7 @@ class FusionAuthClient
    */
   public function retrieveJWTPublicKeyByApplicationId($applicationId)
   {
-    return $this->start()->uri("/api/jwt/public-key")
+    return $this->startAnonymous()->uri("/api/jwt/public-key")
         ->urlParameter("applicationId", $applicationId)
         ->get()
         ->go();
@@ -1770,7 +2144,21 @@ class FusionAuthClient
    */
   public function retrieveJWTPublicKeys()
   {
-    return $this->start()->uri("/api/jwt/public-key")
+    return $this->startAnonymous()->uri("/api/jwt/public-key")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Returns public keys used by FusionAuth to cryptographically verify JWTs using the JSON Web Key format.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveJsonWebKeySet()
+  {
+    return $this->startAnonymous()->uri("/.well-known/jwks.json")
         ->get()
         ->go();
   }
@@ -1911,6 +2299,20 @@ class FusionAuthClient
   }
 
   /**
+   * Returns the well known OpenID Configuration JSON document
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveOpenIdConfiguration()
+  {
+    return $this->startAnonymous()->uri("/.well-known/openid-configuration")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the password validation rules for a specific tenant. This method requires a tenantId to be provided 
    * through the use of a Tenant scoped API key or an HTTP header X-FusionAuth-TenantId to specify the Tenant Id.
    * 
@@ -1922,7 +2324,7 @@ class FusionAuthClient
    */
   public function retrievePasswordValidationRules()
   {
-    return $this->start()->uri("/api/tenant/password-validation-rules")
+    return $this->startAnonymous()->uri("/api/tenant/password-validation-rules")
         ->get()
         ->go();
   }
@@ -1939,7 +2341,7 @@ class FusionAuthClient
    */
   public function retrievePasswordValidationRulesWithTenantId($tenantId)
   {
-    return $this->start()->uri("/api/tenant/password-validation-rules")
+    return $this->startAnonymous()->uri("/api/tenant/password-validation-rules")
         ->urlSegment($tenantId)
         ->get()
         ->go();
@@ -2407,7 +2809,7 @@ class FusionAuthClient
    */
   public function retrieveUserUsingJWT($encodedJWT)
   {
-    return $this->start()->uri("/api/user")
+    return $this->startAnonymous()->uri("/api/user")
         ->authorization("JWT " . $encodedJWT)
         ->get()
         ->go();
@@ -2606,7 +3008,7 @@ class FusionAuthClient
    */
   public function sendPasswordlessCode($request)
   {
-    return $this->start()->uri("/api/passwordless/send")
+    return $this->startAnonymous()->uri("/api/passwordless/send")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -2638,7 +3040,7 @@ class FusionAuthClient
    */
   public function sendTwoFactorCodeForLogin($twoFactorId)
   {
-    return $this->start()->uri("/api/two-factor/send")
+    return $this->startAnonymous()->uri("/api/two-factor/send")
         ->urlSegment($twoFactorId)
         ->post()
         ->go();
@@ -2671,7 +3073,7 @@ class FusionAuthClient
    */
   public function twoFactorLogin($request)
   {
-    return $this->start()->uri("/api/two-factor/login")
+    return $this->startAnonymous()->uri("/api/two-factor/login")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -3001,6 +3403,25 @@ class FusionAuthClient
   }
 
   /**
+   * Validates the end-user provided user_code from the user-interaction of the Device Authorization Grant.
+   * If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
+   *
+   * @param string $user_code The end-user verification code.
+   * @param string $client_id The client id.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function validateDevice($user_code, $client_id)
+  {
+    return $this->startAnonymous()->uri("/oauth2/device/validate")
+        ->urlParameter("user_code", $user_code)
+        ->urlParameter("client_id", $client_id)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Validates the provided JWT (encoded JWT string) to ensure the token is valid. A valid access token is properly
    * signed and not expired.
    * <p>
@@ -3013,7 +3434,7 @@ class FusionAuthClient
    */
   public function validateJWT($encodedJWT)
   {
-    return $this->start()->uri("/api/jwt/validate")
+    return $this->startAnonymous()->uri("/api/jwt/validate")
         ->authorization("JWT " . $encodedJWT)
         ->get()
         ->go();
@@ -3029,7 +3450,7 @@ class FusionAuthClient
    */
   public function verifyEmail($verificationId)
   {
-    return $this->start()->uri("/api/user/verify-email")
+    return $this->startAnonymous()->uri("/api/user/verify-email")
         ->urlSegment($verificationId)
         ->post()
         ->go();
@@ -3045,46 +3466,25 @@ class FusionAuthClient
    */
   public function verifyRegistration($verificationId)
   {
-    return $this->start()->uri("/api/user/verify-registration")
+    return $this->startAnonymous()->uri("/api/user/verify-registration")
         ->urlSegment($verificationId)
         ->post()
         ->go();
   }
 
 
-  /**
-   * Exchanges an OAuth authorization code for an access token.
-   *
-   * @param string $code          The OAuth authorization code.
-   * @param string $client_id     The OAuth client_id.
-   * @param string $client_secret (Optional) The OAuth client _secret used for Basic Auth.
-   * @param string $redirect_uri   The OAuth redirect_uri.
-   * @return ClientResponse that contains the access token if the request was successful.
-   * @throws \Exception
-   */
-  public function exchangeOAuthCodeForAccessToken($code, $client_id, $client_secret, $redirect_uri)
+  private function start()
   {
-    $post_data = array(
-      'code' => $code,
-      'grant_type' => 'authorization_code',
-      'client_id' => $client_id,
-      'redirect_uri' => $redirect_uri
-    );
-    return $this->start()->uri("/oauth2/token")
-      ->basicAuthorization($client_id, $client_secret)
-      ->bodyHandler(new FormDataBodyHandler($post_data))
-      ->post()
-      ->go();
+    return $this->startAnonymous()->authorization($this->apiKey);
   }
 
-  private function start()
+  private function startAnonymous()
   {
     $rest = new RESTClient();
     if (isset($this->tenantId)) {
       $rest->header("X-FusionAuth-TenantId", $this->tenantId);
     }
-    return $rest->authorization($this->apiKey)
-        ->url($this->baseURL)
+    return $rest->url($this->baseURL)
         ->connectTimeout($this->connectTimeout)
         ->readTimeout($this->readTimeout)
         ->successResponseHandler(new JSONResponseHandler())
