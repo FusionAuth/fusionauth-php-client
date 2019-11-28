@@ -3047,6 +3047,23 @@ class FusionAuthClient
   }
 
   /**
+   * Begins a login request for a 3rd party login that requires user interaction such as HYPR.
+   *
+   * @param array $request The third-party login request that contains information from the third-party login
+  *     providers that FusionAuth uses to reconcile the user's account.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startIdentityProviderLogin($request)
+  {
+    return $this->start()->uri("/api/identity-provider/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Start a passwordless login request by generating a passwordless code. This code can be sent to the User using the Send
    * Passwordless Code API or using a mechanism outside of FusionAuth. The passwordless login is completed by using the Passwordless Login API with this code.
    *
