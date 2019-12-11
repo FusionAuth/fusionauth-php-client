@@ -136,7 +136,7 @@ class FusionAuthClient
    */
   public function changePassword($changePasswordId, $request)
   {
-    return $this->startAnonymous()->uri("/api/user/change-password")
+    return $this->start()->uri("/api/user/change-password")
         ->urlSegment($changePasswordId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
@@ -1029,7 +1029,7 @@ class FusionAuthClient
    */
   public function forgotPassword($request)
   {
-    return $this->startAnonymous()->uri("/api/user/forgot-password")
+    return $this->start()->uri("/api/user/forgot-password")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1738,7 +1738,7 @@ class FusionAuthClient
    */
   public function resendEmailVerification($email)
   {
-    return $this->startAnonymous()->uri("/api/user/verify-email")
+    return $this->start()->uri("/api/user/verify-email")
         ->urlParameter("email", $email)
         ->put()
         ->go();
