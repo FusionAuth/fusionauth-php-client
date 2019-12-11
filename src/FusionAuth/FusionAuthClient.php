@@ -548,27 +548,6 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/bulk")
         ->urlParameter("userId", $userIds)
-        ->urlParameter("dryRun", false)
-        ->urlParameter("hardDelete", false)
-        ->delete()
-        ->go();
-  }
-
-  /**
-   * Deactivates the users found with the given search query string.
-   *
-   * @param string $queryString The search query string.
-   * @param boolean $dryRun Whether to preview or deactivate the users found by the queryString
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function deactivateUsersByQuery($queryString, $dryRun)
-  {
-    return $this->start()->uri("/api/user/bulk")
-        ->urlParameter("queryString", $queryString)
-        ->urlParameter("dryRun", $dryRun)
-        ->urlParameter("hardDelete", false)
         ->delete()
         ->go();
   }
@@ -828,11 +807,9 @@ class FusionAuthClient
   }
 
   /**
-   * Deletes the users with the given ids, or users matching the provided queryString.
-   * If you provide both userIds and queryString, the userIds will be honored.  This can be used to deactivate or hard-delete 
-   * a user based on the hardDelete request body parameter.
+   * Deletes the users with the given ids.
    *
-   * @param array $request The UserDeleteRequest.
+   * @param array $request The ids of the users to delete.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -841,25 +818,6 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/bulk")
         ->bodyHandler(new JSONBodyHandler($request))
-        ->delete()
-        ->go();
-  }
-
-  /**
-   * Delete the users found with the given search query string.
-   *
-   * @param string $queryString The search query string.
-   * @param boolean $dryRun Whether to preview or delete the users found by the queryString
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function deleteUsersByQuery($queryString, $dryRun)
-  {
-    return $this->start()->uri("/api/user/bulk")
-        ->urlParameter("queryString", $queryString)
-        ->urlParameter("dryRun", $dryRun)
-        ->urlParameter("hardDelete", true)
         ->delete()
         ->go();
   }
@@ -1755,7 +1713,7 @@ class FusionAuthClient
    */
   public function resendRegistrationVerification($email, $applicationId)
   {
-    return $this->startAnonymous()->uri("/api/user/verify-registration")
+    return $this->start()->uri("/api/user/verify-registration")
         ->urlParameter("email", $email)
         ->urlParameter("applicationId", $applicationId)
         ->put()
