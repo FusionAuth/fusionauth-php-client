@@ -543,6 +543,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
+   * @deprecated This method has been renamed to deactivateUsersByIds, use this method instead.
    */
   public function deactivateUsers($userIds)
   {
@@ -555,19 +556,18 @@ class FusionAuthClient
   }
 
   /**
-   * Deactivates the users found with the given search query string.
+   * Deactivates the users with the given ids.
    *
-   * @param string $queryString The search query string.
-   * @param boolean $dryRun Whether to preview or deactivate the users found by the queryString
+   * @param array $userIds The ids of the users to deactivate.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function deactivateUsersByQuery($queryString, $dryRun)
+  public function deactivateUsersByIds($userIds)
   {
     return $this->start()->uri("/api/user/bulk")
-        ->urlParameter("queryString", $queryString)
-        ->urlParameter("dryRun", $dryRun)
+        ->urlParameter("userId", $userIds)
+        ->urlParameter("dryRun", false)
         ->urlParameter("hardDelete", false)
         ->delete()
         ->go();
@@ -828,14 +828,17 @@ class FusionAuthClient
   }
 
   /**
-   * Deletes the users with the given ids, or users matching the provided queryString.
-   * If you provide both userIds and queryString, the userIds will be honored.  This can be used to deactivate or hard-delete 
-   * a user based on the hardDelete request body parameter.
+   * Deletes the users with the given ids, or users matching the provided JSON query or queryString.
+   * The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
+   * 
+   * This method can be used to deactivate or permanently delete (hard-delete) users based upon the hardDelete boolean in the request body.
+   * Using the dryRun parameter you may also request the result of the action without actually deleting or deactivating any users.
    *
    * @param array $request The UserDeleteRequest.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
+   * @deprecated This method has been renamed to deleteUsersByQuery, use this method instead.
    */
   public function deleteUsers($request)
   {
@@ -846,20 +849,21 @@ class FusionAuthClient
   }
 
   /**
-   * Delete the users found with the given search query string.
+   * Deletes the users with the given ids, or users matching the provided JSON query or queryString.
+   * The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
+   * 
+   * This method can be used to deactivate or permanently delete (hard-delete) users based upon the hardDelete boolean in the request body.
+   * Using the dryRun parameter you may also request the result of the action without actually deleting or deactivating any users.
    *
-   * @param string $queryString The search query string.
-   * @param boolean $dryRun Whether to preview or delete the users found by the queryString
+   * @param array $request The UserDeleteRequest.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function deleteUsersByQuery($queryString, $dryRun)
+  public function deleteUsersByQuery($request)
   {
     return $this->start()->uri("/api/user/bulk")
-        ->urlParameter("queryString", $queryString)
-        ->urlParameter("dryRun", $dryRun)
-        ->urlParameter("hardDelete", true)
+        ->bodyHandler(new JSONBodyHandler($request))
         ->delete()
         ->go();
   }
@@ -2979,6 +2983,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
+   * @deprecated This method has been renamed to searchUsersByIds, use this method instead.
    */
   public function searchUsers($ids)
   {
@@ -2989,13 +2994,47 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the users for the given search criteria and pagination.
+   * Retrieves the users for the given ids. If any id is invalid, it is ignored.
    *
-   * @param array $request The search criteria and pagination constraints. Fields used: queryString, numberOfResults, startRow,
-  *     and sort fields.
+   * @param array $ids The user ids to search for.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
+   */
+  public function searchUsersByIds($ids)
+  {
+    return $this->start()->uri("/api/user/search")
+        ->urlParameter("ids", $ids)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the users for the given search criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
+  *     and sortFields.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchUsersByQuery($request)
+  {
+    return $this->start()->uri("/api/user/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Retrieves the users for the given search criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
+  *     and sortFields.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   * @deprecated This method has been renamed to searchUsersByQuery, use this method instead.
    */
   public function searchUsersByQueryString($request)
   {
