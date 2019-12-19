@@ -543,7 +543,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
-   * @deprecated This method has been renamed to deactivateUsersByIds, use this method instead.
+   * @deprecated This method has been renamed to deactivateUsersByIds, use that method instead.
    */
   public function deactivateUsers($userIds)
   {
@@ -838,7 +838,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
-   * @deprecated This method has been renamed to deleteUsersByQuery, use this method instead.
+   * @deprecated This method has been renamed to deleteUsersByQuery, use that method instead.
    */
   public function deleteUsers($request)
   {
@@ -2983,7 +2983,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
-   * @deprecated This method has been renamed to searchUsersByIds, use this method instead.
+   * @deprecated This method has been renamed to searchUsersByIds, use that method instead.
    */
   public function searchUsers($ids)
   {
@@ -3034,7 +3034,7 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
-   * @deprecated This method has been renamed to searchUsersByQuery, use this method instead.
+   * @deprecated This method has been renamed to searchUsersByQuery, use that method instead.
    */
   public function searchUsersByQueryString($request)
   {
