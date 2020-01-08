@@ -259,7 +259,7 @@ class RESTClient
 
   public function header($name, $value)
   {
-    $this->headers[$name] = $value;
+    $this->headers[] = $name . ': ' . $value;
     return $this;
   }
 
