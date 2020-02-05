@@ -32,9 +32,9 @@ $applicationId = "68364852-7a38-4e15-8c48-394eceafa601";
 
 $request = array();
 $request["applicationId"] = $applicationId;
-$request["email"] = "joe@fusionauth.io";
+$request["loginId"] = "joe@fusionauth.io";
 $request["password"] = "abc123";
-$result = client->login(json_encode($request));
+$result = client->login($request);
 if (!$result->wasSuccessful()) {
  // Error
 }
