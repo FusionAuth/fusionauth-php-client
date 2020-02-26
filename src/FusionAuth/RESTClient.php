@@ -416,6 +416,14 @@ class JSONBodyHandler implements BodyHandler
   public function __construct(&$bodyObject)
   {
     $this->bodyObject = $bodyObject;
+
+    if (is_string($bodyObject)) {
+      $bodyObject = json_decode($bodyObject);
+    }
+    if (is_object($bodyObject)) {
+      $bodyObject = (array) $bodyObject;
+    }
+
     $this->body = json_encode(array_filter($bodyObject));
   }
 
