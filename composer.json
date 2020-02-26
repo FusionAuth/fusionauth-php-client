@@ -26,5 +26,8 @@
     "psr-4": {
       "FusionAuth\\": "src/FusionAuth/"
     }
+  },
+  "scripts": {
+    "test": "phpunit --bootstrap vendor/autoload.php tests/FusionAuth/FusionAuthClientTest"
   }
 }

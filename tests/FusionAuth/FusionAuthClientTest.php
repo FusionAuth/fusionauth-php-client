@@ -2,10 +2,7 @@
 namespace fusionauth;
 
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../../src/FusionAuth/FusionAuthClient.php';
-require_once __DIR__ . '/../../src/FusionAuth/RESTClient.php';
-require_once __DIR__ . '/../../src/FusionAuth/ClientResponse.php';
+use FusionAuth\FusionAuthClient;
 
 /**
  * @covers FusionAuthClient
@@ -23,7 +20,7 @@ final class FusionAuthClientTest extends TestCase
 
   public function setUp()
   {
-    $this->client = new FusionAuthClient('bf69486b-4733-4470-a592-f1bfce7af580', 'http://localhost:9011');
+      $this->client = new FusionAuthClient(getenv('FUSIONAUTH_APIKEY'), getenv('FUSIONAUTH_BASEURL'));
   }
 
   public function tearDown()
@@ -34,25 +31,26 @@ final class FusionAuthClientTest extends TestCase
 
   public function test_applications()
   {
+    $randomId = rand(0,100);
     // Create it
-    $response = $this->client->createApplication(null, ["application" => ["name" => "PHP Client Application"]]);
+    $response = $this->client->createApplication(null, ["application" => ["name" => "PHP Client Application".$randomId ]]);
     $this->handleResponse($response);
     $this->applicationId = $response->successResponse->application->id;
 
     // Retrieve it
     $response = $this->client->retrieveApplication($this->applicationId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application".$randomId );
 
     // Update it
-    $response = $this->client->updateApplication($this->applicationId, [ "application" => ["name" => "PHP Client Application Updated"]]);
+    $response = $this->client->updateApplication($this->applicationId, [ "application" => ["name" => "PHP Client Application Updated".$randomId]]);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated".$randomId);
 
     // Retrieve it again
     $response = $this->client->retrieveApplication($this->applicationId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated".$randomId);
 
     // Deactivate it
     $response = $this->client->deactivateApplication($this->applicationId);
@@ -65,7 +63,7 @@ final class FusionAuthClientTest extends TestCase
 
     // Retrieve inactive
     $response = $this->client->retrieveInactiveApplications();
-    $this->assertEquals($response->successResponse->applications[0]->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->applications[0]->name, "PHP Client Application Updated".$randomId);
 
     // Reactivate it
     $response = $this->client->reactivateApplication($this->applicationId);
@@ -74,7 +72,7 @@ final class FusionAuthClientTest extends TestCase
     // Retrieve it again
     $response = $this->client->retrieveApplication($this->applicationId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated");
+    $this->assertEquals($response->successResponse->application->name, "PHP Client Application Updated".$randomId);
     $this->assertTrue($response->successResponse->application->active);
 
     // Delete it
@@ -92,30 +90,31 @@ final class FusionAuthClientTest extends TestCase
 
   public function test_users()
   {
+    $randomId = rand(0,100);
     // Create it
-    $response = $this->client->createUser(null, ["user" => ["email" => "test@fusionauth.io", "password" => "password", "firstName" => "Jäne"]]);
+    $response = $this->client->createUser(null, ["user" => ["email" => "test".$randomId."@fusionauth.io", "password" => "password", "firstName" => "Jäne"]]);
     $this->handleResponse($response);
     $this->userId = $response->successResponse->user->id;
 
     // Retrieve it
     $response = $this->client->retrieveUser($this->userId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->user->email, "test@fusionauth.io");
+    $this->assertEquals($response->successResponse->user->email, "test".$randomId."@fusionauth.io");
 
     // Login
-    $response = $this->client->login(["loginId" => "test@fusionauth.io", "password" => "password"]);
+    $response = $this->client->login(["loginId" => "test".$randomId."@fusionauth.io", "password" => "password"]);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->user->email, "test@fusionauth.io");
+    $this->assertEquals($response->successResponse->user->email, "test".$randomId."@fusionauth.io");
 
     // Update it
-    $response = $this->client->updateUser($this->userId, [ "user" => ["email" => "test+2@fusionauth.io"]]);
+    $response = $this->client->updateUser($this->userId, [ "user" => ["email" => "test".$randomId."_renamed@fusionauth.io"]]);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->user->email, "test+2@fusionauth.io");
+    $this->assertEquals($response->successResponse->user->email, "test".$randomId."_renamed@fusionauth.io");
 
     // Retrieve it again
     $response = $this->client->retrieveUser($this->userId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->user->email, "test+2@fusionauth.io");
+    $this->assertEquals($response->successResponse->user->email, "test".$randomId."_renamed@fusionauth.io");
 
     // Deactivate it
     $response = $this->client->deactivateUser($this->userId);
@@ -133,7 +132,7 @@ final class FusionAuthClientTest extends TestCase
     // Retrieve it again
     $response = $this->client->retrieveUser($this->userId);
     $this->handleResponse($response);
-    $this->assertEquals($response->successResponse->user->email, "test+2@fusionauth.io");
+    $this->assertEquals($response->successResponse->user->email, "test".$randomId."_renamed@fusionauth.io");
     $this->assertTrue($response->successResponse->user->active);
 
     // Delete it
