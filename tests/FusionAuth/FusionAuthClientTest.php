@@ -23,7 +23,9 @@ final class FusionAuthClientTest extends TestCase
 
   public function setUp()
   {
-    $this->client = new FusionAuthClient('bf69486b-4733-4470-a592-f1bfce7af580', 'http://localhost:9011');
+    $fusionauthUrl = isset(getenv('FUSIONAUTH_URL')) ? getenv('FUSIONAUTH_URL') : 'http://localhost:9011';
+    $fusionauthApiKey = isset(getenv('FUSIONAUTH_API_KEY')) ? getenv('FUSIONAUTH_API_KEY') : 'bf69486b-4733-4470-a592-f1bfce7af580';
+    $this->client = new FusionAuthClient($fusionauthApiKey, $fusionauthUrl);
   }
 
   public function tearDown()

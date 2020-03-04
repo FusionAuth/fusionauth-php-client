@@ -48,7 +48,9 @@ target(name: "setup-phpunit", description: "Setup PHP unit") {
 target(name: "test", description: "Runs the tests", dependsOn: "int") {
   def test = "which phpunit".execute().exitValue()
   if (test == 1) {
-    println "Error. I can't run tests until you install PHPUNIT. Run [brew install homebrew/php/phpunit]"
+    // TODO - phpunit recommends not installing in the global space, and installing via composer per project
+    println "Error. I can't run tests until you install PHPUNIT. Run:"
+    println "curl https://phar.phpunit.de/phpunit.phar -L -o phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit"
     exit
   }
 
