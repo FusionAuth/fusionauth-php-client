@@ -18,6 +18,12 @@ Packagist
 composer require fusionauth/fusionauth-client
 ```
 
+Include composer autoloader
+
+```PHP
+require __DIR__ . '/vendor/autoload.php';
+```
+
 #### Create the Client
 
 ```PHP
