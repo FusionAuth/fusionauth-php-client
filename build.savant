@@ -45,7 +45,7 @@ target(name: "setup-phpunit", description: "Setup PHP unit") {
   "brew install homebrew/php/phpunit".execute()
 }
 
-target(name: "test", description: "Runs the tests", dependsOn: "int") {
+target(name: "test", description: "Runs the tests", dependsOn: "clean") {
   def test = "which phpunit".execute().exitValue()
   if (test == 1) {
     println "Error. I can't run tests until you install PHPUNIT. Run:"
