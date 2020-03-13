@@ -40,7 +40,7 @@ $request = array();
 $request["applicationId"] = $applicationId;
 $request["loginId"] = "joe@fusionauth.io";
 $request["password"] = "abc123";
-$result = client->login($request);
+$result = $client->login($request);
 if (!$result->wasSuccessful()) {
  // Error
 }
