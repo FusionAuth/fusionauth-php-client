@@ -21,14 +21,14 @@ final class FusionAuthClientTest extends TestCase
 
   private $userId;
 
-  public function setUp()
+  protected function setUp(): void
   {
-    $fusionauthUrl = getenv('FUSIONAUTH_URL') !== null ? getenv('FUSIONAUTH_URL') : 'http://localhost:9011';
-    $fusionauthApiKey = getenv('FUSIONAUTH_API_KEY') !== null ? getenv('FUSIONAUTH_API_KEY') : 'bf69486b-4733-4470-a592-f1bfce7af580';
-    $this->client = new FusionAuthClient($fusionauthApiKey, $fusionauthUrl);
+    $fusionauthURL = is_bool (getenv('FUSIONAUTH_URL')) ? 'http://localhost:9011' : getenv('FUSIONAUTH_URL');
+    $fusionauthApiKey = is_bool(getenv('FUSIONAUTH_API_KEY')) ? 'bf69486b-4733-4470-a592-f1bfce7af580' : getenv('FUSIONAUTH_API_KEY');
+    $this->client = new FusionAuthClient($fusionauthApiKey, $fusionauthURL);
   }
 
-  public function tearDown()
+  protected function tearDown(): void
   {
     $this->client->deleteApplication($this->applicationId);
     $this->client->deleteUser($this->userId);
@@ -171,6 +171,6 @@ final class FusionAuthClientTest extends TestCase
       print json_encode($response->errorResponse, JSON_PRETTY_PRINT);
     }
 
-    $this->assertTrue($response->wasSuccessful());
+    $this->assertTrue($response->wasSuccessful(), "Expected success. Status: " . $response->status);
   }
 }

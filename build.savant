@@ -42,15 +42,13 @@ target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
 }
 
 target(name: "setup-phpunit", description: "Setup PHP unit") {
-  "brew install homebrew/php/phpunit".execute()
+  "brew install phpunit".execute()
 }
 
 target(name: "test", description: "Runs the tests", dependsOn: "clean") {
   def test = "which phpunit".execute().exitValue()
   if (test == 1) {
-    println "Error. I can't run tests until you install PHPUNIT. Run:"
-    println "curl https://phar.phpunit.de/phpunit-6.phar -L -o phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit"
-    exit
+    "brew install phpunit".execute()
   }
 
   def proc = "phpunit --include-path src -v tests".execute()
