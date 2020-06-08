@@ -693,15 +693,15 @@ class FusionAuthClient
   /**
    * Deletes the key for the given Id.
    *
-   * @param string $keyOd The Id of the key to delete.
+   * @param string $keyId The Id of the key to delete.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function deleteKey($keyOd)
+  public function deleteKey($keyId)
   {
     return $this->start()->uri("/api/key")
-        ->urlSegment($keyOd)
+        ->urlSegment($keyId)
         ->delete()
         ->go();
   }
