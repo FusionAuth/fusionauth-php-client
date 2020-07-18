@@ -233,6 +233,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
+   *
+   * @param string $connectorId (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the connector.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createConnector($connectorId, $request)
+  {
+    return $this->start()->uri("/api/connector")
+        ->urlSegment($connectorId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
    *
    * @param string $consentId (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
@@ -282,6 +300,42 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/family")
         ->urlSegment($familyId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
+   *
+   * @param string $formId (Optional) The Id for the form. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the form.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createForm($formId, $request)
+  {
+    return $this->start()->uri("/api/form")
+        ->urlSegment($formId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
+   *
+   * @param string $fieldId (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the form field.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createFormField($fieldId, $request)
+  {
+    return $this->start()->uri("/api/form/field")
+        ->urlSegment($fieldId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -611,6 +665,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the connector for the given Id.
+   *
+   * @param string $connectorId The Id of the connector to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteConnector($connectorId)
+  {
+    return $this->start()->uri("/api/connector")
+        ->urlSegment($connectorId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the consent for the given Id.
    *
    * @param string $consentId The Id of the consent to delete.
@@ -638,6 +708,38 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the form for the given Id.
+   *
+   * @param string $formId The Id of the form to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteForm($formId)
+  {
+    return $this->start()->uri("/api/form")
+        ->urlSegment($formId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the form field for the given Id.
+   *
+   * @param string $fieldId The Id of the form field to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteFormField($fieldId)
+  {
+    return $this->start()->uri("/api/form/field")
+        ->urlSegment($fieldId)
         ->delete()
         ->go();
   }
@@ -1362,6 +1464,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates, via PATCH, the connector with the given Id.
+   *
+   * @param string $connectorId The Id of the connector to update.
+   * @param array $request The request that contains just the new connector information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchConnector($connectorId, $request)
+  {
+    return $this->start()->uri("/api/connector")
+        ->urlSegment($connectorId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the consent with the given Id.
    *
    * @param string $consentId The Id of the consent to update.
@@ -1882,6 +2002,36 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the connector with the given Id.
+   *
+   * @param string $connectorId The Id of the connector.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveConnector($connectorId)
+  {
+    return $this->start()->uri("/api/connector")
+        ->urlSegment($connectorId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the connectors.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveConnectors()
+  {
+    return $this->start()->uri("/api/connector")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the Consent for the given Id.
    *
    * @param string $consentId The Id of the consent.
@@ -2024,6 +2174,66 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/family")
         ->urlSegment($familyId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the form with the given Id.
+   *
+   * @param string $formId The Id of the form.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveForm($formId)
+  {
+    return $this->start()->uri("/api/form")
+        ->urlSegment($formId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the form field with the given Id.
+   *
+   * @param string $fieldId The Id of the form field.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveFormField($fieldId)
+  {
+    return $this->start()->uri("/api/form/field")
+        ->urlSegment($fieldId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the forms fields
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveFormFields()
+  {
+    return $this->start()->uri("/api/form/field")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the forms.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveForms()
+  {
+    return $this->start()->uri("/api/form")
         ->get()
         ->go();
   }
@@ -3218,6 +3428,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates the connector with the given Id.
+   *
+   * @param string $connectorId The Id of the connector to update.
+   * @param array $request The request object that contains all of the new connector information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateConnector($connectorId, $request)
+  {
+    return $this->start()->uri("/api/connector")
+        ->urlSegment($connectorId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
    * Updates the consent with the given Id.
    *
    * @param string $consentId The Id of the consent to update.
@@ -3248,6 +3476,42 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the form with the given Id.
+   *
+   * @param string $formId The Id of the form to update.
+   * @param array $request The request object that contains all of the new form information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateForm($formId, $request)
+  {
+    return $this->start()->uri("/api/form")
+        ->urlSegment($formId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the form field with the given Id.
+   *
+   * @param string $fieldId The Id of the form field to update.
+   * @param array $request The request object that contains all of the new form field information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateFormField($fieldId, $request)
+  {
+    return $this->start()->uri("/api/form/field")
+        ->urlSegment($fieldId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
