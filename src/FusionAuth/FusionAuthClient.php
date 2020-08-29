@@ -1265,9 +1265,37 @@ class FusionAuthClient
   }
 
   /**
-   * Bulk imports multiple users. This does some validation, but then tries to run batch inserts of users. This reduces
-   * latency when inserting lots of users. Therefore, the error response might contain some information about failures,
-   * but it will likely be pretty generic.
+   * Bulk imports refresh tokens. This request performs minimal validation and runs batch inserts of refresh tokens with the
+   * expectation that each token represents a user that already exists and is registered for the corresponding FusionAuth
+   * Application. This is done to increases the insert performance.
+   * 
+   * Therefore, if you encounter an error due to a database key violation, the response will likely offer a generic
+   * explanation. If you encounter an error, you may optionally enable additional validation to receive a JSON response
+   * body with specific validation errors. This will slow the request down but will allow you to identify the cause of
+   * the failure. See the validateDbConstraints request parameter.
+   *
+   * @param array $request The request that contains all of the information about all of the refresh tokens to import.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function importRefreshTokens($request)
+  {
+    return $this->start()->uri("/api/user/refresh-token/import")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Bulk imports users. This request performs minimal validation and runs batch inserts of users with the expectation
+   * that each user does not yet exist and each registration corresponds to an existing FusionAuth Application. This is done to
+   * increases the insert performance.
+   * 
+   * Therefore, if you encounter an error due to a database key violation, the response will likely offer
+   * a generic explanation. If you encounter an error, you may optionally enable additional validation to receive a JSON response
+   * body with specific validation errors. This will slow the request down but will allow you to identify the cause of the failure. See
+   * the validateDbConstraints request parameter.
    *
    * @param array $request The request that contains all of the information about all of the users to import.
    *
@@ -1292,7 +1320,7 @@ class FusionAuthClient
    * @param string $applicationId The Application Id for which you are requesting a new access token be issued.
    * @param string $encodedJWT The encoded JWT (access token).
    * @param string $refreshToken (Optional) An existing refresh token used to request a refresh token in addition to a JWT in the response.
-  *     <p>The target application represented by the applicationid request parameter must have refresh 
+  *     <p>The target application represented by the applicationId request parameter must have refresh
   *     tokens enabled in order to receive a refresh token in the response.</p>
    *
    * @return ClientResponse The ClientResponse.
