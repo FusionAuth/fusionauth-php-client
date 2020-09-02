@@ -1898,6 +1898,25 @@ class FusionAuthClient
   }
 
   /**
+   * Re-sends the verification email to the user. If the Application has configured a specific email template this will be used
+   * instead of the tenant configuration.
+   *
+   * @param string $applicationId The unique Application Id to used to resolve an application specific email template.
+   * @param string $email The email address of the user that needs a new verification email.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function resendEmailVerificationWithApplicationTemplate($applicationId, $email)
+  {
+    return $this->start()->uri("/api/user/verify-email")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("email", $email)
+        ->put()
+        ->go();
+  }
+
+  /**
    * Re-sends the application registration verification email to the user.
    *
    * @param string $email The email address of the user that needs a new verification email.
