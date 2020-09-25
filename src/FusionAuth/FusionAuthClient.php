@@ -1311,6 +1311,27 @@ class FusionAuthClient
   }
 
   /**
+   * Inspect an access token issued by FusionAuth.
+   *
+   * @param string $client_id The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
+   * @param string $token The access token returned by this OAuth provider as the result of a successful authentication.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function introspectAccessToken($client_id, $token)
+  {
+    $post_data = array(
+      'client_id' => $client_id,
+      'token' => $token
+    );
+    return $this->startAnonymous()->uri("/oauth2/introspect")
+        ->bodyHandler(new FormDataBodyHandler($post_data))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Issue a new access token (JWT) for the requested Application after ensuring the provided JWT is valid. A valid
    * access token is properly signed and not expired.
    * <p>
@@ -1433,27 +1454,6 @@ class FusionAuthClient
         ->urlSegment($actionId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
-        ->go();
-  }
-
-  /**
-   * Inspect an access token issued by FusionAuth.
-   *
-   * @param string $client_id The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
-   * @param string $token The access token returned by this OAuth provider as the result of a successful authentication.
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function oauth2Introspect($client_id, $token)
-  {
-    $post_data = array(
-      'client_id' => $client_id,
-      'token' => $token
-    );
-    return $this->startAnonymous()->uri("/oauth2/introspect")
-        ->bodyHandler(new FormDataBodyHandler($post_data))
-        ->post()
         ->go();
   }
 
