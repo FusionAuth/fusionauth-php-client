@@ -1222,8 +1222,8 @@ class FusionAuthClient
    */
   public function generateTwoFactorSecretUsingJWT($encodedJWT)
   {
-    return $this->start()->uri("/api/two-factor/secret")
-        ->authorization("JWT " . $encodedJWT)
+    return $this->startAnonymous()->uri("/api/two-factor/secret")
+        ->authorization("Bearer " . $encodedJWT)
         ->get()
         ->go();
   }
@@ -1349,8 +1349,8 @@ class FusionAuthClient
    */
   public function issueJWT($applicationId, $encodedJWT, $refreshToken = NULL)
   {
-    return $this->start()->uri("/api/jwt/issue")
-        ->authorization("JWT " . $encodedJWT)
+    return $this->startAnonymous()->uri("/api/jwt/issue")
+        ->authorization("Bearer " . $encodedJWT)
         ->urlParameter("applicationId", $applicationId)
         ->urlParameter("refreshToken", $refreshToken)
         ->get()
@@ -3135,7 +3135,7 @@ class FusionAuthClient
   public function retrieveUserUsingJWT($encodedJWT)
   {
     return $this->startAnonymous()->uri("/api/user")
-        ->authorization("JWT " . $encodedJWT)
+        ->authorization("Bearer " . $encodedJWT)
         ->get()
         ->go();
   }
@@ -3834,6 +3834,22 @@ class FusionAuthClient
   }
 
   /**
+   * Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+   *
+   * @param string $encodedJWT The encoded JWT (access token).
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function userInfo($encodedJWT)
+  {
+    return $this->startAnonymous()->uri("/oauth2/userinfo")
+        ->authorization("Bearer " . $encodedJWT)
+        ->post()
+        ->go();
+  }
+
+  /**
    * Validates the end-user provided user_code from the user-interaction of the Device Authorization Grant.
    * If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
    *
@@ -3866,7 +3882,7 @@ class FusionAuthClient
   public function validateJWT($encodedJWT)
   {
     return $this->startAnonymous()->uri("/api/jwt/validate")
-        ->authorization("JWT " . $encodedJWT)
+        ->authorization("Bearer " . $encodedJWT)
         ->get()
         ->go();
   }
