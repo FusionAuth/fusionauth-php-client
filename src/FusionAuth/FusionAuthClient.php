@@ -3059,6 +3059,22 @@ class FusionAuthClient
   }
 
   /**
+   * Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+   *
+   * @param string $encodedJWT The encoded JWT (access token).
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserInfoFromAccessToken($encodedJWT)
+  {
+    return $this->startAnonymous()->uri("/oauth2/userinfo")
+        ->authorization("Bearer " . $encodedJWT)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
    * login counts for that application.
    *
@@ -3830,22 +3846,6 @@ class FusionAuthClient
         ->urlSegment($webhookId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
-        ->go();
-  }
-
-  /**
-   * Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
-   *
-   * @param string $encodedJWT The encoded JWT (access token).
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function userInfo($encodedJWT)
-  {
-    return $this->startAnonymous()->uri("/oauth2/userinfo")
-        ->authorization("Bearer " . $encodedJWT)
-        ->post()
         ->go();
   }
 
