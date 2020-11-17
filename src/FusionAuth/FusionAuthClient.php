@@ -412,6 +412,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
+   *
+   * @param string $messageTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the message template.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createMessageTemplate($messageTemplateId, $request)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
    *
    * @param string $tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -820,6 +838,22 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/lambda")
         ->urlSegment($lambdaId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the message template for the given Id.
+   *
+   * @param string $messageTemplateId The Id of the message template to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteMessageTemplate($messageTemplateId)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
         ->delete()
         ->go();
   }
@@ -1660,6 +1694,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/lambda")
         ->urlSegment($lambdaId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the message template with the given Id.
+   *
+   * @param string $messageTemplateId The Id of the message template to update.
+   * @param array $request The request that contains just the new message template information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchMessageTemplate($messageTemplateId, $request)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->patch()
         ->go();
@@ -2610,6 +2662,36 @@ class FusionAuthClient
         ->urlParameter("applicationId", $applicationId)
         ->urlParameter("start", $start)
         ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the message template for the given Id. If you don't specify the id, this will return all of the message templates.
+   *
+   * @param string $messageTemplateId (Optional) The Id of the message template.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessageTemplate($messageTemplateId = NULL)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the message templates.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessageTemplates()
+  {
+    return $this->start()->uri("/api/message/template")
         ->get()
         ->go();
   }
@@ -3713,6 +3795,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/lambda")
         ->urlSegment($lambdaId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the message template with the given Id.
+   *
+   * @param string $messageTemplateId The Id of the message template to update.
+   * @param array $request The request that contains all of the new message template information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateMessageTemplate($messageTemplateId, $request)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
