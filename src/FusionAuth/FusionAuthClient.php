@@ -2683,6 +2683,22 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a preview of the message template provided in the request, normalized to a given locale.
+   *
+   * @param array $request The request that contains the email template and optionally a locale to render it in.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessageTemplatePreview($request)
+  {
+    return $this->start()->uri("/api/message/template/preview")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Retrieves all of the message templates.
    *
    *
