@@ -859,6 +859,24 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the tenant for the given Id asynchronously.
+   * This method is helpful if you do not want to wait for the delete operation to complete.
+   *
+   * @param string $tenantId The Id of the tenant to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteTenantAsync($tenantId)
+  {
+    return $this->start()->uri("/api/tenant")
+        ->urlSegment($tenantId)
+        ->urlParameter("async", true)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the theme for the given Id.
    *
    * @param string $themeId The Id of the theme to delete.
