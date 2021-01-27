@@ -3,7 +3,7 @@ If you're integrating FusionAuth with a PHP application, this library will speed
 
 For additional information and documentation on FusionAuth refer to [https://fusionauth.io](https://fusionauth.io).
 
-### Examples Usages:
+### Example Usage
 
 #### Install the Code
 
@@ -47,3 +47,20 @@ if (!$result->wasSuccessful()) {
 
 // Hooray! Success
 ```
+
+## Questions and support
+
+If you have a question or support issue regarding this client library, we'd love to hear from you.
+
+If you have a paid edition with support included, please [open a ticket with via your account portal](https://account.fusionauth.io/account/support/). Learn more about [paid editions here](https://fusionauth.io/pricing/).
+
+Otherwise, please [post your question in the community forum](https://fusionauth.io/community/forum/).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/FusionAuth/fusionauth-php-client.
+
+## License
+
+This code is available as open source under the terms of the [Apache v2.0 License](https://opensource.org/licenses/Apache-2.0).
+
