@@ -3234,8 +3234,30 @@ class FusionAuthClient
   }
 
   /**
-   * Revokes a single refresh token, all tokens for a user or all tokens for an application. If you provide a user id
-   * and an application id, this will delete all the refresh tokens for that user for that application.
+   * Revokes refresh tokens.
+   * 
+   * Usage examples:
+   *   - Delete a single refresh token, pass in only the token.
+   *       revokeRefreshToken(token)
+   * 
+   *   - Delete all refresh tokens for a user, pass in only the userId.
+   *       revokeRefreshToken(null, userId)
+   * 
+   *   - Delete all refresh tokens for a user for a specific application, pass in both the userId and the applicationId.
+   *       revokeRefreshToken(null, userId, applicationId)
+   * 
+   *   - Delete all refresh tokens for an application
+   *       revokeRefreshToken(null, null, applicationId)
+   * 
+   * Note: <code>null</code> may be handled differently depending upon the programming language.
+   * 
+   * See also: (method names may vary by language... but you'll figure it out)
+   * 
+   *  - revokeRefreshTokenById
+   *  - revokeRefreshTokenByToken
+   *  - revokeRefreshTokensByUserId
+   *  - revokeRefreshTokensByApplicationId
+   *  - revokeRefreshTokensByUserIdForApplication
    *
    * @param string $token (Optional) The refresh token to delete.
    * @param string $userId (Optional) The user id whose tokens to delete.
@@ -3248,6 +3270,88 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/jwt/refresh")
         ->urlParameter("token", $token)
+        ->urlParameter("userId", $userId)
+        ->urlParameter("applicationId", $applicationId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revokes a single refresh token by the unique Id. The unique Id is not sensitive as it cannot be used to obtain another JWT.
+   *
+   * @param string $tokenId The unique Id of the token to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokenById($tokenId)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlSegment($tokenId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revokes a single refresh token by using the actual refresh token value. This refresh token value is sensitive, so  be careful with this API request.
+   *
+   * @param string $token The refresh token to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokenByToken($token)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlParameter("token", $token)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revoke all refresh tokens that belong to an application by applicationId.
+   *
+   * @param string $applicationId The unique Id of the application that you want to delete all refresh tokens for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokensByApplicationId($applicationId)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlParameter("applicationId", $applicationId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revoke all refresh tokens that belong to a user by user Id.
+   *
+   * @param string $userId The unique Id of the user that you want to delete all refresh tokens for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokensByUserId($userId)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlParameter("userId", $userId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revoke all refresh tokens that belong to a user by user Id for a specific application by applicationId.
+   *
+   * @param string $userId The unique Id of the user that you want to delete all refresh tokens for.
+   * @param string $applicationId The unique Id of the application that you want to delete refresh tokens for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokensByUserIdForApplication($userId, $applicationId)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
         ->urlParameter("userId", $userId)
         ->urlParameter("applicationId", $applicationId)
         ->delete()
