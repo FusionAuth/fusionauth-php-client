@@ -2754,6 +2754,22 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves a single refresh token by unique Id. This is not the same thing as the string value of the refresh token, if you have that, you already have what you need..
+   *
+   * @param string $userId The Id of the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveRefreshTokenById($userId)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlSegment($userId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the refresh tokens that belong to the user with the given Id.
    *
    * @param string $userId The Id of the user.
