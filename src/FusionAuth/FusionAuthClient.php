@@ -2386,15 +2386,33 @@ class FusionAuthClient
   /**
    * Retrieves the identity provider for the given id or all of the identity providers if the id is null.
    *
-   * @param string $identityProviderId (Optional) The identity provider id.
+   * @param string $identityProviderId The identity provider Id.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveIdentityProvider($identityProviderId = NULL)
+  public function retrieveIdentityProvider($identityProviderId)
   {
     return $this->start()->uri("/api/identity-provider")
         ->urlSegment($identityProviderId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves one or more identity provider for the given type. For types such as Google, Facebook, Twitter and LinkedIn, only a single 
+   * identity provider can exist. For types such as OpenID Connect and SAMLv2 more than one identity provider can be configured so this request 
+   * may return multiple identity providers.
+   *
+   * @param array $type The type of the identity provider.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveIdentityProviderByType($type)
+  {
+    return $this->start()->uri("/api/identity-provider")
+        ->urlParameter("type", $type)
         ->get()
         ->go();
   }
