@@ -86,6 +86,24 @@ class FusionAuthClient
   }
 
   /**
+   * Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
+   *
+   * @param string $licenseId The license id
+   * @param array $request An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function activateReactor($licenseId, $request)
+  {
+    return $this->start()->uri("/api/reactor")
+        ->urlSegment($licenseId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Adds a user to an existing family. The family id must be specified.
    *
    * @param string $familyId The id of the family.
@@ -281,6 +299,64 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates an Entity. You can optionally specify an Id for the Entity. If not provided one will be generated.
+   *
+   * @param string $entityId (Optional) The Id for the Entity. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the Entity.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createEntity($entityId, $request)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a Entity Type. You can optionally specify an Id for the Entity Type, if not provided one will be generated.
+   *
+   * @param string $entityTypeId (Optional) The Id for the Entity Type. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the Entity Type.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createEntityType($entityTypeId, $request)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a new permission for an entity type. You must specify the id of the entity type you are creating the permission for.
+   * You can optionally specify an Id for the permission inside the EntityTypePermission object itself, if not provided one will be generated.
+   *
+   * @param string $entityTypeId The Id of the entity type to create the permission on.
+   * @param string $permissionId (Optional) The Id of the permission. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the permission.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createEntityTypePermission($entityTypeId, $permissionId, $request)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->urlSegment("permission")
+        ->urlSegment($permissionId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -556,6 +632,20 @@ class FusionAuthClient
   }
 
   /**
+   * Deactivates the FusionAuth Reactor.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deactivateReactor()
+  {
+    return $this->start()->uri("/api/reactor")
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deactivates the user with the given Id.
    *
    * @param string $userId The Id of the user to deactivate.
@@ -708,6 +798,58 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the Entity for the given Id.
+   *
+   * @param string $entityId The Id of the Entity to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteEntity($entityId)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the Entity Type for the given Id.
+   *
+   * @param string $entityTypeId The Id of the Entity Type to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteEntityType($entityTypeId)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Hard deletes a permission. This is a dangerous operation and should not be used in most circumstances. This
+   * permanently removes the given permission from all grants that had it.
+   *
+   * @param string $entityTypeId The Id of the entityType the the permission belongs to.
+   * @param string $permissionId The Id of the permission to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteEntityTypePermission($entityTypeId, $permissionId)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->urlSegment("permission")
+        ->urlSegment($permissionId)
         ->delete()
         ->go();
   }
@@ -1614,6 +1756,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates, via PATCH, the Entity Type with the given Id.
+   *
+   * @param string $entityTypeId The Id of the Entity Type to update.
+   * @param array $request The request that contains just the new Entity Type information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchEntityType($entityTypeId, $request)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the group with the given Id.
    *
    * @param string $groupId The Id of the group to update.
@@ -1893,6 +2053,23 @@ class FusionAuthClient
   }
 
   /**
+   * Request a refresh of the Entity search index. This API is not generally necessary and the search index will become consistent in a
+   * reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be 
+   * if you are using the Search API or Delete Tenant API immediately following a Entity Create etc, you may wish to request a refresh to
+   *  ensure the index immediately current before making a query request to the search index.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function refreshEntitySearchIndex()
+  {
+    return $this->start()->uri("/api/entity/search")
+        ->put()
+        ->go();
+  }
+
+  /**
    * Request a refresh of the User search index. This API is not generally necessary and the search index will become consistent in a
    * reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be 
    * if you are using the Search API or Delete Tenant API immediately following a User Create etc, you may wish to request a refresh to
@@ -1905,6 +2082,20 @@ class FusionAuthClient
   public function refreshUserSearchIndex()
   {
     return $this->start()->uri("/api/user/search")
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Regenerates any keys that are used by the FusionAuth Reactor.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function regenerateReactorKeys()
+  {
+    return $this->start()->uri("/api/reactor")
         ->put()
         ->go();
   }
@@ -2241,6 +2432,52 @@ class FusionAuthClient
   public function retrieveEmailTemplates()
   {
     return $this->start()->uri("/api/email/template")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the Entity for the given Id.
+   *
+   * @param string $entityId The Id of the Entity.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveEntity($entityId)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the Entity Type for the given Id.
+   *
+   * @param string $entityTypeId The Id of the Entity Type.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveEntityType($entityTypeId)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the Entity Types.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveEntityTypes()
+  {
+    return $this->start()->uri("/api/entity/type")
         ->get()
         ->go();
   }
@@ -2749,6 +2986,20 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/family/pending")
         ->urlParameter("parentEmail", $parentEmail)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the FusionAuth Reactor status.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveReactorStatus()
+  {
+    return $this->start()->uri("/api/reactor")
         ->get()
         ->go();
   }
@@ -3425,6 +3676,54 @@ class FusionAuthClient
   }
 
   /**
+   * Searches entities with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEntities($request)
+  {
+    return $this->start()->uri("/api/entity/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Retrieves the entities for the given ids. If any id is invalid, it is ignored.
+   *
+   * @param array $ids The entity ids to search for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEntitiesByIds($ids)
+  {
+    return $this->start()->uri("/api/entity/search")
+        ->urlParameter("ids", $ids)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Searches the entity types with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEntityTypes($request)
+  {
+    return $this->start()->uri("/api/entity/type/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches the event logs with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -3745,6 +4044,63 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/email/template")
         ->urlSegment($emailTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the Entity with the given Id.
+   *
+   * @param string $entityId The Id of the Entity to update.
+   * @param array $request The request that contains all of the new Entity information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateEntity($entityId, $request)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the Entity Type with the given Id.
+   *
+   * @param string $entityTypeId The Id of the Entity Type to update.
+   * @param array $request The request that contains all of the new Entity Type information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateEntityType($entityTypeId, $request)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the permission with the given id for the entity type.
+   *
+   * @param string $entityTypeId The Id of the entityType that the permission belongs to.
+   * @param string $permissionId The Id of the permission to update.
+   * @param array $request The request that contains all of the new permission information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateEntityTypePermission($entityTypeId, $permissionId, $request)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->urlSegment("permission")
+        ->urlSegment($permissionId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
