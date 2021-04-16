@@ -488,6 +488,42 @@ class FusionAuthClient
   }
 
   /**
+   * Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
+   *
+   * @param string $messageTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the message template.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createMessageTemplate($messageTemplateId, $request)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
+   *
+   * @param string $messengerId (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the messenger.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createMessenger($messengerId, $request)
+  {
+    return $this->start()->uri("/api/messenger")
+        ->urlSegment($messengerId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
    *
    * @param string $tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -967,6 +1003,38 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the message template for the given Id.
+   *
+   * @param string $messageTemplateId The Id of the message template to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteMessageTemplate($messageTemplateId)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the messenger for the given Id.
+   *
+   * @param string $messengerId The Id of the messenger to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteMessenger($messengerId)
+  {
+    return $this->start()->uri("/api/messenger")
+        ->urlSegment($messengerId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the user registration for the given user and application.
    *
    * @param string $userId The Id of the user whose registration is being deleted.
@@ -1147,15 +1215,17 @@ class FusionAuthClient
    * Disable Two Factor authentication for a user.
    *
    * @param string $userId The Id of the User for which you're disabling Two Factor authentication.
+   * @param string $methodId The two-factor method identifier you wish to disable
    * @param string $code The Two Factor code used verify the the caller knows the Two Factor secret.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function disableTwoFactor($userId, $code)
+  public function disableTwoFactor($userId, $methodId, $code)
   {
     return $this->start()->uri("/api/user/two-factor")
         ->urlParameter("userId", $userId)
+        ->urlParameter("methodId", $methodId)
         ->urlParameter("code", $code)
         ->delete()
         ->go();
@@ -1380,6 +1450,22 @@ class FusionAuthClient
         ->urlParameter("sendVerifyPasswordEmail", false)
         ->urlParameter("applicationId", $applicationId)
         ->put()
+        ->go();
+  }
+
+  /**
+   * Generate two-factor recovery codes for a user. Generating two-factor recovery codes will invalidate any existing recovery codes. 
+   *
+   * @param string $userId The Id of the user to generate new Two Factor recovery codes.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function generateTwoFactorRecoveryCodes($userId)
+  {
+    return $this->start()->uri("/api/user/two-factor/recovery-code")
+        ->urlSegment($userId)
+        ->post()
         ->go();
   }
 
@@ -1838,6 +1924,42 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/lambda")
         ->urlSegment($lambdaId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the message template with the given Id.
+   *
+   * @param string $messageTemplateId The Id of the message template to update.
+   * @param array $request The request that contains just the new message template information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchMessageTemplate($messageTemplateId, $request)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the messenger with the given Id.
+   *
+   * @param string $messengerId The Id of the messenger to update.
+   * @param array $request The request that contains just the new messenger information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchMessenger($messengerId, $request)
+  {
+    return $this->start()->uri("/api/messenger")
+        ->urlSegment($messengerId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->patch()
         ->go();
@@ -2888,6 +3010,82 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the message template for the given Id. If you don't specify the id, this will return all of the message templates.
+   *
+   * @param string $messageTemplateId (Optional) The Id of the message template.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessageTemplate($messageTemplateId = NULL)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Creates a preview of the message template provided in the request, normalized to a given locale.
+   *
+   * @param array $request The request that contains the email template and optionally a locale to render it in.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessageTemplatePreview($request)
+  {
+    return $this->start()->uri("/api/message/template/preview")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the message templates.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessageTemplates()
+  {
+    return $this->start()->uri("/api/message/template")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the messenger with the given Id.
+   *
+   * @param string $messengerId The Id of the messenger.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessenger($messengerId)
+  {
+    return $this->start()->uri("/api/messenger")
+        ->urlSegment($messengerId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all of the messengers.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveMessengers()
+  {
+    return $this->start()->uri("/api/messenger")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the monthly active user report between the two instants. If you specify an application id, it will only
    * return the monthly active counts for that application.
    *
@@ -3178,6 +3376,22 @@ class FusionAuthClient
   public function retrieveTotalReport()
   {
     return $this->start()->uri("/api/report/totals")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieve two-factor recovery codes for a user.
+   *
+   * @param string $userId The Id of the user to retrieve Two Factor recovery codes.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveTwoFactorRecoveryCodes($userId)
+  {
+    return $this->start()->uri("/api/user/two-factor/recovery-code")
+        ->urlSegment($userId)
         ->get()
         ->go();
   }
@@ -3881,8 +4095,25 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
+   * @deprecated This method has been renamed to sendTwoFactorCodeForEnableDisable, use that method instead.
    */
   public function sendTwoFactorCode($request)
+  {
+    return $this->start()->uri("/api/two-factor/send")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
+   *
+   * @param array $request The request object that contains all of the information used to send the code.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function sendTwoFactorCodeForEnableDisable($request)
   {
     return $this->start()->uri("/api/two-factor/send")
         ->bodyHandler(new JSONBodyHandler($request))
@@ -3897,11 +4128,30 @@ class FusionAuthClient
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
+   * @deprecated This method has been renamed to sendTwoFactorCodeForLoginUsingMethod, use that method instead.
    */
   public function sendTwoFactorCodeForLogin($twoFactorId)
   {
     return $this->startAnonymous()->uri("/api/two-factor/send")
         ->urlSegment($twoFactorId)
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Send a Two Factor authentication code to allow the completion of Two Factor authentication.
+   *
+   * @param string $twoFactorId The Id returned by the Login API necessary to complete Two Factor authentication.
+   * @param array $request The Two Factor send request that contains all of the information used to send the Two Factor code to the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function sendTwoFactorCodeForLoginUsingMethod($twoFactorId, $request)
+  {
+    return $this->startAnonymous()->uri("/api/two-factor/send")
+        ->urlSegment($twoFactorId)
+        ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
   }
@@ -3935,6 +4185,27 @@ class FusionAuthClient
   public function startPasswordlessLogin($request)
   {
     return $this->start()->uri("/api/passwordless/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Start a Two-Factor login request by generating a two-factor identifier. This code can then be sent to the Two Factor Send 
+   * API (/api/two-factor/send)in order to send a one-time use code to a user. You can also use one-time use code returned 
+   * to send the code out-of-band. The Two-Factor login is completed by making a request to the Two-Factor Login 
+   * API (/api/two-factor/login). with the two-factor identifier and the one-time use code.
+   * 
+   * This API is intended to allow you to begin a Two-Factor login outside of a normal login that originated from the Login API (/api/login).
+   *
+   * @param array $request The Two-Factor start request that contains all of the information used to begin the Two-Factor login request.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startTwoFactorLogin($request)
+  {
+    return $this->start()->uri("/api/two-factor/start")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4225,6 +4496,42 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/lambda")
         ->urlSegment($lambdaId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the message template with the given Id.
+   *
+   * @param string $messageTemplateId The Id of the message template to update.
+   * @param array $request The request that contains all of the new message template information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateMessageTemplate($messageTemplateId, $request)
+  {
+    return $this->start()->uri("/api/message/template")
+        ->urlSegment($messageTemplateId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the messenger with the given Id.
+   *
+   * @param string $messengerId The Id of the messenger to update.
+   * @param array $request The request object that contains all of the new messenger information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateMessenger($messengerId, $request)
+  {
+    return $this->start()->uri("/api/messenger")
+        ->urlSegment($messengerId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
