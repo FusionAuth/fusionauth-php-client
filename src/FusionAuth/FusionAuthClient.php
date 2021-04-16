@@ -855,6 +855,27 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes an Entity Grant for the given User or Entity.
+   *
+   * @param string $entityId The Id of the Entity that the Entity Grant is being deleted for.
+   * @param string $recipientEntityId (Optional) The Id of the Entity that the Entity Grant is for.
+   * @param string $userId (Optional) The Id of the User that the Entity Grant is for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteEntityGrant($entityId, $recipientEntityId, $userId = NULL)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->urlSegment("grant")
+        ->urlParameter("recipientEntityId", $recipientEntityId)
+        ->urlParameter("userId", $userId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the Entity Type for the given Id.
    *
    * @param string $entityTypeId The Id of the Entity Type to delete.
@@ -2575,6 +2596,27 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves an Entity Grant for the given Entity and User/Entity.
+   *
+   * @param string $entityId The Id of the Entity.
+   * @param string $recipientEntityId (Optional) The Id of the Entity that the Entity Grant is for.
+   * @param string $userId (Optional) The Id of the User that the Entity Grant is for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveEntityGrant($entityId, $recipientEntityId, $userId = NULL)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->urlSegment("grant")
+        ->urlParameter("recipientEntityId", $recipientEntityId)
+        ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the Entity Type for the given Id.
    *
    * @param string $entityTypeId The Id of the Entity Type.
@@ -3922,6 +3964,22 @@ class FusionAuthClient
   }
 
   /**
+   * Searches Entity Grants with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEntityGrants($request)
+  {
+    return $this->start()->uri("/api/entity/grant/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches the entity types with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -4694,6 +4752,25 @@ class FusionAuthClient
         ->urlSegment($webhookId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
+        ->go();
+  }
+
+  /**
+   * Creates or updates an Entity Grant. This is when a User/Entity is granted permissions to an Entity.
+   *
+   * @param string $entityId The Id of the Entity that the User/Entity is being granted access to.
+   * @param array $request The request object that contains all of the information used to create the Entity Grant.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function upsertEntityGrant($entityId, $request)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->urlSegment("grant")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
         ->go();
   }
 
