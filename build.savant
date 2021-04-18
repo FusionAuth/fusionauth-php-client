@@ -41,38 +41,28 @@ target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
   idea.iml()
 }
 
-target(name: "setup-phpunit", description: "Setup PHP unit") {
-  "brew install phpunit".execute()
-}
-
 target(name: "test", description: "Runs the tests", dependsOn: "clean") {
-  def test = "which phpunit".execute().exitValue()
-  if (test == 1) {
-    "brew install phpunit".execute()
-  }
-
-  def proc = "phpunit --include-path src -v tests".execute()
-  proc.consumeProcessOutput(System.out, System.err)
+  runCommand("composer", "install")
+  runCommand("vendor/bin/phpunit", "--include-path", "src", "-v", "tests")
 }
 
 target(name: "publish", description: "Update packagist to sync with our GitHub tags", dependsOn: ["clean", "int"]) {
-  ProcessBuilder pb = new ProcessBuilder(
-      "curl",
-      "-XPOST",
-      "-H",
-      "Content-Type:application/json",
-      "https://packagist.org/api/update-package?username=${global.packagistUsername}&apiToken=${global.packagistAPIToken}",
-      "-d",
-      "{\"repository\":{\"url\":\"https://packagist.org/packages/fusionauth/fusionauth-client\"}}")
-      .inheritIO()
-      .directory(new File('.'))
-
-  def process = pb.start()
-  process.consumeProcessOutput(System.out, System.err)
-  process.waitFor()
-  return process.exitValue() == 0
+  runCommand(
+      "curl", "-XPOST", "-H", "Content-Type:application/json",
+      "-d", "{\"repository\":{\"url\":\"https://packagist.org/packages/fusionauth/fusionauth-client\"}}",
+      "https://packagist.org/api/update-package?username=${global.packagistUsername}&apiToken=${global.packagistAPIToken}"
+  )
 }
 
 target(name: "release", description: "Releases a full version of the project", dependsOn: ["int"]) {
   release.release()
+}
+
+def runCommand(String... args) {
+  def process = new ProcessBuilder(args).inheritIO().directory(new File('.')).start()
+  process.consumeProcessOutput(System.out, System.err)
+  process.waitFor()
+  if (process.exitValue() != 0) {
+    fail("Unable to run command [${args.join(' ')}]")
+  }
 }
