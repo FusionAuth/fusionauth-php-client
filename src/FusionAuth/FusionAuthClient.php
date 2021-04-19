@@ -193,6 +193,28 @@ class FusionAuthClient
   }
 
   /**
+   * Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
+   * an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted 
+   * to that API key.
+   * 
+   * If an API key is locked to a tenant, it can only create API Keys for that same tenant.
+   *
+   * @param string $keyId (Optional) The unique Id of the API key. If not provided a secure random Id will be generated.
+   * @param array $request The request object that contains all of the information needed to create the APIKey.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createAPIKey($keyId, $request)
+  {
+    return $this->start()->uri("/api/api-key")
+        ->urlSegment($keyId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
    *
    * @param string $applicationId (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
@@ -746,6 +768,22 @@ class FusionAuthClient
         ->urlParameter("userId", $userIds)
         ->urlParameter("dryRun", false)
         ->urlParameter("hardDelete", false)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the API key for the given Id.
+   *
+   * @param string $keyId The Id of the authentication API key to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteAPIKey($keyId)
+  {
+    return $this->start()->uri("/api/api-key")
+        ->urlSegment($keyId)
         ->delete()
         ->go();
   }
@@ -1770,6 +1808,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates an authentication API key by given id
+   *
+   * @param string $keyId The Id of the authentication key. If not provided a secure random api key will be generated.
+   * @param array $request The request object that contains all of the information needed to create the APIKey.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchAPIKey($keyId, $request)
+  {
+    return $this->start()->uri("/api/api-key")
+        ->urlSegment($keyId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the application with the given Id.
    *
    * @param string $applicationId The Id of the application to update.
@@ -2333,6 +2389,22 @@ class FusionAuthClient
         ->urlParameter("email", $email)
         ->urlParameter("applicationId", $applicationId)
         ->put()
+        ->go();
+  }
+
+  /**
+   * Retrieves an authentication API key for the given id
+   *
+   * @param string $keyId The Id of the API key to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveAPIKey($keyId)
+  {
+    return $this->start()->uri("/api/api-key")
+        ->urlSegment($keyId)
+        ->get()
         ->go();
   }
 
@@ -4282,6 +4354,24 @@ class FusionAuthClient
     return $this->startAnonymous()->uri("/api/two-factor/login")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Updates an API key by given id
+   *
+   * @param string $apiKeyId The Id of the API key to update.
+   * @param array $request The request object that contains all of the information used to create the API Key.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateAPIKey($apiKeyId, $request)
+  {
+    return $this->start()->uri("/api/api-key")
+        ->urlSegment($apiKeyId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
         ->go();
   }
 
