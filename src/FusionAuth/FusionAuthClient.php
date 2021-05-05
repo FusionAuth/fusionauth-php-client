@@ -88,16 +88,14 @@ class FusionAuthClient
   /**
    * Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
    *
-   * @param string $licenseId The license id
    * @param array $request An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function activateReactor($licenseId, $request)
+  public function activateReactor($request)
   {
     return $this->start()->uri("/api/reactor")
-        ->urlSegment($licenseId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
