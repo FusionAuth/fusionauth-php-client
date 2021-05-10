@@ -149,7 +149,7 @@ class FusionAuthClient
    */
   public function changePassword($changePasswordId, $request)
   {
-    return $this->start()->uri("/api/user/change-password")
+    return $this->startAnonymous()->uri("/api/user/change-password")
         ->urlSegment($changePasswordId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
