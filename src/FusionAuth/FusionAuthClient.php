@@ -654,6 +654,22 @@ class FusionAuthClient
   }
 
   /**
+   * Link an external user from a 3rd party identity provider to a FusionAuth user.
+   *
+   * @param array $request The request object that contains all of the information used to link the FusionAuth user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createUserLink($request)
+  {
+    return $this->start()->uri("/api/identity-provider/link")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
    *
    * @param string $webhookId (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
@@ -1207,6 +1223,26 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user-action-reason")
         ->urlSegment($userActionReasonId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Remove an existing link that has been made from a 3rd party identity provider to a FusionAuth user.
+   *
+   * @param string $identityProviderId The unique Id of the identity provider.
+   * @param string $identityProviderUserId The unique Id of the user in the 3rd party identity provider to unlink.
+   * @param string $userId The unique Id of the FusionAuth user to unlink.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteUserLink($identityProviderId, $identityProviderUserId, $userId)
+  {
+    return $this->start()->uri("/api/identity-provider/link")
+        ->urlParameter("identityProviderId", $identityProviderId)
+        ->urlParameter("identityProviderUserId", $identityProviderUserId)
+        ->urlParameter("userId", $userId)
         ->delete()
         ->go();
   }
@@ -2320,6 +2356,26 @@ class FusionAuthClient
   }
 
   /**
+   * Requests Elasticsearch to delete and rebuild the index for FusionAuth users or entities. Be very careful when running this request as it will 
+   * increase the CPU and I/O load on your database until the operation completes. Generally speaking you do not ever need to run this operation unless 
+   * instructed by FusionAuth support, or if you are migrating a database another system and you are not brining along the Elasticsearch index. 
+   * 
+   * You have been warned.
+   *
+   * @param array $request The request that contains the index name.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function reindex($request)
+  {
+    return $this->start()->uri("/api/system/reindex")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Removes a user from the family with the given id.
    *
    * @param string $familyId The id of the family to remove the user from.
@@ -3404,6 +3460,21 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieve the status of a re-index process. A status code of 200 indicates the re-index is in progress, a status code of  
+   * 404 indicates no re-index is in progress.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveReindexStatus()
+  {
+    return $this->start()->uri("/api/system/reindex")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the system configuration.
    *
    *
@@ -3728,6 +3799,44 @@ class FusionAuthClient
   {
     return $this->startAnonymous()->uri("/oauth2/userinfo")
         ->authorization("Bearer " . $encodedJWT)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieve a single Identity Provider user (link).
+   *
+   * @param string $identityProviderId The unique Id of the identity provider.
+   * @param string $identityProviderUserId The unique Id of the user in the 3rd party identity provider.
+   * @param string $userId The unique Id of the FusionAuth user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserLink($identityProviderId, $identityProviderUserId, $userId)
+  {
+    return $this->start()->uri("/api/identity-provider/link")
+        ->urlParameter("identityProviderId", $identityProviderId)
+        ->urlParameter("identityProviderUserId", $identityProviderUserId)
+        ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieve all Identity Provider users (links) for the user. Specify the optional identityProviderId to retrieve links for a particular IdP.
+   *
+   * @param string $identityProviderId (Optional) The unique Id of the identity provider. Specify this value to reduce the links returned to those for a particular IdP.
+   * @param string $userId The unique Id of the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserLinksByUserId($identityProviderId, $userId)
+  {
+    return $this->start()->uri("/api/identity-provider/link")
+        ->urlParameter("identityProviderId", $identityProviderId)
+        ->urlParameter("userId", $userId)
         ->get()
         ->go();
   }
