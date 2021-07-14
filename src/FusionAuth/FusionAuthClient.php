@@ -191,6 +191,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates an ACL. You can optionally specify an Id for the ACL. If not provided one will be generated.
+   *
+   * @param string $accessControlListId (Optional) The Id for the ACL. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the IP ACL.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createACL($accessControlListId, $request)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($accessControlListId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
    * an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted 
    * to that API key.
@@ -782,6 +800,22 @@ class FusionAuthClient
         ->urlParameter("userId", $userIds)
         ->urlParameter("dryRun", false)
         ->urlParameter("hardDelete", false)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the ACL for the given Id.
+   *
+   * @param string $ipAccessControlListId The Id of the ACL to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteACL($ipAccessControlListId)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($ipAccessControlListId)
         ->delete()
         ->go();
   }
@@ -2443,6 +2477,36 @@ class FusionAuthClient
         ->urlParameter("email", $email)
         ->urlParameter("applicationId", $applicationId)
         ->put()
+        ->go();
+  }
+
+  /**
+   * Retrieves the ACL with the given Id.
+   *
+   * @param string $formId The Id of the ACL.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveACL($formId)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($formId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all ACLs.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveACLs()
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->get()
         ->go();
   }
 
@@ -4475,6 +4539,24 @@ class FusionAuthClient
     return $this->startAnonymous()->uri("/api/two-factor/login")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Updates the ACL with the given Id.
+   *
+   * @param string $accessControlListId The Id of the ACL to update.
+   * @param array $request The request that contains all of the new ACL information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateACL($accessControlListId, $request)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($accessControlListId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
         ->go();
   }
 
