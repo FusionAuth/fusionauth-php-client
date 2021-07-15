@@ -4173,6 +4173,22 @@ class FusionAuthClient
   }
 
   /**
+   * Searches the ACLs with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchACLs($request)
+  {
+    return $this->start()->uri("/api/ip-acl/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches the audit logs with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
