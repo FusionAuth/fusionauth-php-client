@@ -472,6 +472,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates an IP Access Control List. You can optionally specify an Id on this create request, if one is not provided one will be generated.
+   *
+   * @param string $accessControlListId (Optional) The Id for the IP Access Control List. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all of the information used to create the IP Access Control List.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createIPAccessControlList($accessControlListId, $request)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($accessControlListId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates an identity provider. You can optionally specify an Id for the identity provider, if not provided one will be generated.
    *
    * @param string $identityProviderId (Optional) The Id of the identity provider. If not provided a secure random UUID will be generated.
@@ -1028,6 +1046,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the IP Access Control List for the given Id.
+   *
+   * @param string $ipAccessControlListId The Id of the IP Access Control List to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteIPAccessControlList($ipAccessControlListId)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($ipAccessControlListId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the identity provider for the given Id.
    *
    * @param string $identityProviderId The Id of the identity provider to delete.
@@ -1126,7 +1160,28 @@ class FusionAuthClient
   }
 
   /**
-   * Deletes the tenant for the given Id.
+   * Deletes the user registration for the given user and application along with the given JSON body that contains the event information.
+   *
+   * @param string $userId The Id of the user whose registration is being deleted.
+   * @param string $applicationId The Id of the application to remove the registration for.
+   * @param array $request The request body that contains the event information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteRegistrationWithRequest($userId, $applicationId, $request)
+  {
+    return $this->start()->uri("/api/user/registration")
+        ->urlSegment($userId)
+        ->urlSegment($applicationId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the tenant based on the given Id on the URL. This permanently deletes all information, metrics, reports and data associated
+   * with the tenant and everything under the tenant (applications, users, etc).
    *
    * @param string $tenantId The Id of the tenant to delete.
    *
@@ -1155,6 +1210,25 @@ class FusionAuthClient
     return $this->start()->uri("/api/tenant")
         ->urlSegment($tenantId)
         ->urlParameter("async", true)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the tenant based on the given request (sent to the API as JSON). This permanently deletes all information, metrics, reports and data associated
+   * with the tenant and everything under the tenant (applications, users, etc).
+   *
+   * @param string $tenantId The Id of the tenant to delete.
+   * @param array $request The request object that contains all of the information used to delete the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteTenantWithRequest($tenantId, $request)
+  {
+    return $this->start()->uri("/api/tenant")
+        ->urlSegment($tenantId)
+        ->bodyHandler(new JSONBodyHandler($request))
         ->delete()
         ->go();
   }
@@ -1248,6 +1322,25 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the user based on the given request (sent to the API as JSON). This permanently deletes all information, metrics, reports and data associated
+   * with the user.
+   *
+   * @param string $userId The Id of the user to delete (required).
+   * @param array $request The request object that contains all of the information used to delete the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteUserWithRequest($userId, $request)
+  {
+    return $this->start()->uri("/api/user")
+        ->urlSegment($userId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the users with the given ids, or users matching the provided JSON query or queryString.
    * The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
    * 
@@ -1317,9 +1410,27 @@ class FusionAuthClient
   public function disableTwoFactor($userId, $methodId, $code)
   {
     return $this->start()->uri("/api/user/two-factor")
-        ->urlParameter("userId", $userId)
+        ->urlSegment($userId)
         ->urlParameter("methodId", $methodId)
         ->urlParameter("code", $code)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Disable Two Factor authentication for a user using a JSON body rather than URL parameters.
+   *
+   * @param string $userId The Id of the User for which you're disabling Two Factor authentication.
+   * @param array $request The request information that contains the code and methodId along with any event information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function disableTwoFactorWithRequest($userId, $request)
+  {
+    return $this->start()->uri("/api/user/two-factor")
+        ->urlSegment($userId)
+        ->bodyHandler(new JSONBodyHandler($request))
         ->delete()
         ->go();
   }
@@ -1785,6 +1896,23 @@ class FusionAuthClient
     return $this->startAnonymous()->uri("/api/logout")
         ->urlParameter("global", $global)
         ->urlParameter("refreshToken", $refreshToken)
+        ->post()
+        ->go();
+  }
+
+  /**
+   * The Logout API is intended to be used to remove the refresh token and access token cookies if they exist on the
+   * client and revoke the refresh token stored. This API takes the refresh token in the JSON body.
+   *
+   * @param array $request The request object that contains all of the information used to logout the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function logoutWithRequest($request)
+  {
+    return $this->startAnonymous()->uri("/api/logout")
+        ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
   }
@@ -2906,6 +3034,22 @@ class FusionAuthClient
   public function retrieveGroups()
   {
     return $this->start()->uri("/api/group")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the IP Access Control List with the given Id.
+   *
+   * @param string $ipAccessControlListId The Id of the IP Access Control List.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveIPAccessControlList($ipAccessControlListId)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($ipAccessControlListId)
         ->get()
         ->go();
   }
@@ -4093,6 +4237,23 @@ class FusionAuthClient
   }
 
   /**
+   * Revokes refresh tokens using the information in the JSON body. The handling for this method is the same as the revokeRefreshToken method
+   * and is based on the information you provide in the RefreshDeleteRequest object. See that method for additional information.
+   *
+   * @param array $request The request information used to revoke the refresh tokens.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokensWithRequest($request)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Revokes a single User consent by Id.
    *
    * @param string $userConsentId The User Consent Id
@@ -4199,6 +4360,22 @@ class FusionAuthClient
   public function searchEventLogs($request)
   {
     return $this->start()->uri("/api/system/event-log/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches the IP Access Control Lists with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchIPAccessControlLists($request)
+  {
+    return $this->start()->uri("/api/ip-acl/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4701,6 +4878,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates the IP Access Control List with the given Id.
+   *
+   * @param string $accessControlListId The Id of the IP Access Control List to update.
+   * @param array $request The request that contains all of the new IP Access Control List information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateIPAccessControlList($accessControlListId, $request)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($accessControlListId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
    * Updates the identity provider with the given Id.
    *
    * @param string $identityProviderId The Id of the identity provider to update.
@@ -5020,6 +5215,30 @@ class FusionAuthClient
     return $this->startAnonymous()->uri("/api/jwt/validate")
         ->authorization("Bearer " . $encodedJWT)
         ->get()
+        ->go();
+  }
+
+  /**
+   * It's a JWT vending machine!
+   * 
+   * Issue a new access token (JWT) with the provided claims in the request. This JWT is not scoped to a tenant or user, it is a free form 
+   * token that will contain what claims you provide.
+   * <p>
+   * The iat, exp and jti claims will be added by FusionAuth, all other claims must be provided by the caller.
+   * 
+   * If a TTL is not provided in the request, the TTL will be retrieved from the default Tenant or the Tenant specified on the request either 
+   * by way of the X-FusionAuth-TenantId request header, or a tenant scoped API key.
+   *
+   * @param array $request The request that contains all of the claims for this JWT.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function vendJWT($request)
+  {
+    return $this->start()->uri("/api/jwt/vend")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
         ->go();
   }
 
