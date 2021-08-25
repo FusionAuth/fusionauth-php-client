@@ -3501,6 +3501,20 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the FusionAuth Reactor metrics.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveReactorMetrics()
+  {
+    return $this->start()->uri("/api/reactor/metrics")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the FusionAuth Reactor status.
    *
    *
