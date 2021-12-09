@@ -105,7 +105,7 @@ class FusionAuthClient
    * Adds a user to an existing family. The family id must be specified.
    *
    * @param string $familyId The id of the family.
-   * @param array $request The request object that contains all of the information used to determine which user to add to the family.
+   * @param array $request The request object that contains all the information used to determine which user to add to the family.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -177,7 +177,7 @@ class FusionAuthClient
   /**
    * Adds a comment to the user's account.
    *
-   * @param array $request The request object that contains all of the information used to create the user comment.
+   * @param array $request The request object that contains all the information used to create the user comment.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -216,7 +216,7 @@ class FusionAuthClient
    * Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
    *
    * @param string $applicationId (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the application.
+   * @param array $request The request object that contains all the information used to create the application.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -236,7 +236,7 @@ class FusionAuthClient
    *
    * @param string $applicationId The Id of the application to create the role on.
    * @param string $roleId (Optional) The Id of the role. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the application role.
+   * @param array $request The request object that contains all the information used to create the application role.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -257,7 +257,7 @@ class FusionAuthClient
    * make changes to the FusionAuth database. When using the FusionAuth App web interface, any changes are automatically
    * written to the audit log. However, if you are accessing the API, you must write the audit logs yourself.
    *
-   * @param array $request The request object that contains all of the information used to create the audit log entry.
+   * @param array $request The request object that contains all the information used to create the audit log entry.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -274,7 +274,7 @@ class FusionAuthClient
    * Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
    *
    * @param string $connectorId (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the connector.
+   * @param array $request The request object that contains all the information used to create the connector.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -292,7 +292,7 @@ class FusionAuthClient
    * Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
    *
    * @param string $consentId (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the consent.
+   * @param array $request The request object that contains all the information used to create the consent.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -310,7 +310,7 @@ class FusionAuthClient
    * Creates an email template. You can optionally specify an Id for the template, if not provided one will be generated.
    *
    * @param string $emailTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the email template.
+   * @param array $request The request object that contains all the information used to create the email template.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -328,7 +328,7 @@ class FusionAuthClient
    * Creates an Entity. You can optionally specify an Id for the Entity. If not provided one will be generated.
    *
    * @param string $entityId (Optional) The Id for the Entity. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the Entity.
+   * @param array $request The request object that contains all the information used to create the Entity.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -346,7 +346,7 @@ class FusionAuthClient
    * Creates a Entity Type. You can optionally specify an Id for the Entity Type, if not provided one will be generated.
    *
    * @param string $entityTypeId (Optional) The Id for the Entity Type. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the Entity Type.
+   * @param array $request The request object that contains all the information used to create the Entity Type.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -366,7 +366,7 @@ class FusionAuthClient
    *
    * @param string $entityTypeId The Id of the entity type to create the permission on.
    * @param string $permissionId (Optional) The Id of the permission. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the permission.
+   * @param array $request The request object that contains all the information used to create the permission.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -387,7 +387,7 @@ class FusionAuthClient
    * family, if not provided one will be generated.
    *
    * @param string $familyId (Optional) The id for the family. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the family.
+   * @param array $request The request object that contains all the information used to create the family.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -405,7 +405,7 @@ class FusionAuthClient
    * Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
    *
    * @param string $formId (Optional) The Id for the form. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the form.
+   * @param array $request The request object that contains all the information used to create the form.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -423,7 +423,7 @@ class FusionAuthClient
    * Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
    *
    * @param string $fieldId (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the form field.
+   * @param array $request The request object that contains all the information used to create the form field.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -441,7 +441,7 @@ class FusionAuthClient
    * Creates a group. You can optionally specify an Id for the group, if not provided one will be generated.
    *
    * @param string $groupId (Optional) The Id for the group. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the group.
+   * @param array $request The request object that contains all the information used to create the group.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -458,7 +458,7 @@ class FusionAuthClient
   /**
    * Creates a member in a group.
    *
-   * @param array $request The request object that contains all of the information used to create the group member(s).
+   * @param array $request The request object that contains all the information used to create the group member(s).
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -475,7 +475,7 @@ class FusionAuthClient
    * Creates an IP Access Control List. You can optionally specify an Id on this create request, if one is not provided one will be generated.
    *
    * @param string $accessControlListId (Optional) The Id for the IP Access Control List. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the IP Access Control List.
+   * @param array $request The request object that contains all the information used to create the IP Access Control List.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -493,7 +493,7 @@ class FusionAuthClient
    * Creates an identity provider. You can optionally specify an Id for the identity provider, if not provided one will be generated.
    *
    * @param string $identityProviderId (Optional) The Id of the identity provider. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the identity provider.
+   * @param array $request The request object that contains all the information used to create the identity provider.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -511,7 +511,7 @@ class FusionAuthClient
    * Creates a Lambda. You can optionally specify an Id for the lambda, if not provided one will be generated.
    *
    * @param string $lambdaId (Optional) The Id for the lambda. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the lambda.
+   * @param array $request The request object that contains all the information used to create the lambda.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -529,7 +529,7 @@ class FusionAuthClient
    * Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
    *
    * @param string $messageTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the message template.
+   * @param array $request The request object that contains all the information used to create the message template.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -547,7 +547,7 @@ class FusionAuthClient
    * Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
    *
    * @param string $messengerId (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the messenger.
+   * @param array $request The request object that contains all the information used to create the messenger.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -565,7 +565,7 @@ class FusionAuthClient
    * Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
    *
    * @param string $tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the tenant.
+   * @param array $request The request object that contains all the information used to create the tenant.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -583,7 +583,7 @@ class FusionAuthClient
    * Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
    *
    * @param string $themeId (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the theme.
+   * @param array $request The request object that contains all the information used to create the theme.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -601,7 +601,7 @@ class FusionAuthClient
    * Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
    *
    * @param string $userId (Optional) The Id for the user. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the user.
+   * @param array $request The request object that contains all the information used to create the user.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -620,7 +620,7 @@ class FusionAuthClient
    * that the user action can be applied to any user.
    *
    * @param string $userActionId (Optional) The Id for the user action. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the user action.
+   * @param array $request The request object that contains all the information used to create the user action.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -639,7 +639,7 @@ class FusionAuthClient
    * successfully. Anytime after that the user action reason can be used.
    *
    * @param string $userActionReasonId (Optional) The Id for the user action reason. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the user action reason.
+   * @param array $request The request object that contains all the information used to create the user action reason.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -674,7 +674,7 @@ class FusionAuthClient
   /**
    * Link an external user from a 3rd party identity provider to a FusionAuth user.
    *
-   * @param array $request The request object that contains all of the information used to link the FusionAuth user.
+   * @param array $request The request object that contains all the information used to link the FusionAuth user.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -691,7 +691,7 @@ class FusionAuthClient
    * Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
    *
    * @param string $webhookId (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the webhook.
+   * @param array $request The request object that contains all the information used to create the webhook.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1219,7 +1219,7 @@ class FusionAuthClient
    * with the tenant and everything under the tenant (applications, users, etc).
    *
    * @param string $tenantId The Id of the tenant to delete.
-   * @param array $request The request object that contains all of the information used to delete the user.
+   * @param array $request The request object that contains all the information used to delete the user.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1326,7 +1326,7 @@ class FusionAuthClient
    * with the user.
    *
    * @param string $userId The Id of the user to delete (required).
-   * @param array $request The request object that contains all of the information used to delete the user.
+   * @param array $request The request object that contains all the information used to delete the user.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1623,7 +1623,7 @@ class FusionAuthClient
    * Generate a new RSA or EC key pair or an HMAC secret.
    *
    * @param string $keyId (Optional) The Id for the key. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the key.
+   * @param array $request The request object that contains all the information used to create the key.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1729,7 +1729,7 @@ class FusionAuthClient
    * Import an existing RSA or EC key pair or an HMAC secret.
    *
    * @param string $keyId (Optional) The Id for the key. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all of the information used to create the key.
+   * @param array $request The request object that contains all the information used to create the key.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1904,7 +1904,7 @@ class FusionAuthClient
    * The Logout API is intended to be used to remove the refresh token and access token cookies if they exist on the
    * client and revoke the refresh token stored. This API takes the refresh token in the JSON body.
    *
-   * @param array $request The request object that contains all of the information used to logout the user.
+   * @param array $request The request object that contains all the information used to logout the user.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4533,7 +4533,7 @@ class FusionAuthClient
   /**
    * Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
    *
-   * @param array $request The request object that contains all of the information used to send the code.
+   * @param array $request The request object that contains all the information used to send the code.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4550,7 +4550,7 @@ class FusionAuthClient
   /**
    * Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
    *
-   * @param array $request The request object that contains all of the information used to send the code.
+   * @param array $request The request object that contains all the information used to send the code.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4673,7 +4673,7 @@ class FusionAuthClient
    * Updates an API key by given id
    *
    * @param string $apiKeyId The Id of the API key to update.
-   * @param array $request The request object that contains all of the information used to create the API Key.
+   * @param array $request The request object that contains all the information used to create the API Key.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -5179,7 +5179,7 @@ class FusionAuthClient
    * Creates or updates an Entity Grant. This is when a User/Entity is granted permissions to an Entity.
    *
    * @param string $entityId The Id of the Entity that the User/Entity is being granted access to.
-   * @param array $request The request object that contains all of the information used to create the Entity Grant.
+   * @param array $request The request object that contains all the information used to create the Entity Grant.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
