@@ -2670,7 +2670,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the actions for the user with the given Id. This will return all time based actions that are active,
+   * Retrieves all the actions for the user with the given Id. This will return all time based actions that are active,
    * and inactive as well as non-time based actions.
    *
    * @param string $userId The Id of the user to fetch the actions for.
@@ -2687,7 +2687,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the actions for the user with the given Id that are currently preventing the User from logging in.
+   * Retrieves all the actions for the user with the given Id that are currently preventing the User from logging in.
    *
    * @param string $userId The Id of the user to fetch the actions for.
    *
@@ -2704,7 +2704,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the actions for the user with the given Id that are currently active.
+   * Retrieves all the actions for the user with the given Id that are currently active.
    * An active action means one that is time based and has not been canceled, and has not ended.
    *
    * @param string $userId The Id of the user to fetch the actions for.
@@ -2738,7 +2738,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the applications.
+   * Retrieves all the applications.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -2784,7 +2784,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the connectors.
+   * Retrieves all the connectors.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -2814,7 +2814,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the consent.
+   * Retrieves all the consent.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -2883,7 +2883,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the email templates.
+   * Retrieves all the email templates.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -2950,7 +2950,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the Entity Types.
+   * Retrieves all the Entity Types.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -2980,7 +2980,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the families that a user belongs to.
+   * Retrieves all the families that a user belongs to.
    *
    * @param string $userId The User's id
    *
@@ -2996,7 +2996,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the members of a family by the unique Family Id.
+   * Retrieves all the members of a family by the unique Family Id.
    *
    * @param string $familyId The unique Id of the Family.
    *
@@ -3044,7 +3044,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the forms fields
+   * Retrieves all the forms fields
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3058,7 +3058,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the forms.
+   * Retrieves all the forms.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3088,7 +3088,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the groups.
+   * Retrieves all the groups.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3152,7 +3152,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the identity providers.
+   * Retrieves all the identity providers.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3166,7 +3166,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the actions for the user with the given Id that are currently inactive.
+   * Retrieves all the actions for the user with the given Id that are currently inactive.
    * An inactive action means one that is time based and has been canceled or has expired, or is not time based.
    *
    * @param string $userId The Id of the user to fetch the actions for.
@@ -3184,7 +3184,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the applications that are currently inactive.
+   * Retrieves all the applications that are currently inactive.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3199,7 +3199,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the user actions that are currently inactive.
+   * Retrieves all the user actions that are currently inactive.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3304,7 +3304,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the keys.
+   * Retrieves all the keys.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3334,7 +3334,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the lambdas.
+   * Retrieves all the lambdas.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3348,7 +3348,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the lambdas for the provided type.
+   * Retrieves all the lambdas for the provided type.
    *
    * @param array $type The type of the lambda to return.
    *
@@ -3417,7 +3417,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the message templates.
+   * Retrieves all the message templates.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3447,7 +3447,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the messengers.
+   * Retrieves all the messengers.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3548,7 +3548,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the children for the given parent email address.
+   * Retrieves all the children for the given parent email address.
    *
    * @param string $parentEmail The email of the parent.
    *
@@ -3726,7 +3726,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the tenants.
+   * Retrieves all the tenants.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3756,7 +3756,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the themes.
+   * Retrieves all the themes.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3865,7 +3865,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the user actions.
+   * Retrieves all the user actions.
    *
    *
    * @return ClientResponse The ClientResponse.
@@ -3961,7 +3961,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the comments for the user with the given Id.
+   * Retrieves all the comments for the user with the given Id.
    *
    * @param string $userId The Id of the user.
    *
@@ -3993,7 +3993,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves all of the consents for a User.
+   * Retrieves all the consents for a User.
    *
    * @param string $userId The User's Id
    *
@@ -4437,6 +4437,22 @@ class FusionAuthClient
   public function searchEventLogs($request)
   {
     return $this->start()->uri("/api/system/event-log/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches group members with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchGroupMembers($request)
+  {
+    return $this->start()->uri("/api/group/member/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4949,6 +4965,22 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/group")
         ->urlSegment($groupId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Creates a member in a group.
+   *
+   * @param array $request The request object that contains all the information used to create the group member(s).
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateGroupMembers($request)
+  {
+    return $this->start()->uri("/api/group/member")
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
