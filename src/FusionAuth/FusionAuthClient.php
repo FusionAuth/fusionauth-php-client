@@ -5390,6 +5390,24 @@ class FusionAuthClient
   }
 
   /**
+   * Administratively verify a user's email address. Use this method to bypass email verification for the user.
+   * 
+   * The request body will contain the userId to be verified. An API key is required when sending the userId in the request body.
+   *
+   * @param array $request The request that contains the userId to verify.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function verifyEmailAddressByUserId($request)
+  {
+    return $this->start()->uri("/api/user/verify-email")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Confirms an application registration. The Id given is usually from an email sent to the user.
    *
    * @param string $verificationId The registration verification Id sent to the user.
