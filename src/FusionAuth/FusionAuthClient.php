@@ -4501,6 +4501,22 @@ class FusionAuthClient
   }
 
   /**
+   * Searches groups with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchGroups($request)
+  {
+    return $this->start()->uri("/api/group/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches the IP Access Control Lists with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
