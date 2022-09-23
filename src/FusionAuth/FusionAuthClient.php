@@ -1901,6 +1901,22 @@ class FusionAuthClient
   }
 
   /**
+   * Import a WebAuthn credential
+   *
+   * @param array $request An object containing data necessary for importing the credential
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function importWebAuthnCredential($request)
+  {
+    return $this->start()->uri("/api/webauthn/import")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Inspect an access token issued by FusionAuth.
    *
    * @param string $client_id The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
