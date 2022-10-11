@@ -254,7 +254,23 @@ class FusionAuthClient
   }
 
   /**
-   * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge
+   * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
+   *
+   * @param array $request An object containing data necessary for completing the authentication ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeWebAuthnAssertion($request)
+  {
+    return $this->startAnonymous()->uri("/api/webauthn/assertion")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge and then login the user in
    *
    * @param array $request An object containing data necessary for completing the authentication ceremony
    *
