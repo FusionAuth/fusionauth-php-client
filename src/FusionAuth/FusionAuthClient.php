@@ -238,6 +238,30 @@ class FusionAuthClient
   }
 
   /**
+   * Make a Client Credentials grant request to obtain an access token.
+   *
+   * @param string $client_id The client identifier. The client Id is the Id of the FusionAuth Entity in which you you are attempting to authenticate.
+   * @param string $client_secret The client secret used to authenticate this request.
+   * @param string $scope (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:<target-entity-id>:<roles>. Roles are an optional comma separated list.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function clientCredentialsGrant($client_id, $client_secret, $scope = NULL)
+  {
+    $post_data = array(
+      'client_id' => $client_id,
+      'client_secret' => $client_secret,
+      'grant_type' => 'client_credentials',
+      'scope' => $scope
+    );
+    return $this->startAnonymous()->uri("/oauth2/token")
+        ->bodyHandler(new FormDataBodyHandler($post_data))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Adds a comment to the user's account.
    *
    * @param array $request The request object that contains all the information used to create the user comment.
