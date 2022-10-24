@@ -287,7 +287,7 @@ class FusionAuthClient
    */
   public function completeWebAuthnAssertion($request)
   {
-    return $this->startAnonymous()->uri("/api/webauthn/assertion")
+    return $this->startAnonymous()->uri("/api/webauthn/assert")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -319,7 +319,7 @@ class FusionAuthClient
    */
   public function completeWebAuthnRegistration($request)
   {
-    return $this->start()->uri("/api/webauthn/complete")
+    return $this->start()->uri("/api/webauthn/register/complete")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4952,7 +4952,7 @@ class FusionAuthClient
    */
   public function startWebAuthnRegistration($request)
   {
-    return $this->start()->uri("/api/webauthn/register")
+    return $this->start()->uri("/api/webauthn/register/start")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
