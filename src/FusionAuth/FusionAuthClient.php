@@ -238,6 +238,30 @@ class FusionAuthClient
   }
 
   /**
+   * Make a Client Credentials grant request to obtain an access token.
+   *
+   * @param string $client_id The client identifier. The client Id is the Id of the FusionAuth Entity in which you are attempting to authenticate.
+   * @param string $client_secret The client secret used to authenticate this request.
+   * @param string $scope (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:&lt;target-entity-id&gt;:&lt;roles&gt;. Roles are an optional comma separated list.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function clientCredentialsGrant($client_id, $client_secret, $scope = NULL)
+  {
+    $post_data = array(
+      'client_id' => $client_id,
+      'client_secret' => $client_secret,
+      'grant_type' => 'client_credentials',
+      'scope' => $scope
+    );
+    return $this->startAnonymous()->uri("/oauth2/token")
+        ->bodyHandler(new FormDataBodyHandler($post_data))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Adds a comment to the user's account.
    *
    * @param array $request The request object that contains all the information used to create the user comment.
@@ -248,6 +272,54 @@ class FusionAuthClient
   public function commentOnUser($request)
   {
     return $this->start()->uri("/api/user/comment")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
+   *
+   * @param array $request An object containing data necessary for completing the authentication ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeWebAuthnAssertion($request)
+  {
+    return $this->startAnonymous()->uri("/api/webauthn/assert")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge and then login the user in
+   *
+   * @param array $request An object containing data necessary for completing the authentication ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeWebAuthnLogin($request)
+  {
+    return $this->startAnonymous()->uri("/api/webauthn/login")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
+   *
+   * @param array $request An object containing data necessary for completing the registration ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeWebAuthnRegistration($request)
+  {
+    return $this->start()->uri("/api/webauthn/register/complete")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1445,6 +1517,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the WebAuthn credential for the given Id.
+   *
+   * @param string $id The Id of the WebAuthn credential to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteWebAuthnCredential($id)
+  {
+    return $this->start()->uri("/api/webauthn")
+        ->urlSegment($id)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the webhook for the given Id.
    *
    * @param string $webhookId The Id of the webhook to delete.
@@ -1847,6 +1935,22 @@ class FusionAuthClient
   public function importUsers($request)
   {
     return $this->start()->uri("/api/user/import")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Import a WebAuthn credential
+   *
+   * @param array $request An object containing data necessary for importing the credential
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function importWebAuthnCredential($request)
+  {
+    return $this->start()->uri("/api/webauthn/import")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4201,6 +4305,38 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the WebAuthn credential for the given Id.
+   *
+   * @param string $id The Id of the WebAuthn credential.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebAuthnCredential($id)
+  {
+    return $this->start()->uri("/api/webauthn")
+        ->urlSegment($id)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all WebAuthn credentials for the given user.
+   *
+   * @param string $userId The user's ID.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebAuthnCredentialsForUser($userId)
+  {
+    return $this->start()->uri("/api/webauthn")
+        ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
    *
    * @param string $webhookId (Optional) The Id of the webhook.
@@ -4785,6 +4921,38 @@ class FusionAuthClient
   public function startTwoFactorLogin($request)
   {
     return $this->start()->uri("/api/two-factor/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Start a WebAuthn authentication ceremony by generating a new challenge for the user
+   *
+   * @param array $request An object containing data necessary for starting the authentication ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startWebAuthnLogin($request)
+  {
+    return $this->start()->uri("/api/webauthn/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Start a WebAuthn registration ceremony by generating a new challenge for the user
+   *
+   * @param array $request An object containing data necessary for starting the registration ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startWebAuthnRegistration($request)
+  {
+    return $this->start()->uri("/api/webauthn/register/start")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
