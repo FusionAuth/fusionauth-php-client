@@ -1549,11 +1549,11 @@ class FusionAuthClient
   }
 
   /**
-   * Disable Two Factor authentication for a user.
+   * Disable two-factor authentication for a user.
    *
-   * @param string $userId The Id of the User for which you're disabling Two Factor authentication.
+   * @param string $userId The Id of the User for which you're disabling two-factor authentication.
    * @param string $methodId The two-factor method identifier you wish to disable
-   * @param string $code The Two Factor code used verify the the caller knows the Two Factor secret.
+   * @param string $code The two-factor code used verify the the caller knows the two-factor secret.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1569,9 +1569,9 @@ class FusionAuthClient
   }
 
   /**
-   * Disable Two Factor authentication for a user using a JSON body rather than URL parameters.
+   * Disable two-factor authentication for a user using a JSON body rather than URL parameters.
    *
-   * @param string $userId The Id of the User for which you're disabling Two Factor authentication.
+   * @param string $userId The Id of the User for which you're disabling two-factor authentication.
    * @param array $request The request information that contains the code and methodId along with any event information.
    *
    * @return ClientResponse The ClientResponse.
@@ -1587,10 +1587,10 @@ class FusionAuthClient
   }
 
   /**
-   * Enable Two Factor authentication for a user.
+   * Enable two-factor authentication for a user.
    *
-   * @param string $userId The Id of the user to enable Two Factor authentication.
-   * @param array $request The two factor enable request information.
+   * @param string $userId The Id of the user to enable two-factor authentication.
+   * @param array $request The two-factor enable request information.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1609,7 +1609,7 @@ class FusionAuthClient
    * Makes a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint for an access token.
    *
    * @param string $code The authorization code returned on the /oauth2/authorize response.
-   * @param string $client_id The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate.
+   * @param string $client_id The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate.
    * @param string $client_secret (Optional) The client secret. This value will be required if client authentication is enabled.
    * @param string $redirect_uri The URI to redirect to upon a successful request.
    *
@@ -1636,7 +1636,7 @@ class FusionAuthClient
    * Makes a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint and a code_verifier for an access token.
    *
    * @param string $code The authorization code returned on the /oauth2/authorize response.
-   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
    * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
    * @param string $redirect_uri The URI to redirect to upon a successful request.
    * @param string $code_verifier The random string generated previously. Will be compared with the code_challenge sent previously, which allows the OAuth provider to authenticate your app.
@@ -1665,7 +1665,7 @@ class FusionAuthClient
    * If you will be using the Refresh Token Grant, you will make a request to the Token endpoint to exchange the user’s refresh token for an access token.
    *
    * @param string $refresh_token The refresh token that you would like to use to exchange for an access token.
-   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
    * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
    * @param string $scope (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
    * @param string $user_code (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
@@ -1711,7 +1711,7 @@ class FusionAuthClient
    *
    * @param string $username The login identifier of the user. The login identifier can be either the email or the username.
    * @param string $password The user’s password.
-   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+   * @param string $client_id (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
    * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
    * @param string $scope (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
    * @param string $user_code (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
