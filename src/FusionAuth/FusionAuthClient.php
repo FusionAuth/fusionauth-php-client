@@ -4525,6 +4525,22 @@ class FusionAuthClient
   }
 
   /**
+   * Searches applications with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchApplications($request)
+  {
+    return $this->start()->uri("/api/application/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches the audit logs with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -4535,6 +4551,38 @@ class FusionAuthClient
   public function searchAuditLogs($request)
   {
     return $this->start()->uri("/api/system/audit-log/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches consents with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchConsents($request)
+  {
+    return $this->start()->uri("/api/consent/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches email templates with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEmailTemplates($request)
+  {
+    return $this->start()->uri("/api/email/template/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4669,6 +4717,54 @@ class FusionAuthClient
   }
 
   /**
+   * Searches identity providers with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchIdentityProviders($request)
+  {
+    return $this->start()->uri("/api/identity-provider/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches keys with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchKeys($request)
+  {
+    return $this->start()->uri("/api/key/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches lambdas with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchLambdas($request)
+  {
+    return $this->start()->uri("/api/lambda/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches the login records with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -4679,6 +4775,54 @@ class FusionAuthClient
   public function searchLoginRecords($request)
   {
     return $this->start()->uri("/api/system/login-record/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches tenants with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchTenants($request)
+  {
+    return $this->start()->uri("/api/tenant/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches themes with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchThemes($request)
+  {
+    return $this->start()->uri("/api/theme/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches user comments with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchUserComments($request)
+  {
+    return $this->start()->uri("/api/user/comment/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -4747,6 +4891,22 @@ class FusionAuthClient
   public function searchUsersByQueryString($request)
   {
     return $this->start()->uri("/api/user/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches webhooks with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchWebhooks($request)
+  {
+    return $this->start()->uri("/api/webhook/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
