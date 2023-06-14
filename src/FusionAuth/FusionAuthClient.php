@@ -2016,7 +2016,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function introspectAccessToken($token)
+  public function introspectClientCredentialsAccessToken($token)
   {
     $post_data = array(
       'token' => $token
