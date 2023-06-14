@@ -4211,7 +4211,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserCode($user_code)
+  public function retrieveUserCodeUsingAPIKey($user_code)
   {
     $post_data = array(
       'user_code' => $user_code
