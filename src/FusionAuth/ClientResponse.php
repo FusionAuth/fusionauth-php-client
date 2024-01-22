@@ -1,4 +1,5 @@
 <?php
+
 namespace FusionAuth;
 
 /*
@@ -19,25 +20,24 @@ namespace FusionAuth;
 
 class ClientResponse
 {
-  public $errorResponse;
+    public $errorResponse;
 
-  public $exception;
+    public $exception;
 
-  public $method;
+    public $method;
 
-  public $request;
+    public $request;
 
-  public $successResponse;
+    public $successResponse;
 
-  public $status;
+    public $status;
 
-  public function wasSuccessful()
-  {
-    return $this->status >= 200 && $this->status <= 299 && $this->exception == null;
-  }
+    public function wasSuccessful()
+    {
+        return $this->status >= 200 && $this->status <= 299 && $this->exception == null;
+    }
 
-  public function __construct()
-  {
-  }
-
+    public function __construct()
+    {
+    }
 }
