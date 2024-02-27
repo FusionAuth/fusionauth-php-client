@@ -15,6 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up FusionAuth
+      working-directory: .github/fusionauth
+      run: docker compose up -d
+
     - name: Validate composer.json and composer.lock
       run: composer validate
 
@@ -27,13 +31,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Set up FusionAuth
-      working-directory: .github/fusionauth
-      run: docker compose up -d
-
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
+    - name: Waiting for FusionAuth App
+      run: timeout 30 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9011)" != "200" ]]; do sleep 5; done' || false
+
     - name: Run test suite
       run: composer run test
-
