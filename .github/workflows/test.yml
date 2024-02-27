@@ -28,7 +28,8 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Set up FusionAuth
-      run: docker compose up --project-directory .github/fusionauth -d
+      working-directory: .github/fusionauth
+      run: docker compose up -d
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
