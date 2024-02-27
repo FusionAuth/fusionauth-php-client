@@ -27,6 +27,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
+    - name: Set up FusionAuth
+      run: docker compose up --project-directory .github/fusionauth -d
+
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
