@@ -14,7 +14,7 @@ The most preferred way to use the client library is to install the [`fusionauth/
 composer require fusionauth/fusionauth-client
 ```
 
-Then, include the autoloader in your PHP files.
+Then, include the `composer` autoloader in your PHP files.
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
@@ -24,7 +24,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 If you have a question or support issue regarding this client library, we'd love to hear from you.
 
-If you have a paid edition with support included, please [open a ticket in your account portal](https://account.fusionauth.io/account/support/). Learn more about [paid editions here](https://fusionauth.io/pricing).
+If you have a paid plan with support included, please [open a ticket in your account portal](https://account.fusionauth.io/account/support/). Learn more about [paid plan here](https://fusionauth.io/pricing).
 
 Otherwise, please [post your question in the community forum](https://fusionauth.io/community/forum/).
 
