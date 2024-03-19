@@ -21,4 +21,8 @@
             <directory>src</directory>
         </include>
     </source>
+
+    <php>
+        <env name="FUSIONAUTH_API_KEY" value="72a8c464b86c3c9098c33da73f471b8a0352f6e14087ddc3" force="true" />
+    </php>
 </phpunit>

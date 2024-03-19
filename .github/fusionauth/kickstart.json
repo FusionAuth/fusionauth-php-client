@@ -1,0 +1,46 @@
+{
+  "variables": {
+    "applicationid": "e9fdb985-9173-4e01-9d73-ac2d60d1dc8e",
+    "apiKey": "72a8c464b86c3c9098c33da73f471b8a0352f6e14087ddc3",
+    "asymmetricKeyId": "#{UUID()}",
+    "defaultTenantId": "d7d09513-a3f5-401c-9685-34ab6c552453",
+    "adminEmail": "admin@example.com",
+    "adminPassword": "password"
+  },
+  "apiKeys": [
+    {
+      "key": "#{apiKey}",
+      "description": "Unrestricted API key"
+    }
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "url": "/api/key/generate/#{asymmetricKeyId}",
+      "tenantId": "#{defaultTenantId}",
+      "body": {
+        "key": {
+          "algorithm": "RS256",
+          "name": "For GitHub Actions",
+          "length": 2048
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration",
+      "body": {
+        "user": {
+          "email": "#{adminEmail}",
+          "password": "#{adminPassword}"
+        },
+        "registration": {
+          "applicationId": "#{FUSIONAUTH_APPLICATION_ID}",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    }
+  ]
+}
