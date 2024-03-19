@@ -1,8 +1,6 @@
-build/
 *.iws
 **/.DS_Store
-**/node_modules
-package-lock.json
 /vendor
-/composer.lock
 .savant/cache
+.phpunit.cache
+.phpdoc/cache

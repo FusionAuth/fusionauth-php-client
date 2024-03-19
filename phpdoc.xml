@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+        configVersion="3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://www.phpdoc.org"
+>
+    <title>FusionAuth PHP Client</title>
+    <paths>
+        <output>docs/</output>
+    </paths>
+    <version number="1.49.0">
+        <api>
+            <source dsn=".">
+                <path>src</path>
+                <path>tests</path>
+            </source>
+        </api>
+    </version>
+    <setting name="template.color" value="amber"/>
+</phpdocumentor>
