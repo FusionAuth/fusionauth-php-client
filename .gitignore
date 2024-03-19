@@ -3,3 +3,4 @@
 /vendor
 .savant/cache
 .phpunit.cache
+.phpdoc/cache
