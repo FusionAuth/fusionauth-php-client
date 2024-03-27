@@ -72,7 +72,7 @@ class FusionAuthClient
    * "actioner". Both user ids are required in the request object.
    *
    * @param array $request The action request that includes all the information about the action being taken including
-  *     the id of the action, any options and the duration (if applicable).
+  *     the Id of the action, any options and the duration (if applicable).
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -86,7 +86,7 @@ class FusionAuthClient
   }
 
   /**
-   * Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
+   * Activates the FusionAuth Reactor using a license Id and optionally a license text (for air-gapped deployments)
    *
    * @param array $request An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
    *
@@ -102,9 +102,9 @@ class FusionAuthClient
   }
 
   /**
-   * Adds a user to an existing family. The family id must be specified.
+   * Adds a user to an existing family. The family Id must be specified.
    *
-   * @param string $familyId The id of the family.
+   * @param string $familyId The Id of the family.
    * @param array $request The request object that contains all the information used to determine which user to add to the family.
    *
    * @return ClientResponse The ClientResponse.
@@ -147,7 +147,7 @@ class FusionAuthClient
   /**
    * Cancels the user action.
    *
-   * @param string $actionId The action id of the action to cancel.
+   * @param string $actionId The action Id of the action to cancel.
    * @param array $request The action request that contains the information about the cancellation.
    *
    * @return ClientResponse The ClientResponse.
@@ -185,7 +185,7 @@ class FusionAuthClient
   }
 
   /**
-   * Changes a user's password using their identity (login id and password). Using a loginId instead of the changePasswordId
+   * Changes a user's password using their identity (loginId and password). Using a loginId instead of the changePasswordId
    * bypasses the email verification and allows a password to be changed directly without first calling the #forgotPassword
    * method.
    *
@@ -393,7 +393,7 @@ class FusionAuthClient
   }
 
   /**
-   * Creates a new role for an application. You must specify the id of the application you are creating the role for.
+   * Creates a new role for an application. You must specify the Id of the application you are creating the role for.
    * You can optionally specify an Id for the role inside the ApplicationRole object itself, if not provided one will be generated.
    *
    * @param string $applicationId The Id of the application to create the role on.
@@ -523,7 +523,7 @@ class FusionAuthClient
   }
 
   /**
-   * Creates a new permission for an entity type. You must specify the id of the entity type you are creating the permission for.
+   * Creates a new permission for an entity type. You must specify the Id of the entity type you are creating the permission for.
    * You can optionally specify an Id for the permission inside the EntityTypePermission object itself, if not provided one will be generated.
    *
    * @param string $entityTypeId The Id of the entity type to create the permission on.
@@ -545,10 +545,10 @@ class FusionAuthClient
   }
 
   /**
-   * Creates a family with the user id in the request as the owner and sole member of the family. You can optionally specify an id for the
+   * Creates a family with the user Id in the request as the owner and sole member of the family. You can optionally specify an Id for the
    * family, if not provided one will be generated.
    *
-   * @param string $familyId (Optional) The id for the family. If not provided a secure random UUID will be generated.
+   * @param string $familyId (Optional) The Id for the family. If not provided a secure random UUID will be generated.
    * @param array $request The request object that contains all the information used to create the family.
    *
    * @return ClientResponse The ClientResponse.
@@ -718,6 +718,28 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/messenger")
         ->urlSegment($messengerId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a new custom OAuth scope for an application. You must specify the Id of the application you are creating the scope for.
+   * You can optionally specify an Id for the OAuth scope on the URL, if not provided one will be generated.
+   *
+   * @param string $applicationId The Id of the application to create the OAuth scope on.
+   * @param string $scopeId (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all the information used to create the OAuth OAuth scope.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createOAuthScope($applicationId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -1006,7 +1028,7 @@ class FusionAuthClient
    * Hard deletes an application role. This is a dangerous operation and should not be used in most circumstances. This
    * permanently removes the given role from all users that had it.
    *
-   * @param string $applicationId The Id of the application to deactivate.
+   * @param string $applicationId The Id of the application that the role belongs to.
    * @param string $roleId The Id of the role to delete.
    *
    * @return ClientResponse The ClientResponse.
@@ -1299,6 +1321,26 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/messenger")
         ->urlSegment($messengerId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Hard deletes a custom OAuth scope. This action will cause tokens that contain the deleted scope to be rejected.
+   * OAuth workflows that are still requesting the deleted OAuth scope may fail depending on the application's unknown scope policy.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteOAuthScope($applicationId, $scopeId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->delete()
         ->go();
   }
@@ -2242,7 +2284,7 @@ class FusionAuthClient
   }
 
   /**
-   * Updates, via PATCH, the application role with the given id for the application.
+   * Updates, via PATCH, the application role with the given Id for the application.
    *
    * @param string $applicationId The Id of the application that the role belongs to.
    * @param string $roleId The Id of the role to update.
@@ -2441,7 +2483,28 @@ class FusionAuthClient
   }
 
   /**
-   * Updates, via PATCH, the registration for the user with the given id and the application defined in the request.
+   * Updates, via PATCH, the custom OAuth scope with the given Id for the application.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to update.
+   * @param array $request The request that contains just the new OAuth scope information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchOAuthScope($applicationId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the registration for the user with the given Id and the application defined in the request.
    *
    * @param string $userId The Id of the user whose registration is going to be updated.
    * @param array $request The request that contains just the new registration information.
@@ -2701,7 +2764,7 @@ class FusionAuthClient
    * Registers a user for an application. If you provide the User and the UserRegistration object on this request, it
    * will create the user as well as register them for the application. This is called a Full Registration. However, if
    * you only provide the UserRegistration object, then the user must already exist and they will be registered for the
-   * application. The user id can also be provided and it will either be used to look up an existing user or it will be
+   * application. The user Id can also be provided and it will either be used to look up an existing user or it will be
    * used for the newly created User.
    *
    * @param string $userId (Optional) The Id of the user being registered for the application and optionally created.
@@ -2742,8 +2805,8 @@ class FusionAuthClient
   /**
    * Removes a user from the family with the given id.
    *
-   * @param string $familyId The id of the family to remove the user from.
-   * @param string $userId The id of the user to remove from the family.
+   * @param string $familyId The Id of the family to remove the user from.
+   * @param string $userId The Id of the user to remove from the family.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -2895,7 +2958,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the application for the given id or all the applications if the id is null.
+   * Retrieves the application for the given Id or all the applications if the Id is null.
    *
    * @param string $applicationId (Optional) The application id.
    *
@@ -3291,7 +3354,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the identity provider for the given id or all the identity providers if the id is null.
+   * Retrieves the identity provider for the given Id or all the identity providers if the Id is null.
    *
    * @param string $identityProviderId The identity provider Id.
    *
@@ -3655,6 +3718,25 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves a custom OAuth scope.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveOAuthScope($applicationId, $scopeId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the Oauth2 configuration for the application for the given Application Id.
    *
    * @param string $applicationId The Id of the Application to retrieve OAuth configuration.
@@ -3833,7 +3915,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the user registration for the user with the given id and the given application id.
+   * Retrieves the user registration for the user with the given Id and the given application id.
    *
    * @param string $userId The Id of the user.
    * @param string $applicationId The Id of the application.
@@ -4509,8 +4591,8 @@ class FusionAuthClient
    *  - revokeRefreshTokensByUserIdForApplication
    *
    * @param string $token (Optional) The refresh token to delete.
-   * @param string $userId (Optional) The user id whose tokens to delete.
-   * @param string $applicationId (Optional) The application id of the tokens to delete.
+   * @param string $userId (Optional) The user Id whose tokens to delete.
+   * @param string $applicationId (Optional) The application Id of the tokens to delete.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4721,7 +4803,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the entities for the given ids. If any id is invalid, it is ignored.
+   * Retrieves the entities for the given ids. If any Id is invalid, it is ignored.
    *
    * @param array $ids The entity ids to search for.
    *
@@ -4945,7 +5027,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the users for the given ids. If any id is invalid, it is ignored.
+   * Retrieves the users for the given ids. If any Id is invalid, it is ignored.
    *
    * @param array $ids The user ids to search for.
    *
@@ -4962,7 +5044,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the users for the given ids. If any id is invalid, it is ignored.
+   * Retrieves the users for the given ids. If any Id is invalid, it is ignored.
    *
    * @param array $ids The user ids to search for.
    *
@@ -5032,7 +5114,7 @@ class FusionAuthClient
    * Send an email using an email template id. You can optionally provide <code>requestData</code> to access key value
    * pairs in the email template.
    *
-   * @param string $emailTemplateId The id for the template.
+   * @param string $emailTemplateId The Id for the template.
    * @param array $request The send email request that contains all the information used to send the email.
    *
    * @return ClientResponse The ClientResponse.
@@ -5287,7 +5369,7 @@ class FusionAuthClient
   }
 
   /**
-   * Updates the application role with the given id for the application.
+   * Updates the application role with the given Id for the application.
    *
    * @param string $applicationId The Id of the application that the role belongs to.
    * @param string $roleId The Id of the role to update.
@@ -5398,7 +5480,7 @@ class FusionAuthClient
   }
 
   /**
-   * Updates the permission with the given id for the entity type.
+   * Updates the permission with the given Id for the entity type.
    *
    * @param string $entityTypeId The Id of the entityType that the permission belongs to.
    * @param string $permissionId The Id of the permission to update.
@@ -5613,7 +5695,28 @@ class FusionAuthClient
   }
 
   /**
-   * Updates the registration for the user with the given id and the application defined in the request.
+   * Updates the OAuth scope with the given Id for the application.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to update.
+   * @param array $request The request that contains all the new OAuth scope information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateOAuthScope($applicationId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the registration for the user with the given Id and the application defined in the request.
    *
    * @param string $userId The Id of the user whose registration is going to be updated.
    * @param array $request The request that contains all the new registration information.
@@ -5856,7 +5959,7 @@ class FusionAuthClient
   /**
    * Confirms a email verification. The Id given is usually from an email sent to the user.
    *
-   * @param string $verificationId The email verification id sent to the user.
+   * @param string $verificationId The email verification Id sent to the user.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
