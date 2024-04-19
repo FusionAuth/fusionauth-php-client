@@ -236,6 +236,11 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020messenger.\u0020\u0020You\u0020can\u0020optionally\u0020specify\u0020an\u0020Id\u0020for\u0020the\u0020messenger,\u0020if\u0020not\u0020provided\u0020one\u0020will\u0020be\u0020generated.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_createMessenger"
         },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AcreateOAuthScope\u0028\u0029",
+            "name": "createOAuthScope",
+            "summary": "Creates\u0020a\u0020new\u0020custom\u0020OAuth\u0020scope\u0020for\u0020an\u0020application.\u0020You\u0020must\u0020specify\u0020the\u0020Id\u0020of\u0020the\u0020application\u0020you\u0020are\u0020creating\u0020the\u0020scope\u0020for.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_createOAuthScope"
+        },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AcreateTenant\u0028\u0029",
             "name": "createTenant",
             "summary": "Creates\u0020a\u0020tenant.\u0020You\u0020can\u0020optionally\u0020specify\u0020an\u0020Id\u0020for\u0020the\u0020tenant,\u0020if\u0020not\u0020provided\u0020one\u0020will\u0020be\u0020generated.",
@@ -405,6 +410,11 @@ Search.appendIndex(
             "name": "deleteMessenger",
             "summary": "Deletes\u0020the\u0020messenger\u0020for\u0020the\u0020given\u0020Id.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_deleteMessenger"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AdeleteOAuthScope\u0028\u0029",
+            "name": "deleteOAuthScope",
+            "summary": "Hard\u0020deletes\u0020a\u0020custom\u0020OAuth\u0020scope.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_deleteOAuthScope"
         },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AdeleteRegistration\u0028\u0029",
             "name": "deleteRegistration",
@@ -700,6 +710,11 @@ Search.appendIndex(
             "name": "patchMessenger",
             "summary": "Updates,\u0020via\u0020PATCH,\u0020the\u0020messenger\u0020with\u0020the\u0020given\u0020Id.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_patchMessenger"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003ApatchOAuthScope\u0028\u0029",
+            "name": "patchOAuthScope",
+            "summary": "Updates,\u0020via\u0020PATCH,\u0020the\u0020custom\u0020OAuth\u0020scope\u0020with\u0020the\u0020given\u0020Id\u0020for\u0020the\u0020application.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_patchOAuthScope"
         },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003ApatchRegistration\u0028\u0029",
             "name": "patchRegistration",
@@ -1070,6 +1085,11 @@ Search.appendIndex(
             "name": "retrieveMonthlyActiveReport",
             "summary": "Retrieves\u0020the\u0020monthly\u0020active\u0020user\u0020report\u0020between\u0020the\u0020two\u0020instants.\u0020If\u0020you\u0020specify\u0020an\u0020application\u0020id,\u0020it\u0020will\u0020only\nreturn\u0020the\u0020monthly\u0020active\u0020counts\u0020for\u0020that\u0020application.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveMonthlyActiveReport"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveOAuthScope\u0028\u0029",
+            "name": "retrieveOAuthScope",
+            "summary": "Retrieves\u0020a\u0020custom\u0020OAuth\u0020scope.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveOAuthScope"
         },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveOauthConfiguration\u0028\u0029",
             "name": "retrieveOauthConfiguration",
@@ -1640,6 +1660,11 @@ Search.appendIndex(
             "name": "updateMessenger",
             "summary": "Updates\u0020the\u0020messenger\u0020with\u0020the\u0020given\u0020Id.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_updateMessenger"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AupdateOAuthScope\u0028\u0029",
+            "name": "updateOAuthScope",
+            "summary": "Updates\u0020the\u0020OAuth\u0020scope\u0020with\u0020the\u0020given\u0020Id\u0020for\u0020the\u0020application.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_updateOAuthScope"
         },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AupdateRegistration\u0028\u0029",
             "name": "updateRegistration",
