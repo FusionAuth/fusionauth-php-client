@@ -724,6 +724,28 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a new custom OAuth scope for an application. You must specify the Id of the application you are creating the scope for.
+   * You can optionally specify an Id for the OAuth scope on the URL, if not provided one will be generated.
+   *
+   * @param string $applicationId The Id of the application to create the OAuth scope on.
+   * @param string $scopeId (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all the information used to create the OAuth OAuth scope.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createOAuthScope($applicationId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
    *
    * @param string $tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -1006,7 +1028,7 @@ class FusionAuthClient
    * Hard deletes an application role. This is a dangerous operation and should not be used in most circumstances. This
    * permanently removes the given role from all users that had it.
    *
-   * @param string $applicationId The Id of the application to deactivate.
+   * @param string $applicationId The Id of the application that the role belongs to.
    * @param string $roleId The Id of the role to delete.
    *
    * @return ClientResponse The ClientResponse.
@@ -1299,6 +1321,26 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/messenger")
         ->urlSegment($messengerId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Hard deletes a custom OAuth scope.
+   * OAuth workflows that are still requesting the deleted OAuth scope may fail depending on the application's unknown scope policy.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteOAuthScope($applicationId, $scopeId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->delete()
         ->go();
   }
@@ -2435,6 +2477,27 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/messenger")
         ->urlSegment($messengerId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the custom OAuth scope with the given Id for the application.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to update.
+   * @param array $request The request that contains just the new OAuth scope information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchOAuthScope($applicationId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->patch()
         ->go();
@@ -3650,6 +3713,25 @@ class FusionAuthClient
         ->urlParameter("applicationId", $applicationId)
         ->urlParameter("start", $start)
         ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves a custom OAuth scope.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveOAuthScope($applicationId, $scopeId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->get()
         ->go();
   }
@@ -5607,6 +5689,27 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/messenger")
         ->urlSegment($messengerId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the OAuth scope with the given Id for the application.
+   *
+   * @param string $applicationId The Id of the application that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to update.
+   * @param array $request The request that contains all the new OAuth scope information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateOAuthScope($applicationId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
