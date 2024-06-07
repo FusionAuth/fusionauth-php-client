@@ -1,7 +1,6 @@
 {
   "name": "fusionauth/fusionauth-client",
   "type": "library",
-  "version": "2.0.0",
   "description": "FusionAuth Client written in PHP",
   "keywords": ["rest","api", "fusionauth"],
   "homepage": "https://github.com/FusionAuth/fusionauth-php-client",
