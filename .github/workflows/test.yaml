@@ -23,7 +23,9 @@ jobs:
       run: docker compose up -d
 
     - name: Validate composer.json and composer.lock
-      run: composer validate
+      run: |
+        composer update
+        composer validate
 
     - name: Cache Composer packages
       id: composer-cache
