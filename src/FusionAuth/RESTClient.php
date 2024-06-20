@@ -251,6 +251,10 @@ class RESTClient
 
             $result = curl_exec($curl);
 
+            if (curl_errno($curl)) {
+                throw new \Exception(curl_error($curl), curl_errno($curl));
+            }
+
             $response->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if ($response->status < 200 || $response->status > 299) {
                 if ($result) {
