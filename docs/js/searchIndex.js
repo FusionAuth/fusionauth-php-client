@@ -1166,6 +1166,21 @@ Search.appendIndex(
             "summary": "Retrieves\u0020the\u0020system\u0020configuration.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveSystemConfiguration"
         },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveSystemHealth\u0028\u0029",
+            "name": "retrieveSystemHealth",
+            "summary": "Retrieves\u0020the\u0020FusionAuth\u0020system\u0020health.\u0020This\u0020API\u0020will\u0020return\u0020200\u0020if\u0020the\u0020system\u0020is\u0020healthy,\u0020and\u0020500\u0020if\u0020the\u0020system\u0020is\u0020un\u002Dhealthy.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveSystemHealth"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveSystemStatus\u0028\u0029",
+            "name": "retrieveSystemStatus",
+            "summary": "Retrieves\u0020the\u0020FusionAuth\u0020system\u0020status.\u0020This\u0020request\u0020is\u0020anonymous\u0020and\u0020does\u0020not\u0020require\u0020an\u0020API\u0020key.\u0020When\u0020an\u0020API\u0020key\u0020is\u0020not\u0020provided\u0020the\u0020response\u0020will\u0020contain\u0020a\u0020single\u0020value\u0020in\u0020the\u0020JSON\u0020response\u0020indicating\u0020the\u0020current\u0020health\u0020check.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveSystemStatus"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveSystemStatusUsingAPIKey\u0028\u0029",
+            "name": "retrieveSystemStatusUsingAPIKey",
+            "summary": "Retrieves\u0020the\u0020FusionAuth\u0020system\u0020status\u0020using\u0020an\u0020API\u0020key.\u0020Using\u0020an\u0020API\u0020key\u0020will\u0020cause\u0020the\u0020response\u0020to\u0020include\u0020the\u0020product\u0020version,\u0020health\u0020checks\u0020and\u0020various\u0020runtime\u0020metrics.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveSystemStatusUsingAPIKey"
+        },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveTenant\u0028\u0029",
             "name": "retrieveTenant",
             "summary": "Retrieves\u0020the\u0020tenant\u0020for\u0020the\u0020given\u0020Id.",
