@@ -3983,6 +3983,48 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the FusionAuth system health. This API will return 200 if the system is healthy, and 500 if the system is un-healthy.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveSystemHealth()
+  {
+    return $this->startAnonymous()->uri("/api/health")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the FusionAuth system status. This request is anonymous and does not require an API key. When an API key is not provided the response will contain a single value in the JSON response indicating the current health check.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveSystemStatus()
+  {
+    return $this->startAnonymous()->uri("/api/status")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the FusionAuth system status using an API key. Using an API key will cause the response to include the product version, health checks and various runtime metrics.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveSystemStatusUsingAPIKey()
+  {
+    return $this->start()->uri("/api/status")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the tenant for the given Id.
    *
    * @param string $tenantId The Id of the tenant.
