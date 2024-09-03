@@ -4593,6 +4593,38 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves a single webhook attempt log for the given Id.
+   *
+   * @param string $webhookAttemptLogId The Id of the webhook attempt log to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebhookAttemptLog($webhookAttemptLogId)
+  {
+    return $this->start()->uri("/api/system/webhook-attempt-log")
+        ->urlSegment($webhookAttemptLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves a single webhook event log for the given Id.
+   *
+   * @param string $webhookEventLogId The Id of the webhook event log to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebhookEventLog($webhookEventLogId)
+  {
+    return $this->start()->uri("/api/system/webhook-event-log")
+        ->urlSegment($webhookEventLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves all the webhooks.
    *
    *
@@ -5131,6 +5163,22 @@ class FusionAuthClient
   public function searchUsersByQueryString($request)
   {
     return $this->start()->uri("/api/user/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches the webhook event logs with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchWebhookEventLogs($request)
+  {
+    return $this->start()->uri("/api/system/webhook-event-log/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
