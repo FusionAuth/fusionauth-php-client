@@ -3983,6 +3983,48 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the FusionAuth system health. This API will return 200 if the system is healthy, and 500 if the system is un-healthy.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveSystemHealth()
+  {
+    return $this->startAnonymous()->uri("/api/health")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the FusionAuth system status. This request is anonymous and does not require an API key. When an API key is not provided the response will contain a single value in the JSON response indicating the current health check.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveSystemStatus()
+  {
+    return $this->startAnonymous()->uri("/api/status")
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the FusionAuth system status using an API key. Using an API key will cause the response to include the product version, health checks and various runtime metrics.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveSystemStatusUsingAPIKey()
+  {
+    return $this->start()->uri("/api/status")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the tenant for the given Id.
    *
    * @param string $tenantId The Id of the tenant.
@@ -4551,6 +4593,38 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves a single webhook attempt log for the given Id.
+   *
+   * @param string $webhookAttemptLogId The Id of the webhook attempt log to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebhookAttemptLog($webhookAttemptLogId)
+  {
+    return $this->start()->uri("/api/system/webhook-attempt-log")
+        ->urlSegment($webhookAttemptLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves a single webhook event log for the given Id.
+   *
+   * @param string $webhookEventLogId The Id of the webhook event log to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebhookEventLog($webhookEventLogId)
+  {
+    return $this->start()->uri("/api/system/webhook-event-log")
+        ->urlSegment($webhookEventLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves all the webhooks.
    *
    *
@@ -5089,6 +5163,22 @@ class FusionAuthClient
   public function searchUsersByQueryString($request)
   {
     return $this->start()->uri("/api/user/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches the webhook event logs with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchWebhookEventLogs($request)
+  {
+    return $this->start()->uri("/api/system/webhook-event-log/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();

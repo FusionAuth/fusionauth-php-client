@@ -126,6 +126,10 @@
     flex: 0 1 auto;
 }
 
+.phpdocumentor-table-of-contents .phpdocumentor-table-of-contents__entry > a.-deprecated {
+    text-decoration: line-through;
+}
+
 .phpdocumentor-table-of-contents .phpdocumentor-table-of-contents__entry > span {
     flex: 1;
     white-space: nowrap;
@@ -275,4 +279,7 @@
 }
 .phpdocumentor-title__link:hover {
   transform: none;
+}
+.phpdocumentor-uml-diagram svg {
+    cursor: zoom-in;
 }
