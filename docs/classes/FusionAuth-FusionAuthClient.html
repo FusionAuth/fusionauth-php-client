@@ -3018,6 +3018,7 @@ signed and not expired.</dd>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The action request that includes all the information about the action being taken including
+the Id of the action, any options and the duration (if applicable).
 the Id of the action, any options and the duration (if applicable).</p>
 </section>
 
@@ -3791,6 +3792,7 @@ your password, you must obtain a Trust Request Id by completing a Two-Factor Ste
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The client identifier. The client Id is the Id of the FusionAuth Entity in which you are attempting to authenticate.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -3801,6 +3803,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The client secret used to authenticate this request.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -9796,6 +9799,7 @@ with the user.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -9896,6 +9900,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -10005,6 +10010,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -10193,6 +10199,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -10794,6 +10801,7 @@ login systems.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The third-party login request that contains information from the third-party login
+providers that FusionAuth uses to reconcile the user's account.
 providers that FusionAuth uses to reconcile the user's account.</p>
 </section>
 
@@ -11342,6 +11350,7 @@ obtained a valid token from authentication.
                     <section class="phpdocumentor-description"><p>(Optional) An existing refresh token used to request a refresh token in addition to a JWT in the response.</p>
 <p>The target application represented by the applicationId request parameter must have refresh
 tokens enabled in order to receive a refresh token in the response.</p>
+tokens enabled in order to receive a refresh token in the response.</p>
 </section>
 
             </dd>
@@ -11505,6 +11514,7 @@ reporting.</p>
                  = <span class="phpdocumentor-signature__argument__default-value">NULL</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The IP address of the end-user that is logging in. If a null value is provided
+the IP address will be that of the client or last proxy that sent the request.
 the IP address will be that of the client or last proxy that sent the request.</p>
 </section>
 
@@ -11651,6 +11661,7 @@ token or refresh token cookies.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>When this value is set to true all the refresh tokens issued to the owner of the
+provided token will be revoked.
 provided token will be revoked.</p>
 </section>
 
@@ -11661,6 +11672,7 @@ provided token will be revoked.</p>
                  = <span class="phpdocumentor-signature__argument__default-value">NULL</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The refresh_token as a request parameter instead of coming in via a cookie.
+If provided this takes precedence over the cookie.
 If provided this takes precedence over the cookie.</p>
 </section>
 
@@ -24228,6 +24240,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
+and sortFields.
 and sortFields.</p>
 </section>
 
@@ -24306,6 +24319,7 @@ and sortFields.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
+and sortFields.
 and sortFields.</p>
 </section>
 
@@ -25040,6 +25054,7 @@ pairs in the email template.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The third-party login request that contains information from the third-party login
+providers that FusionAuth uses to reconcile the user's account.
 providers that FusionAuth uses to reconcile the user's account.</p>
 </section>
 
