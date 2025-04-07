@@ -1346,6 +1346,16 @@ Search.appendIndex(
             "summary": "Retrieves\u0020the\u0020webhook\u0020for\u0020the\u0020given\u0020Id.\u0020If\u0020you\u0020pass\u0020in\u0020null\u0020for\u0020the\u0020id,\u0020this\u0020will\u0020return\u0020all\u0020the\u0020webhooks.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhook"
         },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveWebhookAttemptLog\u0028\u0029",
+            "name": "retrieveWebhookAttemptLog",
+            "summary": "Retrieves\u0020a\u0020single\u0020webhook\u0020attempt\u0020log\u0020for\u0020the\u0020given\u0020Id.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookAttemptLog"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveWebhookEventLog\u0028\u0029",
+            "name": "retrieveWebhookEventLog",
+            "summary": "Retrieves\u0020a\u0020single\u0020webhook\u0020event\u0020log\u0020for\u0020the\u0020given\u0020Id.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookEventLog"
+        },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AretrieveWebhooks\u0028\u0029",
             "name": "retrieveWebhooks",
             "summary": "Retrieves\u0020all\u0020the\u0020webhooks.",
@@ -1505,6 +1515,11 @@ Search.appendIndex(
             "name": "searchUsersByQueryString",
             "summary": "Retrieves\u0020the\u0020users\u0020for\u0020the\u0020given\u0020search\u0020criteria\u0020and\u0020pagination.",
             "url": "classes/FusionAuth-FusionAuthClient.html#method_searchUsersByQueryString"
+        },                {
+            "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AsearchWebhookEventLogs\u0028\u0029",
+            "name": "searchWebhookEventLogs",
+            "summary": "Searches\u0020the\u0020webhook\u0020event\u0020logs\u0020with\u0020the\u0020specified\u0020criteria\u0020and\u0020pagination.",
+            "url": "classes/FusionAuth-FusionAuthClient.html#method_searchWebhookEventLogs"
         },                {
             "fqsen": "\\FusionAuth\\FusionAuthClient\u003A\u003AsearchWebhooks\u0028\u0029",
             "name": "searchWebhooks",

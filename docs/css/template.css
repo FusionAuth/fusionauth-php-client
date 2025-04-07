@@ -280,3 +280,6 @@
 .phpdocumentor-title__link:hover {
   transform: none;
 }
+.phpdocumentor-uml-diagram svg {
+    cursor: zoom-in;
+}
