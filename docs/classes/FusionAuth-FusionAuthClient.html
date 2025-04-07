@@ -2089,6 +2089,20 @@ login counts for that application.</dd>
 <dd>Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookAttemptLog">retrieveWebhookAttemptLog()</a>
+    <span>
+                                &nbsp;: <a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a>    </span>
+</dt>
+<dd>Retrieves a single webhook attempt log for the given Id.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookEventLog">retrieveWebhookEventLog()</a>
+    <span>
+                                &nbsp;: <a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a>    </span>
+</dt>
+<dd>Retrieves a single webhook event log for the given Id.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhooks">retrieveWebhooks()</a>
     <span>
                                 &nbsp;: <a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a>    </span>
@@ -2312,6 +2326,13 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
                                 &nbsp;: <a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a>    </span>
 </dt>
 <dd>Retrieves the users for the given search criteria and pagination.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhookEventLogs">searchWebhookEventLogs()</a>
+    <span>
+                                &nbsp;: <a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a>    </span>
+</dt>
+<dd>Searches the webhook event logs with the specified criteria and pagination.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhooks">searchWebhooks()</a>
@@ -2997,6 +3018,7 @@ signed and not expired.</dd>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The action request that includes all the information about the action being taken including
+the Id of the action, any options and the duration (if applicable).
 the Id of the action, any options and the duration (if applicable).</p>
 </section>
 
@@ -3770,6 +3792,7 @@ your password, you must obtain a Trust Request Id by completing a Two-Factor Ste
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The client identifier. The client Id is the Id of the FusionAuth Entity in which you are attempting to authenticate.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -3780,6 +3803,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The client secret used to authenticate this request.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -9775,6 +9799,7 @@ with the user.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -9875,6 +9900,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -9984,6 +10010,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -10172,6 +10199,7 @@ This parameter is optional when Basic Authorization is used to authenticate this
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+This parameter is optional when Basic Authorization is used to authenticate this request.
 This parameter is optional when Basic Authorization is used to authenticate this request.</p>
 </section>
 
@@ -10773,6 +10801,7 @@ login systems.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The third-party login request that contains information from the third-party login
+providers that FusionAuth uses to reconcile the user's account.
 providers that FusionAuth uses to reconcile the user's account.</p>
 </section>
 
@@ -11321,6 +11350,7 @@ obtained a valid token from authentication.
                     <section class="phpdocumentor-description"><p>(Optional) An existing refresh token used to request a refresh token in addition to a JWT in the response.</p>
 <p>The target application represented by the applicationId request parameter must have refresh
 tokens enabled in order to receive a refresh token in the response.</p>
+tokens enabled in order to receive a refresh token in the response.</p>
 </section>
 
             </dd>
@@ -11484,6 +11514,7 @@ reporting.</p>
                  = <span class="phpdocumentor-signature__argument__default-value">NULL</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The IP address of the end-user that is logging in. If a null value is provided
+the IP address will be that of the client or last proxy that sent the request.
 the IP address will be that of the client or last proxy that sent the request.</p>
 </section>
 
@@ -11630,6 +11661,7 @@ token or refresh token cookies.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>When this value is set to true all the refresh tokens issued to the owner of the
+provided token will be revoked.
 provided token will be revoked.</p>
 </section>
 
@@ -11640,6 +11672,7 @@ provided token will be revoked.</p>
                  = <span class="phpdocumentor-signature__argument__default-value">NULL</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(Optional) The refresh_token as a request parameter instead of coming in via a cookie.
+If provided this takes precedence over the cookie.
 If provided this takes precedence over the cookie.</p>
 </section>
 
@@ -21885,6 +21918,146 @@ login counts for that application.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_retrieveWebhookAttemptLog">
+        retrieveWebhookAttemptLog()
+        <a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookAttemptLog" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">4603</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Retrieves a single webhook attempt log for the given Id.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">retrieveWebhookAttemptLog</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$webhookAttemptLogId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$webhookAttemptLogId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The Id of the webhook attempt log to retrieve.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookAttemptLog#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The ClientResponse.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_retrieveWebhookEventLog">
+        retrieveWebhookEventLog()
+        <a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookEventLog" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">4619</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Retrieves a single webhook event log for the given Id.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">retrieveWebhookEventLog</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$webhookEventLogId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$webhookEventLogId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The Id of the webhook event log to retrieve.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookEventLog#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The ClientResponse.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_retrieveWebhooks">
         retrieveWebhooks()
         <a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhooks" class="headerlink"><i class="fas fa-link"></i></a>
@@ -21893,7 +22066,7 @@ login counts for that application.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4602</span>
+    <span class="phpdocumentor-element-found-in__line">4634</span>
 
     </aside>
 
@@ -21951,7 +22124,7 @@ login counts for that application.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4642</span>
+    <span class="phpdocumentor-element-found-in__line">4674</span>
 
     </aside>
 
@@ -22068,7 +22241,7 @@ revokeRefreshToken(null, null, applicationId)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4660</span>
+    <span class="phpdocumentor-element-found-in__line">4692</span>
 
     </aside>
 
@@ -22138,7 +22311,7 @@ revokeRefreshToken(null, null, applicationId)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4676</span>
+    <span class="phpdocumentor-element-found-in__line">4708</span>
 
     </aside>
 
@@ -22208,7 +22381,7 @@ revokeRefreshToken(null, null, applicationId)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4692</span>
+    <span class="phpdocumentor-element-found-in__line">4724</span>
 
     </aside>
 
@@ -22278,7 +22451,7 @@ revokeRefreshToken(null, null, applicationId)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4708</span>
+    <span class="phpdocumentor-element-found-in__line">4740</span>
 
     </aside>
 
@@ -22348,7 +22521,7 @@ revokeRefreshToken(null, null, applicationId)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4725</span>
+    <span class="phpdocumentor-element-found-in__line">4757</span>
 
     </aside>
 
@@ -22427,7 +22600,7 @@ revokeRefreshToken(null, null, applicationId)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4743</span>
+    <span class="phpdocumentor-element-found-in__line">4775</span>
 
     </aside>
 
@@ -22498,7 +22671,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4759</span>
+    <span class="phpdocumentor-element-found-in__line">4791</span>
 
     </aside>
 
@@ -22568,7 +22741,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4775</span>
+    <span class="phpdocumentor-element-found-in__line">4807</span>
 
     </aside>
 
@@ -22638,7 +22811,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4791</span>
+    <span class="phpdocumentor-element-found-in__line">4823</span>
 
     </aside>
 
@@ -22708,7 +22881,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4807</span>
+    <span class="phpdocumentor-element-found-in__line">4839</span>
 
     </aside>
 
@@ -22778,7 +22951,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4823</span>
+    <span class="phpdocumentor-element-found-in__line">4855</span>
 
     </aside>
 
@@ -22848,7 +23021,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4839</span>
+    <span class="phpdocumentor-element-found-in__line">4871</span>
 
     </aside>
 
@@ -22918,7 +23091,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4855</span>
+    <span class="phpdocumentor-element-found-in__line">4887</span>
 
     </aside>
 
@@ -22988,7 +23161,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4871</span>
+    <span class="phpdocumentor-element-found-in__line">4903</span>
 
     </aside>
 
@@ -23058,7 +23231,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4887</span>
+    <span class="phpdocumentor-element-found-in__line">4919</span>
 
     </aside>
 
@@ -23128,7 +23301,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4903</span>
+    <span class="phpdocumentor-element-found-in__line">4935</span>
 
     </aside>
 
@@ -23198,7 +23371,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4919</span>
+    <span class="phpdocumentor-element-found-in__line">4951</span>
 
     </aside>
 
@@ -23268,7 +23441,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4935</span>
+    <span class="phpdocumentor-element-found-in__line">4967</span>
 
     </aside>
 
@@ -23338,7 +23511,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4967</span>
+    <span class="phpdocumentor-element-found-in__line">4999</span>
 
     </aside>
 
@@ -23408,7 +23581,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4951</span>
+    <span class="phpdocumentor-element-found-in__line">4983</span>
 
     </aside>
 
@@ -23478,7 +23651,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4983</span>
+    <span class="phpdocumentor-element-found-in__line">5015</span>
 
     </aside>
 
@@ -23548,7 +23721,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4999</span>
+    <span class="phpdocumentor-element-found-in__line">5031</span>
 
     </aside>
 
@@ -23618,7 +23791,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5015</span>
+    <span class="phpdocumentor-element-found-in__line">5047</span>
 
     </aside>
 
@@ -23688,7 +23861,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5031</span>
+    <span class="phpdocumentor-element-found-in__line">5063</span>
 
     </aside>
 
@@ -23758,7 +23931,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5047</span>
+    <span class="phpdocumentor-element-found-in__line">5079</span>
 
     </aside>
 
@@ -23828,7 +24001,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5063</span>
+    <span class="phpdocumentor-element-found-in__line">5095</span>
 
     </aside>
 
@@ -23898,7 +24071,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5080</span>
+    <span class="phpdocumentor-element-found-in__line">5112</span>
 
     </aside>
 
@@ -23975,7 +24148,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5096</span>
+    <span class="phpdocumentor-element-found-in__line">5128</span>
 
     </aside>
 
@@ -24045,7 +24218,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5113</span>
+    <span class="phpdocumentor-element-found-in__line">5145</span>
 
     </aside>
 
@@ -24067,6 +24240,7 @@ and is based on the information you provide in the RefreshDeleteRequest object. 
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
+and sortFields.
 and sortFields.</p>
 </section>
 
@@ -24116,7 +24290,7 @@ and sortFields.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5131</span>
+    <span class="phpdocumentor-element-found-in__line">5163</span>
 
     </aside>
 
@@ -24145,6 +24319,7 @@ and sortFields.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
+and sortFields.
 and sortFields.</p>
 </section>
 
@@ -24186,6 +24361,76 @@ and sortFields.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_searchWebhookEventLogs">
+        searchWebhookEventLogs()
+        <a href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhookEventLogs" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">5179</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Searches the webhook event logs with the specified criteria and pagination.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">searchWebhookEventLogs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$request</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The search criteria and pagination information.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhookEventLogs#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/FusionAuth-ClientResponse.html"><abbr title="\FusionAuth\ClientResponse">ClientResponse</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The ClientResponse.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_searchWebhooks">
         searchWebhooks()
         <a href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhooks" class="headerlink"><i class="fas fa-link"></i></a>
@@ -24194,7 +24439,7 @@ and sortFields.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5147</span>
+    <span class="phpdocumentor-element-found-in__line">5195</span>
 
     </aside>
 
@@ -24264,7 +24509,7 @@ and sortFields.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5165</span>
+    <span class="phpdocumentor-element-found-in__line">5213</span>
 
     </aside>
 
@@ -24344,7 +24589,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5182</span>
+    <span class="phpdocumentor-element-found-in__line">5230</span>
 
     </aside>
 
@@ -24414,7 +24659,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5198</span>
+    <span class="phpdocumentor-element-found-in__line">5246</span>
 
     </aside>
 
@@ -24484,7 +24729,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5215</span>
+    <span class="phpdocumentor-element-found-in__line">5263</span>
 
     </aside>
 
@@ -24561,7 +24806,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5231</span>
+    <span class="phpdocumentor-element-found-in__line">5279</span>
 
     </aside>
 
@@ -24631,7 +24876,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5248</span>
+    <span class="phpdocumentor-element-found-in__line">5296</span>
 
     </aside>
 
@@ -24708,7 +24953,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5265</span>
+    <span class="phpdocumentor-element-found-in__line">5313</span>
 
     </aside>
 
@@ -24787,7 +25032,7 @@ pairs in the email template.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5283</span>
+    <span class="phpdocumentor-element-found-in__line">5331</span>
 
     </aside>
 
@@ -24809,6 +25054,7 @@ pairs in the email template.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The third-party login request that contains information from the third-party login
+providers that FusionAuth uses to reconcile the user's account.
 providers that FusionAuth uses to reconcile the user's account.</p>
 </section>
 
@@ -24858,7 +25104,7 @@ providers that FusionAuth uses to reconcile the user's account.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5300</span>
+    <span class="phpdocumentor-element-found-in__line">5348</span>
 
     </aside>
 
@@ -24929,7 +25175,7 @@ Passwordless Code API or using a mechanism outside of FusionAuth. The passwordle
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5321</span>
+    <span class="phpdocumentor-element-found-in__line">5369</span>
 
     </aside>
 
@@ -25004,7 +25250,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5337</span>
+    <span class="phpdocumentor-element-found-in__line">5385</span>
 
     </aside>
 
@@ -25074,7 +25320,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5353</span>
+    <span class="phpdocumentor-element-found-in__line">5401</span>
 
     </aside>
 
@@ -25144,7 +25390,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5369</span>
+    <span class="phpdocumentor-element-found-in__line">5417</span>
 
     </aside>
 
@@ -25214,7 +25460,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5386</span>
+    <span class="phpdocumentor-element-found-in__line">5434</span>
 
     </aside>
 
@@ -25293,7 +25539,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5404</span>
+    <span class="phpdocumentor-element-found-in__line">5452</span>
 
     </aside>
 
@@ -25372,7 +25618,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5423</span>
+    <span class="phpdocumentor-element-found-in__line">5471</span>
 
     </aside>
 
@@ -25460,7 +25706,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5443</span>
+    <span class="phpdocumentor-element-found-in__line">5491</span>
 
     </aside>
 
@@ -25539,7 +25785,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5461</span>
+    <span class="phpdocumentor-element-found-in__line">5509</span>
 
     </aside>
 
@@ -25618,7 +25864,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5479</span>
+    <span class="phpdocumentor-element-found-in__line">5527</span>
 
     </aside>
 
@@ -25697,7 +25943,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5497</span>
+    <span class="phpdocumentor-element-found-in__line">5545</span>
 
     </aside>
 
@@ -25776,7 +26022,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5515</span>
+    <span class="phpdocumentor-element-found-in__line">5563</span>
 
     </aside>
 
@@ -25855,7 +26101,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5534</span>
+    <span class="phpdocumentor-element-found-in__line">5582</span>
 
     </aside>
 
@@ -25943,7 +26189,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5554</span>
+    <span class="phpdocumentor-element-found-in__line">5602</span>
 
     </aside>
 
@@ -26022,7 +26268,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5572</span>
+    <span class="phpdocumentor-element-found-in__line">5620</span>
 
     </aside>
 
@@ -26101,7 +26347,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5590</span>
+    <span class="phpdocumentor-element-found-in__line">5638</span>
 
     </aside>
 
@@ -26180,7 +26426,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5607</span>
+    <span class="phpdocumentor-element-found-in__line">5655</span>
 
     </aside>
 
@@ -26250,7 +26496,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5642</span>
+    <span class="phpdocumentor-element-found-in__line">5690</span>
 
     </aside>
 
@@ -26329,7 +26575,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5659</span>
+    <span class="phpdocumentor-element-found-in__line">5707</span>
 
     </aside>
 
@@ -26399,7 +26645,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5624</span>
+    <span class="phpdocumentor-element-found-in__line">5672</span>
 
     </aside>
 
@@ -26478,7 +26724,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5676</span>
+    <span class="phpdocumentor-element-found-in__line">5724</span>
 
     </aside>
 
@@ -26557,7 +26803,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5694</span>
+    <span class="phpdocumentor-element-found-in__line">5742</span>
 
     </aside>
 
@@ -26636,7 +26882,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5712</span>
+    <span class="phpdocumentor-element-found-in__line">5760</span>
 
     </aside>
 
@@ -26715,7 +26961,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5730</span>
+    <span class="phpdocumentor-element-found-in__line">5778</span>
 
     </aside>
 
@@ -26794,7 +27040,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5749</span>
+    <span class="phpdocumentor-element-found-in__line">5797</span>
 
     </aside>
 
@@ -26882,7 +27128,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5769</span>
+    <span class="phpdocumentor-element-found-in__line">5817</span>
 
     </aside>
 
@@ -26961,7 +27207,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5786</span>
+    <span class="phpdocumentor-element-found-in__line">5834</span>
 
     </aside>
 
@@ -27031,7 +27277,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5803</span>
+    <span class="phpdocumentor-element-found-in__line">5851</span>
 
     </aside>
 
@@ -27110,7 +27356,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5821</span>
+    <span class="phpdocumentor-element-found-in__line">5869</span>
 
     </aside>
 
@@ -27189,7 +27435,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5839</span>
+    <span class="phpdocumentor-element-found-in__line">5887</span>
 
     </aside>
 
@@ -27268,7 +27514,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5857</span>
+    <span class="phpdocumentor-element-found-in__line">5905</span>
 
     </aside>
 
@@ -27347,7 +27593,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5875</span>
+    <span class="phpdocumentor-element-found-in__line">5923</span>
 
     </aside>
 
@@ -27426,7 +27672,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5893</span>
+    <span class="phpdocumentor-element-found-in__line">5941</span>
 
     </aside>
 
@@ -27505,7 +27751,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5911</span>
+    <span class="phpdocumentor-element-found-in__line">5959</span>
 
     </aside>
 
@@ -27584,7 +27830,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5929</span>
+    <span class="phpdocumentor-element-found-in__line">5977</span>
 
     </aside>
 
@@ -27663,7 +27909,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5949</span>
+    <span class="phpdocumentor-element-found-in__line">5997</span>
 
     </aside>
 
@@ -27744,7 +27990,7 @@ API (/api/two-factor/login). with the two-factor identifier and the one-time use
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5969</span>
+    <span class="phpdocumentor-element-found-in__line">6017</span>
 
     </aside>
 
@@ -27818,7 +28064,7 @@ This API may be used to verify the JWT as well as decode the encoded JWT into hu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5993</span>
+    <span class="phpdocumentor-element-found-in__line">6041</span>
 
     </aside>
 
@@ -27895,7 +28141,7 @@ by way of the X-FusionAuth-TenantId request header, or a tenant scoped API key.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6010</span>
+    <span class="phpdocumentor-element-found-in__line">6058</span>
 
     </aside>
 
@@ -27972,7 +28218,7 @@ by way of the X-FusionAuth-TenantId request header, or a tenant scoped API key.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6031</span>
+    <span class="phpdocumentor-element-found-in__line">6079</span>
 
     </aside>
 
@@ -28047,7 +28293,7 @@ two values together are able to confirm a user's email address and mark the user
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6049</span>
+    <span class="phpdocumentor-element-found-in__line">6097</span>
 
     </aside>
 
@@ -28119,7 +28365,7 @@ two values together are able to confirm a user's email address and mark the user
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6066</span>
+    <span class="phpdocumentor-element-found-in__line">6114</span>
 
     </aside>
 
@@ -28196,7 +28442,7 @@ two values together are able to confirm a user's email address and mark the user
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6087</span>
+    <span class="phpdocumentor-element-found-in__line">6135</span>
 
     </aside>
 
@@ -28315,7 +28561,7 @@ two values together are able to confirm a user's registration and mark the user'
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6096</span>
+    <span class="phpdocumentor-element-found-in__line">6144</span>
 
     </aside>
 
@@ -28349,7 +28595,7 @@ two values together are able to confirm a user's registration and mark the user'
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/FusionAuth/FusionAuthClient.php"><a href="files/src-fusionauth-fusionauthclient.html"><abbr title="src/FusionAuth/FusionAuthClient.php">FusionAuthClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6101</span>
+    <span class="phpdocumentor-element-found-in__line">6149</span>
 
     </aside>
 
@@ -28482,11 +28728,11 @@ two values together are able to confirm a user's registration and mark the user'
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_connectTimeout">$connectTimeout</li>
-                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_readTimeout">$readTimeout</li>
-                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_apiKey">$apiKey</li>
-                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_baseURL">$baseURL</li>
-                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_tenantId">$tenantId</li>
+                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_connectTimeout">$connectTimeout</a></li>
+                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_readTimeout">$readTimeout</a></li>
+                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_apiKey">$apiKey</a></li>
+                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_baseURL">$baseURL</a></li>
+                                                    <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#property_tenantId">$tenantId</a></li>
                                             </ul>
                 </li>
             
@@ -28751,6 +28997,8 @@ two values together are able to confirm a user's registration and mark the user'
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebAuthnCredential">retrieveWebAuthnCredential()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebAuthnCredentialsForUser">retrieveWebAuthnCredentialsForUser()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhook">retrieveWebhook()</a></li>
+                                            <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookAttemptLog">retrieveWebhookAttemptLog()</a></li>
+                                            <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhookEventLog">retrieveWebhookEventLog()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_retrieveWebhooks">retrieveWebhooks()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_revokeRefreshToken">revokeRefreshToken()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_revokeRefreshTokenById">revokeRefreshTokenById()</a></li>
@@ -28783,6 +29031,7 @@ two values together are able to confirm a user's registration and mark the user'
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_searchUsersByIds">searchUsersByIds()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_searchUsersByQuery">searchUsersByQuery()</a></li>
                                             <li class="-deprecated"><a href="classes/FusionAuth-FusionAuthClient.html#method_searchUsersByQueryString">searchUsersByQueryString()</a></li>
+                                            <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhookEventLogs">searchWebhookEventLogs()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_searchWebhooks">searchWebhooks()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_sendEmail">sendEmail()</a></li>
                                             <li class=""><a href="classes/FusionAuth-FusionAuthClient.html#method_sendFamilyRequestEmail">sendFamilyRequestEmail()</a></li>
