@@ -2375,6 +2375,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates, via PATCH, the Entity with the given Id.
+   *
+   * @param string $entityId The Id of the Entity Type to update.
+   * @param array $request The request that contains just the new Entity information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchEntity($entityId, $request)
+  {
+    return $this->start()->uri("/api/entity")
+        ->urlSegment($entityId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the Entity Type with the given Id.
    *
    * @param string $entityTypeId The Id of the Entity Type to update.
@@ -2393,6 +2411,63 @@ class FusionAuthClient
   }
 
   /**
+   * Patches the permission with the given Id for the entity type.
+   *
+   * @param string $entityTypeId The Id of the entityType that the permission belongs to.
+   * @param string $permissionId The Id of the permission to patch.
+   * @param array $request The request that contains the new permission information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchEntityTypePermission($entityTypeId, $permissionId, $request)
+  {
+    return $this->start()->uri("/api/entity/type")
+        ->urlSegment($entityTypeId)
+        ->urlSegment("permission")
+        ->urlSegment($permissionId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Patches the form with the given Id.
+   *
+   * @param string $formId The Id of the form to patch.
+   * @param array $request The request object that contains the new form information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchForm($formId, $request)
+  {
+    return $this->start()->uri("/api/form")
+        ->urlSegment($formId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Patches the form field with the given Id.
+   *
+   * @param string $fieldId The Id of the form field to patch.
+   * @param array $request The request object that contains the new form field information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchFormField($fieldId, $request)
+  {
+    return $this->start()->uri("/api/form/field")
+        ->urlSegment($fieldId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the group with the given Id.
    *
    * @param string $groupId The Id of the group to update.
@@ -2405,6 +2480,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/group")
         ->urlSegment($groupId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Update the IP Access Control List with the given Id.
+   *
+   * @param string $accessControlListId The Id of the IP Access Control List to patch.
+   * @param array $request The request that contains the new IP Access Control List information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchIPAccessControlList($accessControlListId, $request)
+  {
+    return $this->start()->uri("/api/ip-acl")
+        ->urlSegment($accessControlListId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->patch()
         ->go();
@@ -2656,6 +2749,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/user/consent")
         ->urlSegment($userConsentId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Patches the webhook with the given Id.
+   *
+   * @param string $webhookId The Id of the webhook to update.
+   * @param array $request The request that contains the new webhook information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchWebhook($webhookId, $request)
+  {
+    return $this->start()->uri("/api/webhook")
+        ->urlSegment($webhookId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->patch()
         ->go();
@@ -5634,6 +5745,24 @@ class FusionAuthClient
         ->urlSegment($entityTypeId)
         ->urlSegment("permission")
         ->urlSegment($permissionId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates a family with a given Id.
+   *
+   * @param string $familyId The Id of the family to update.
+   * @param array $request The request object that contains all the new family information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateFamily($familyId, $request)
+  {
+    return $this->start()->uri("/api/user/family")
+        ->urlSegment($familyId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
