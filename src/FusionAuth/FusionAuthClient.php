@@ -4393,6 +4393,24 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the user for the loginId, using specific loginIdTypes.
+   *
+   * @param string $loginId The email or username of the user.
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserByLoginIdWithLoginIdTypes($loginId, $loginIdTypes)
+  {
+    return $this->start()->uri("/api/user")
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("loginIdTypes", $loginIdTypes)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the user for the given username.
    *
    * @param string $username The username of the user.
