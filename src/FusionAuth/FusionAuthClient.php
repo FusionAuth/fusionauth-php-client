@@ -4377,6 +4377,22 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the user for the loginId. The loginId can be either the username or the email.
+   *
+   * @param string $loginId The email or username of the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserByLoginId($loginId)
+  {
+    return $this->start()->uri("/api/user")
+        ->urlParameter("loginId", $loginId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the user for the loginId, using specific loginIdTypes.
    *
    * @param string $loginId The email or username of the user.
@@ -4385,7 +4401,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserByLoginId($loginId, $loginIdTypes = NULL)
+  public function retrieveUserByLoginIdWithLoginIdTypes($loginId, $loginIdTypes = NULL)
   {
     return $this->start()->uri("/api/user")
         ->urlParameter("loginId", $loginId)
@@ -4601,6 +4617,29 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the login report between the two instants for a particular user by login Id. If you specify an application id, it will only return the
+   * login counts for that application.
+   *
+   * @param string $applicationId (Optional) The application id.
+   * @param string $loginId The userId id.
+   * @param array $start The start instant as UTC milliseconds since Epoch.
+   * @param array $end The end instant as UTC milliseconds since Epoch.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserLoginReportByLoginId($applicationId, $loginId, $start, $end)
+  {
+    return $this->start()->uri("/api/report/login")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("start", $start)
+        ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the login report between the two instants for a particular user by login Id, using specific loginIdTypes. If you specify an application id, it will only return the
    * login counts for that application.
    *
@@ -4613,7 +4652,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserLoginReportByLoginId($applicationId, $loginId, $start, $end, $loginIdTypes = NULL)
+  public function retrieveUserLoginReportByLoginIdAndLoginIdTypes($applicationId, $loginId, $start, $end, $loginIdTypes = NULL)
   {
     return $this->start()->uri("/api/report/login")
         ->urlParameter("applicationId", $applicationId)
