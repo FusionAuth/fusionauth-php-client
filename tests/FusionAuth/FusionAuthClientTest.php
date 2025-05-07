@@ -124,13 +124,13 @@ final class FusionAuthClientTest extends TestCase
         $this->assertEquals("test@fusionauth.io", $response->successResponse->user->email);
 
         // retrieve by login Id (explicit types)
-        $response = $this->client->retrieveUserByLoginId("test@fusionauth.io", ["email"]);
+        $response = $this->client->retrieveUserByLoginIdWithLoginIdTypes("test@fusionauth.io", ["email"]);
         $this->handleResponse($response);
         $this->assertEquals("test@fusionauth.io", $response->successResponse->user->email);
 
         // retrieve by login Id (not found, wrong type)
 // TODO: will pass once issue 1 is live
-//         $response = $this->client->retrieveUserByLoginId("test@fusionauth.io", ["phoneNumber"]);
+//         $response = $this->client->retrieveUserByLoginIdWithLoginIdTypes("test@fusionauth.io", ["phoneNumber"]);
 //         $this->assertEquals(404, $response->status);
 
         // Login
