@@ -4396,12 +4396,12 @@ class FusionAuthClient
    * Retrieves the user for the loginId, using specific loginIdTypes.
    *
    * @param string $loginId The email or username of the user.
-   * @param array $loginIdTypes (Optional) the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserByLoginIdWithLoginIdTypes($loginId, $loginIdTypes = NULL)
+  public function retrieveUserByLoginIdWithLoginIdTypes($loginId, $loginIdTypes)
   {
     return $this->start()->uri("/api/user")
         ->urlParameter("loginId", $loginId)
@@ -4647,12 +4647,12 @@ class FusionAuthClient
    * @param string $loginId The userId id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
-   * @param array $loginIdTypes (Optional) the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserLoginReportByLoginIdAndLoginIdTypes($applicationId, $loginId, $start, $end, $loginIdTypes = NULL)
+  public function retrieveUserLoginReportByLoginIdAndLoginIdTypes($applicationId, $loginId, $start, $end, $loginIdTypes)
   {
     return $this->start()->uri("/api/report/login")
         ->urlParameter("applicationId", $applicationId)
