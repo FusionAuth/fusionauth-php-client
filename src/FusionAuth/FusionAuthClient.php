@@ -4393,6 +4393,24 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the user for the loginId, using specific loginIdTypes.
+   *
+   * @param string $loginId The email or username of the user.
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserByLoginIdWithLoginIdTypes($loginId, $loginIdTypes)
+  {
+    return $this->start()->uri("/api/user")
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("loginIdTypes", $loginIdTypes)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the user for the given username.
    *
    * @param string $username The username of the user.
@@ -4617,6 +4635,31 @@ class FusionAuthClient
         ->urlParameter("loginId", $loginId)
         ->urlParameter("start", $start)
         ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the login report between the two instants for a particular user by login Id, using specific loginIdTypes. If you specify an application id, it will only return the
+   * login counts for that application.
+   *
+   * @param string $applicationId (Optional) The application id.
+   * @param string $loginId The userId id.
+   * @param array $start The start instant as UTC milliseconds since Epoch.
+   * @param array $end The end instant as UTC milliseconds since Epoch.
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserLoginReportByLoginIdAndLoginIdTypes($applicationId, $loginId, $start, $end, $loginIdTypes)
+  {
+    return $this->start()->uri("/api/report/login")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("start", $start)
+        ->urlParameter("end", $end)
+        ->urlParameter("loginIdTypes", $loginIdTypes)
         ->get()
         ->go();
   }
