@@ -4396,7 +4396,7 @@ class FusionAuthClient
    * Retrieves the user for the loginId, using specific loginIdTypes.
    *
    * @param string $loginId The email or username of the user.
-   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4647,7 +4647,7 @@ class FusionAuthClient
    * @param string $loginId The userId id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
-   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
