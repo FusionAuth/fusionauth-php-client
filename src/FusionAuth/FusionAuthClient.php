@@ -185,6 +185,27 @@ class FusionAuthClient
   }
 
   /**
+   * Changes a user's password using their access token (JWT) instead of the changePasswordId
+   * A common use case for this method will be if you want to allow the user to change their own password.
+   * 
+   * Remember to send refreshToken in the request body if you want to get a new refresh token when login using the returned oneTimePassword.
+   *
+   * @param string $encodedJWT The encoded JWT (access token).
+   * @param array $request The change password request that contains all the information used to change the password.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function changePasswordByJWT($encodedJWT, $request)
+  {
+    return $this->startAnonymous()->uri("/api/user/change-password")
+        ->authorization("Bearer " . $encodedJWT)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Changes a user's password using their identity (loginId and password). Using a loginId instead of the changePasswordId
    * bypasses the email verification and allows a password to be changed directly without first calling the #forgotPassword
    * method.
