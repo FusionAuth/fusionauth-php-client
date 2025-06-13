@@ -6345,6 +6345,22 @@ class FusionAuthClient
   }
 
   /**
+   * Administratively verify a user identity.
+   *
+   * @param array $request The identity verify request that contains information to verify the identity.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function verifyIdentity($request)
+  {
+    return $this->start()->uri("/api/identity/verify")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Confirms an application registration. The Id given is usually from an email sent to the user.
    *
    * @param string $verificationId The registration verification Id sent to the user.
