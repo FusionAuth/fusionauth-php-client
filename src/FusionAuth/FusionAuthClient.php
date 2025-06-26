@@ -803,6 +803,25 @@ class FusionAuthClient
   }
 
   /**
+   * Adds the application tenants for universal applications.
+   *
+   * @param string $applicationId The Id of the application that the role belongs to.
+   * @param array $request The request object that contains all the information used to create the Entity.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createUniversalApplicationTenants($applicationId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("application-tenant")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
    *
    * @param string $userId (Optional) The Id for the user. If not provided a secure random UUID will be generated.
@@ -1470,6 +1489,44 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/theme")
         ->urlSegment($themeId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Removes the specified tenant from the universal application tenants list.
+   *
+   * @param string $applicationId The Id of the application that the role belongs to.
+   * @param string $tenantId The Id of the tenant to delete from the universal application tenants list.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteUniversalApplicationTenant($applicationId, $tenantId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("application-tenant")
+        ->urlSegment($tenantId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Removes the specified tenants from the universal application tenants list.
+   *
+   * @param string $applicationId The Id of the universal application that the tenants are linked to.
+   * @param array $tenantIds The Ids of the tenants to delete from the universal application tenants list.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteUniversalApplicationTenants($applicationId, $tenantIds)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("application-tenant")
+        ->urlParameter("tenantIds", $tenantIds)
         ->delete()
         ->go();
   }
@@ -4266,6 +4323,23 @@ class FusionAuthClient
         ->urlParameter("userId", $userId)
         ->urlParameter("applicationId", $applicationId)
         ->urlSegment($twoFactorTrustId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the application tenants for universal applications.
+   *
+   * @param string $applicationId The Id of the application that the role belongs to.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUniversalApplicationTenants($applicationId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("application-tenant")
         ->get()
         ->go();
   }
