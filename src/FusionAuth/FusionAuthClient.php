@@ -2,7 +2,7 @@
 namespace FusionAuth;
 
 /*
- * Copyright (c) 2018-2023, FusionAuth, All Rights Reserved
+ * Copyright (c) 2018-2025, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -973,7 +973,7 @@ class FusionAuthClient
   }
 
   /**
-   * Deactivates the users with the given ids.
+   * Deactivates the users with the given Ids.
    *
    * @param array $userIds The ids of the users to deactivate.
    *
@@ -992,7 +992,7 @@ class FusionAuthClient
   }
 
   /**
-   * Deactivates the users with the given ids.
+   * Deactivates the users with the given Ids.
    *
    * @param array $userIds The ids of the users to deactivate.
    *
@@ -1566,8 +1566,8 @@ class FusionAuthClient
   }
 
   /**
-   * Deletes the users with the given ids, or users matching the provided JSON query or queryString.
-   * The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
+   * Deletes the users with the given Ids, or users matching the provided JSON query or queryString.
+   * The order of preference is Ids, query and then queryString, it is recommended to only provide one of the three for the request.
    * 
    * This method can be used to deactivate or permanently delete (hard-delete) users based upon the hardDelete boolean in the request body.
    * Using the dryRun parameter you may also request the result of the action without actually deleting or deactivating any users.
@@ -1587,8 +1587,8 @@ class FusionAuthClient
   }
 
   /**
-   * Deletes the users with the given ids, or users matching the provided JSON query or queryString.
-   * The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
+   * Deletes the users with the given Ids, or users matching the provided JSON query or queryString.
+   * The order of preference is Ids, query and then queryString, it is recommended to only provide one of the three for the request.
    * 
    * This method can be used to deactivate or permanently delete (hard-delete) users based upon the hardDelete boolean in the request body.
    * Using the dryRun parameter you may also request the result of the action without actually deleting or deactivating any users.
@@ -2237,7 +2237,7 @@ class FusionAuthClient
    * Modifies a temporal user action by changing the expiration of the action and optionally adding a comment to the
    * action.
    *
-   * @param string $actionId The Id of the action to modify. This is technically the user action log id.
+   * @param string $actionId The Id of the action to modify. This is technically the user action log Id.
    * @param array $request The request that contains all the information about the modification.
    *
    * @return ClientResponse The ClientResponse.
@@ -2269,10 +2269,10 @@ class FusionAuthClient
   }
 
   /**
-   * Updates an authentication API key by given id
+   * Updates an API key with the given Id.
    *
-   * @param string $keyId The Id of the authentication key. If not provided a secure random api key will be generated.
-   * @param array $request The request object that contains all the information needed to create the APIKey.
+   * @param string $keyId The Id of the API key. If not provided a secure random api key will be generated.
+   * @param array $request The request object that contains all the information needed to create the API key.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -2282,7 +2282,7 @@ class FusionAuthClient
     return $this->start()->uri("/api/api-key")
         ->urlSegment($keyId)
         ->bodyHandler(new JSONBodyHandler($request))
-        ->post()
+        ->patch()
         ->go();
   }
 
@@ -2935,7 +2935,7 @@ class FusionAuthClient
   }
 
   /**
-   * Removes a user from the family with the given id.
+   * Removes a user from the family with the given Id.
    *
    * @param string $familyId The Id of the family to remove the user from.
    * @param string $userId The Id of the user to remove from the family.
@@ -3006,7 +3006,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves an authentication API key for the given id
+   * Retrieves an authentication API key for the given Id.
    *
    * @param string $keyId The Id of the API key to retrieve.
    *
@@ -3092,7 +3092,7 @@ class FusionAuthClient
   /**
    * Retrieves the application for the given Id or all the applications if the Id is null.
    *
-   * @param string $applicationId (Optional) The application id.
+   * @param string $applicationId (Optional) The application Id.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -3196,10 +3196,10 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the daily active user report between the two instants. If you specify an application id, it will only
+   * Retrieves the daily active user report between the two instants. If you specify an application Id, it will only
    * return the daily active counts for that application.
    *
-   * @param string $applicationId (Optional) The application id.
+   * @param string $applicationId (Optional) The application Id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
@@ -3217,7 +3217,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the email template for the given Id. If you don't specify the id, this will return all the email templates.
+   * Retrieves the email template for the given Id. If you don't specify the Id, this will return all the email templates.
    *
    * @param string $emailTemplateId (Optional) The Id of the email template.
    *
@@ -3732,10 +3732,10 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the login report between the two instants. If you specify an application id, it will only return the
+   * Retrieves the login report between the two instants. If you specify an application Id, it will only return the
    * login counts for that application.
    *
-   * @param string $applicationId (Optional) The application id.
+   * @param string $applicationId (Optional) The application Id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
@@ -3753,7 +3753,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the message template for the given Id. If you don't specify the id, this will return all the message templates.
+   * Retrieves the message template for the given Id. If you don't specify the Id, this will return all the message templates.
    *
    * @param string $messageTemplateId (Optional) The Id of the message template.
    *
@@ -3829,10 +3829,10 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the monthly active user report between the two instants. If you specify an application id, it will only
+   * Retrieves the monthly active user report between the two instants. If you specify an application Id, it will only
    * return the monthly active counts for that application.
    *
-   * @param string $applicationId (Optional) The application id.
+   * @param string $applicationId (Optional) The application Id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
@@ -4047,7 +4047,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the user registration for the user with the given Id and the given application id.
+   * Retrieves the user registration for the user with the given Id and the given application Id.
    *
    * @param string $userId The Id of the user.
    * @param string $applicationId The Id of the application.
@@ -4065,10 +4065,10 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the registration report between the two instants. If you specify an application id, it will only return
+   * Retrieves the registration report between the two instants. If you specify an application Id, it will only return
    * the registration counts for that application.
    *
-   * @param string $applicationId (Optional) The application id.
+   * @param string $applicationId (Optional) The application Id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
@@ -4287,7 +4287,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the user action for the given Id. If you pass in null for the id, this will return all the user
+   * Retrieves the user action for the given Id. If you pass in null for the Id, this will return all the user
    * actions.
    *
    * @param string $userActionId (Optional) The Id of the user action.
@@ -4304,7 +4304,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the user action reason for the given Id. If you pass in null for the id, this will return all the user
+   * Retrieves the user action reason for the given Id. If you pass in null for the Id, this will return all the user
    * action reasons.
    *
    * @param string $userActionReasonId (Optional) The Id of the user action reason.
@@ -4435,8 +4435,8 @@ class FusionAuthClient
    * 
    * This API is useful if you want to build your own login workflow to complete a device grant.
    *
-   * @param string $client_id The client id.
-   * @param string $client_secret The client id.
+   * @param string $client_id The client Id.
+   * @param string $client_secret The client Id.
    * @param string $user_code The end-user verification code.
    *
    * @return ClientResponse The ClientResponse.
@@ -4581,11 +4581,11 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
+   * Retrieves the login report between the two instants for a particular user by Id. If you specify an application Id, it will only return the
    * login counts for that application.
    *
-   * @param string $applicationId (Optional) The application id.
-   * @param string $userId The userId id.
+   * @param string $applicationId (Optional) The application Id.
+   * @param string $userId The userId Id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
@@ -4604,11 +4604,11 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the login report between the two instants for a particular user by login Id. If you specify an application id, it will only return the
+   * Retrieves the login report between the two instants for a particular user by login Id. If you specify an application Id, it will only return the
    * login counts for that application.
    *
-   * @param string $applicationId (Optional) The application id.
-   * @param string $loginId The userId id.
+   * @param string $applicationId (Optional) The application Id.
+   * @param string $loginId The userId Id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
    *
@@ -4709,7 +4709,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
+   * Retrieves the webhook for the given Id. If you pass in null for the Id, this will return all the webhooks.
    *
    * @param string $webhookId (Optional) The Id of the webhook.
    *
@@ -5009,7 +5009,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the entities for the given ids. If any Id is invalid, it is ignored.
+   * Retrieves the entities for the given Ids. If any Id is invalid, it is ignored.
    *
    * @param array $ids The entity ids to search for.
    *
@@ -5233,7 +5233,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the users for the given ids. If any Id is invalid, it is ignored.
+   * Retrieves the users for the given Ids. If any Id is invalid, it is ignored.
    *
    * @param array $ids The user ids to search for.
    *
@@ -5250,9 +5250,9 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the users for the given ids. If any Id is invalid, it is ignored.
+   * Retrieves the users for the given Ids. If any Id is invalid, it is ignored.
    *
-   * @param array $ids The user ids to search for.
+   * @param array $ids The user Ids to search for.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -5333,7 +5333,7 @@ class FusionAuthClient
   }
 
   /**
-   * Send an email using an email template id. You can optionally provide <code>requestData</code> to access key value
+   * Send an email using an email template Id. You can optionally provide <code>requestData</code> to access key value
    * pairs in the email template.
    *
    * @param string $emailTemplateId The Id for the template.
@@ -5555,18 +5555,18 @@ class FusionAuthClient
   }
 
   /**
-   * Updates an API key by given id
+   * Updates an API key with the given Id.
    *
-   * @param string $apiKeyId The Id of the API key to update.
-   * @param array $request The request object that contains all the information used to create the API Key.
+   * @param string $keyId The Id of the API key to update.
+   * @param array $request The request that contains all the new API key information.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function updateAPIKey($apiKeyId, $request)
+  public function updateAPIKey($keyId, $request)
   {
     return $this->start()->uri("/api/api-key")
-        ->urlSegment($apiKeyId)
+        ->urlSegment($keyId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
@@ -6139,7 +6139,7 @@ class FusionAuthClient
    * If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
    *
    * @param string $user_code The end-user verification code.
-   * @param string $client_id The client id.
+   * @param string $client_id The client Id.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
