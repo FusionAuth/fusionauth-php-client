@@ -803,6 +803,27 @@ class FusionAuthClient
   }
 
   /**
+   * Adds the application tenants for universal applications.
+   *
+   * @param string $applicationId The Id of the application that the universal application tenant belongs to.
+   * @param string $universalApplicationTenantId (Optional) The Id of the universal application tenant.
+   * @param array $request The request object that contains all the information used to create the UniversalApplicationTenants.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createUniversalApplicationTenant($applicationId, $universalApplicationTenantId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("universal-application-tenant")
+        ->urlSegment($universalApplicationTenantId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
    *
    * @param string $userId (Optional) The Id for the user. If not provided a secure random UUID will be generated.
@@ -1470,6 +1491,44 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/theme")
         ->urlSegment($themeId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the universal application tenant.
+   *
+   * @param string $applicationId The Id of the application that the UniversalApplicationTenant belongs to.
+   * @param string $universalApplicationTenantId The Id of the UniversalApplicationTenant to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteUniversalApplicationTenant($applicationId, $universalApplicationTenantId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("universal-application-tenant")
+        ->urlSegment($universalApplicationTenantId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Removes the specified tenants from the universal application tenants list.
+   *
+   * @param string $applicationId The Id of the universal application that the tenants are linked to.
+   * @param array $tenantIds The Ids of the tenants to delete from the universal application tenants list.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteUniversalApplicationTenants($applicationId, $tenantIds)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("application-tenant")
+        ->urlParameter("tenantIds", $tenantIds)
         ->delete()
         ->go();
   }
@@ -4271,6 +4330,25 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the universal application tenant.
+   *
+   * @param string $applicationId The Id of the universal application that tenant is mapped to
+   * @param string $universalApplicationTenantId The Id of the universal application tenant.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUniversalApplicationTenant($applicationId, $universalApplicationTenantId)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("application-tenant")
+        ->urlSegment($universalApplicationTenantId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the user for the given Id.
    *
    * @param string $userId The Id of the user.
@@ -5217,6 +5295,24 @@ class FusionAuthClient
   }
 
   /**
+   * Searches universal application tenants for the specified applicationId and with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchUniversalApplicationTenants($request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment("universal-application-tenant")
+        ->urlSegment("search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches user comments with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -6020,6 +6116,27 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/theme")
         ->urlSegment($themeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Adds the application tenants for universal applications.
+   *
+   * @param string $applicationId The Id of the application that the UniversalApplicationTenant belongs to.
+   * @param string $universalApplicationTenantId The Id of the universal application tenant.
+   * @param array $request The request object that contains all the information used to create the UniversalApplicationTenant.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateUniversalApplicationTenant($applicationId, $universalApplicationTenantId, $request)
+  {
+    return $this->start()->uri("/api/application")
+        ->urlSegment($applicationId)
+        ->urlSegment("universal-application-tenant")
+        ->urlSegment($universalApplicationTenantId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
