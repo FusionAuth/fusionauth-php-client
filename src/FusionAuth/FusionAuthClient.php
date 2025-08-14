@@ -348,6 +348,22 @@ class FusionAuthClient
   }
 
   /**
+   * Completes verification of an identity using verification codes from the Verify Start API.
+   *
+   * @param array $request The identity verify complete request that contains all the information used to verify the identity.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeVerifyIdentity($request)
+  {
+    return $this->start()->uri("/api/identity/verify/complete")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
    *
    * @param array $request An object containing data necessary for completing the authentication ceremony
@@ -4420,6 +4436,24 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the user for the loginId, using specific loginIdTypes.
+   *
+   * @param string $loginId The email or username of the user.
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserByLoginIdWithLoginIdTypes($loginId, $loginIdTypes)
+  {
+    return $this->start()->uri("/api/user")
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("loginIdTypes", $loginIdTypes)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the user for the given username.
    *
    * @param string $username The username of the user.
@@ -4644,6 +4678,31 @@ class FusionAuthClient
         ->urlParameter("loginId", $loginId)
         ->urlParameter("start", $start)
         ->urlParameter("end", $end)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the login report between the two instants for a particular user by login Id, using specific loginIdTypes. If you specify an application id, it will only return the
+   * login counts for that application.
+   *
+   * @param string $applicationId (Optional) The application id.
+   * @param string $loginId The userId id.
+   * @param array $start The start instant as UTC milliseconds since Epoch.
+   * @param array $end The end instant as UTC milliseconds since Epoch.
+   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveUserLoginReportByLoginIdAndLoginIdTypes($applicationId, $loginId, $start, $end, $loginIdTypes)
+  {
+    return $this->start()->uri("/api/report/login")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("loginId", $loginId)
+        ->urlParameter("start", $start)
+        ->urlParameter("end", $end)
+        ->urlParameter("loginIdTypes", $loginIdTypes)
         ->get()
         ->go();
   }
@@ -5474,6 +5533,22 @@ class FusionAuthClient
   }
 
   /**
+   * Send a verification code using the appropriate transport for the identity type being verified.
+   *
+   * @param array $request The identity verify send request that contains all the information used send the code.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function sendVerifyIdentity($request)
+  {
+    return $this->start()->uri("/api/identity/verify/send")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Begins a login request for a 3rd party login that requires user interaction such as HYPR.
    *
    * @param array $request The third-party login request that contains information from the third-party login
@@ -5523,6 +5598,23 @@ class FusionAuthClient
   public function startTwoFactorLogin($request)
   {
     return $this->start()->uri("/api/two-factor/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Start a verification of an identity by generating a code. This code can be sent to the User using the Verify Send API
+   * Verification Code API or using a mechanism outside of FusionAuth. The verification is completed by using the Verify Complete API with this code.
+   *
+   * @param array $request The identity verify start request that contains all the information used to begin the request.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startVerifyIdentity($request)
+  {
+    return $this->start()->uri("/api/identity/verify/start")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
@@ -6269,6 +6361,22 @@ class FusionAuthClient
   public function verifyEmailAddressByUserId($request)
   {
     return $this->start()->uri("/api/user/verify-email")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Administratively verify a user identity.
+   *
+   * @param array $request The identity verify request that contains information to verify the identity.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function verifyIdentity($request)
+  {
+    return $this->start()->uri("/api/identity/verify")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
