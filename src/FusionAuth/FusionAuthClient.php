@@ -313,7 +313,7 @@ class FusionAuthClient
    * An HTTP status code of 400 with a general error code of [TrustTokenRequired] indicates that a Trust Token is required to make a POST request to this API.
    *
    * @param string $loginId The loginId of the User that you intend to change the password for.
-   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   * @param array $loginIdTypes The identity types that FusionAuth will compare the loginId to.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4461,7 +4461,7 @@ class FusionAuthClient
    * Retrieves the user for the loginId, using specific loginIdTypes.
    *
    * @param string $loginId The email or username of the user.
-   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   * @param array $loginIdTypes The identity types that FusionAuth will compare the loginId to.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -4712,7 +4712,7 @@ class FusionAuthClient
    * @param string $loginId The userId id.
    * @param array $start The start instant as UTC milliseconds since Epoch.
    * @param array $end The end instant as UTC milliseconds since Epoch.
-   * @param array $loginIdTypes the identity types that FusionAuth will compare the loginId to.
+   * @param array $loginIdTypes The identity types that FusionAuth will compare the loginId to.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
