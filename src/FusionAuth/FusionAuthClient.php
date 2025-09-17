@@ -126,17 +126,19 @@ class FusionAuthClient
    * @param string $client_secret (Optional) The client secret. This value will be required if client authentication is enabled.
    * @param string $token The access token used to identify the user.
    * @param string $user_code The end-user verification code.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function approveDevice($client_id, $client_secret, $token, $user_code)
+  public function approveDevice($client_id, $client_secret, $token, $user_code, $tenantId = NULL)
   {
     $post_data = array(
       'client_id' => $client_id,
       'client_secret' => $client_secret,
       'token' => $token,
-      'user_code' => $user_code
+      'user_code' => $user_code,
+      'tenantId' => $tenantId
     );
     return $this->start()->uri("/oauth2/device/approve")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -313,17 +315,19 @@ class FusionAuthClient
    * @param string $client_secret (Optional) The client secret used to authenticate this request.
   *     This parameter is optional when Basic Authorization is used to authenticate this request.
    * @param string $scope (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:&lt;target-entity-id&gt;:&lt;roles&gt;. Roles are an optional comma separated list.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function clientCredentialsGrant($client_id, $client_secret, $scope = NULL)
+  public function clientCredentialsGrant($client_id, $client_secret, $scope, $tenantId = NULL)
   {
     $post_data = array(
       'client_id' => $client_id,
       'client_secret' => $client_secret,
       'grant_type' => 'client_credentials',
-      'scope' => $scope
+      'scope' => $scope,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/token")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -1741,18 +1745,20 @@ class FusionAuthClient
   *     This parameter is optional when Basic Authorization is used to authenticate this request.
    * @param string $client_secret (Optional) The client secret. This value will be required if client authentication is enabled.
    * @param string $redirect_uri The URI to redirect to upon a successful request.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function exchangeOAuthCodeForAccessToken($code, $client_id, $client_secret, $redirect_uri)
+  public function exchangeOAuthCodeForAccessToken($code, $client_id, $client_secret, $redirect_uri, $tenantId = NULL)
   {
     $post_data = array(
       'code' => $code,
       'client_id' => $client_id,
       'client_secret' => $client_secret,
       'grant_type' => 'authorization_code',
-      'redirect_uri' => $redirect_uri
+      'redirect_uri' => $redirect_uri,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/token")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -1770,11 +1776,12 @@ class FusionAuthClient
    * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
    * @param string $redirect_uri The URI to redirect to upon a successful request.
    * @param string $code_verifier The random string generated previously. Will be compared with the code_challenge sent previously, which allows the OAuth provider to authenticate your app.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function exchangeOAuthCodeForAccessTokenUsingPKCE($code, $client_id, $client_secret, $redirect_uri, $code_verifier)
+  public function exchangeOAuthCodeForAccessTokenUsingPKCE($code, $client_id, $client_secret, $redirect_uri, $code_verifier, $tenantId = NULL)
   {
     $post_data = array(
       'code' => $code,
@@ -1782,7 +1789,8 @@ class FusionAuthClient
       'client_secret' => $client_secret,
       'grant_type' => 'authorization_code',
       'redirect_uri' => $redirect_uri,
-      'code_verifier' => $code_verifier
+      'code_verifier' => $code_verifier,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/token")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -1800,11 +1808,12 @@ class FusionAuthClient
    * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
    * @param string $scope (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
    * @param string $user_code (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request. Required if the request is for a universal application.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function exchangeRefreshTokenForAccessToken($refresh_token, $client_id, $client_secret, $scope, $user_code = NULL)
+  public function exchangeRefreshTokenForAccessToken($refresh_token, $client_id, $client_secret, $scope, $user_code, $tenantId = NULL)
   {
     $post_data = array(
       'refresh_token' => $refresh_token,
@@ -1812,7 +1821,8 @@ class FusionAuthClient
       'client_secret' => $client_secret,
       'grant_type' => 'refresh_token',
       'scope' => $scope,
-      'user_code' => $user_code
+      'user_code' => $user_code,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/token")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -1847,11 +1857,12 @@ class FusionAuthClient
    * @param string $client_secret (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
    * @param string $scope (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
    * @param string $user_code (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function exchangeUserCredentialsForAccessToken($username, $password, $client_id, $client_secret, $scope, $user_code = NULL)
+  public function exchangeUserCredentialsForAccessToken($username, $password, $client_id, $client_secret, $scope, $user_code, $tenantId = NULL)
   {
     $post_data = array(
       'username' => $username,
@@ -1860,7 +1871,8 @@ class FusionAuthClient
       'client_secret' => $client_secret,
       'grant_type' => 'password',
       'scope' => $scope,
-      'user_code' => $user_code
+      'user_code' => $user_code,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/token")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -2093,15 +2105,17 @@ class FusionAuthClient
    *
    * @param string $client_id The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
    * @param string $token The access token returned by this OAuth provider as the result of a successful client credentials grant.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function introspectAccessToken($client_id, $token)
+  public function introspectAccessToken($client_id, $token, $tenantId = NULL)
   {
     $post_data = array(
       'client_id' => $client_id,
-      'token' => $token
+      'token' => $token,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/introspect")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -2113,14 +2127,16 @@ class FusionAuthClient
    * Inspect an access token issued as the result of the Client Credentials Grant.
    *
    * @param string $token The access token returned by this OAuth provider as the result of a successful client credentials grant.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function introspectClientCredentialsAccessToken($token)
+  public function introspectClientCredentialsAccessToken($token, $tenantId = NULL)
   {
     $post_data = array(
-      'token' => $token
+      'token' => $token,
+      'tenantId' => $tenantId
     );
     return $this->startAnonymous()->uri("/oauth2/introspect")
         ->bodyHandler(new FormDataBodyHandler($post_data))
@@ -4494,18 +4510,20 @@ class FusionAuthClient
    * @param string $client_id The client Id.
    * @param string $client_secret The client Id.
    * @param string $user_code The end-user verification code.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserCode($client_id, $client_secret, $user_code)
+  public function retrieveUserCode($client_id, $client_secret, $user_code, $tenantId = NULL)
   {
     $post_data = array(
       'client_id' => $client_id,
       'client_secret' => $client_secret,
-      'user_code' => $user_code
+      'user_code' => $user_code,
     );
     return $this->startAnonymous()->uri("/oauth2/device/user-code")
+        ->urlParameter("tenantId", $tenantId)
         ->bodyHandler(new FormDataBodyHandler($post_data))
         ->get()
         ->go();
@@ -4519,16 +4537,18 @@ class FusionAuthClient
    * This request will require an API key.
    *
    * @param string $user_code The end-user verification code.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserCodeUsingAPIKey($user_code)
+  public function retrieveUserCodeUsingAPIKey($user_code, $tenantId = NULL)
   {
     $post_data = array(
-      'user_code' => $user_code
+      'user_code' => $user_code,
     );
     return $this->startAnonymous()->uri("/oauth2/device/user-code")
+        ->urlParameter("tenantId", $tenantId)
         ->bodyHandler(new FormDataBodyHandler($post_data))
         ->get()
         ->go();
@@ -4586,14 +4606,16 @@ class FusionAuthClient
    * Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
    *
    * @param string $encodedJWT The encoded JWT (access token).
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserInfoFromAccessToken($encodedJWT)
+  public function retrieveUserInfoFromAccessToken($encodedJWT, $tenantId = NULL)
   {
     return $this->startAnonymous()->uri("/oauth2/userinfo")
         ->authorization("Bearer " . $encodedJWT)
+        ->urlParameter("tenantId", $tenantId)
         ->get()
         ->go();
   }
@@ -6254,15 +6276,17 @@ class FusionAuthClient
    *
    * @param string $user_code The end-user verification code.
    * @param string $client_id The client Id.
+   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function validateDevice($user_code, $client_id)
+  public function validateDevice($user_code, $client_id, $tenantId = NULL)
   {
     return $this->startAnonymous()->uri("/oauth2/device/validate")
         ->urlParameter("user_code", $user_code)
         ->urlParameter("client_id", $client_id)
+        ->urlParameter("tenantId", $tenantId)
         ->get()
         ->go();
   }
