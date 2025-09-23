@@ -4795,16 +4795,14 @@ class FusionAuthClient
    * Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
    *
    * @param string $encodedJWT The encoded JWT (access token).
-   * @param string $tenantId (Optional) The Id of the tenant to use for this request.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveUserInfoFromAccessToken($encodedJWT, $tenantId = NULL)
+  public function retrieveUserInfoFromAccessToken($encodedJWT)
   {
     return $this->startAnonymous()->uri("/oauth2/userinfo")
         ->authorization("Bearer " . $encodedJWT)
-        ->urlParameter("tenantId", $tenantId)
         ->get()
         ->go();
   }
