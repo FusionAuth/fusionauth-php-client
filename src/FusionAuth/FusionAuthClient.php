@@ -320,7 +320,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function checkChangePasswordUsingJWT($encodedJWT, $ipAddress = NULL)
+  public function checkChangePasswordUsingJWTAndIPAddress($encodedJWT, $ipAddress = NULL)
   {
     return $this->startAnonymous()->uri("/api/user/change-password")
         ->authorization("Bearer " . $encodedJWT)
@@ -362,7 +362,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function checkChangePasswordUsingLoginId($loginId, $ipAddress = NULL)
+  public function checkChangePasswordUsingLoginIdAndIPAddress($loginId, $ipAddress = NULL)
   {
     return $this->start()->uri("/api/user/change-password")
         ->urlParameter("loginId", $loginId)
@@ -407,7 +407,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function checkChangePasswordUsingLoginIdAndLoginIdTypes($loginId, $loginIdTypes, $ipAddress = NULL)
+  public function checkChangePasswordUsingLoginIdAndLoginIdTypesAndIPAddress($loginId, $loginIdTypes, $ipAddress = NULL)
   {
     return $this->start()->uri("/api/user/change-password")
         ->urlParameter("loginId", $loginId)
