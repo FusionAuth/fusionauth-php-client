@@ -4331,6 +4331,26 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieve a user's two-factor status.
+   * 
+   * This can be used to see if a user will need to complete a two-factor challenge to complete a login,
+   * and optionally identify the state of the two-factor trust across various applications. This operation
+   * provides more payload options than retrieveTwoFactorStatus.
+   *
+   * @param array $request The request object that contains all the information used to check the status.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveTwoFactorStatusUsing($request)
+  {
+    return $this->start()->uri("/api/two-factor/status")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Retrieves the user for the given Id.
    *
    * @param string $userId The Id of the user.
