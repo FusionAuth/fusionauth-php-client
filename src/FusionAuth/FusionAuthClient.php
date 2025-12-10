@@ -4448,7 +4448,7 @@ class FusionAuthClient
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
    */
-  public function retrieveTwoFactorStatusUsing($request)
+  public function retrieveTwoFactorStatusWithRequest($request)
   {
     return $this->start()->uri("/api/two-factor/status")
         ->bodyHandler(new JSONBodyHandler($request))
