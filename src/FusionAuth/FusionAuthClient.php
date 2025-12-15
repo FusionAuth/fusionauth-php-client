@@ -4292,6 +4292,22 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the totals report. This allows excluding applicationTotals from the report. An empty list will include the applicationTotals.
+   *
+   * @param array $excludes List of fields to exclude in the response. Currently only allows applicationTotals.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveTotalReportWithExcludes($excludes)
+  {
+    return $this->start()->uri("/api/report/totals")
+        ->urlParameter("excludes", $excludes)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieve two-factor recovery codes for a user.
    *
    * @param string $userId The Id of the user to retrieve Two Factor recovery codes.
