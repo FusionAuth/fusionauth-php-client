@@ -154,8 +154,15 @@ class FusionAuthClient
    */
   public function approveDeviceWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+      ,'token' => $request->token
+      ,'user_code' => $request->user_code
+    );
     return $this->start()->uri("/oauth2/device/approve")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -379,8 +386,15 @@ class FusionAuthClient
    */
   public function clientCredentialsGrantWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'grant_type' => $request->grant_type
+      ,'scope' => $request->scope
+      ,'tenantId' => $request->tenantId
+    );
     return $this->startAnonymous()->uri("/oauth2/token")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -1763,8 +1777,14 @@ class FusionAuthClient
    */
   public function deviceAuthorizeWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'scope' => $request->scope
+      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+    );
     return $this->startAnonymous()->uri("/oauth2/device_authorize")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -1894,8 +1914,17 @@ class FusionAuthClient
    */
   public function exchangeOAuthCodeForAccessTokenUsingPKCEWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'code' => $request->code
+      ,'code_verifier' => $request->code_verifier
+      ,'grant_type' => $request->grant_type
+      ,'redirect_uri' => $request->redirect_uri
+      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+    );
     return $this->startAnonymous()->uri("/oauth2/token")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -1911,8 +1940,16 @@ class FusionAuthClient
    */
   public function exchangeOAuthCodeForAccessTokenWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'code' => $request->code
+      ,'grant_type' => $request->grant_type
+      ,'redirect_uri' => $request->redirect_uri
+      ,'tenantId' => $request->tenantId
+    );
     return $this->startAnonymous()->uri("/oauth2/token")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -1958,8 +1995,17 @@ class FusionAuthClient
    */
   public function exchangeRefreshTokenForAccessTokenWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'grant_type' => $request->grant_type
+      ,'refresh_token' => $request->refresh_token
+      ,'scope' => $request->scope
+      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+      ,'user_code' => $request->user_code
+    );
     return $this->startAnonymous()->uri("/oauth2/token")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -2023,8 +2069,18 @@ class FusionAuthClient
    */
   public function exchangeUserCredentialsForAccessTokenWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'grant_type' => $request->grant_type
+      ,'password' => $request->password
+      ,'scope' => $request->scope
+      ,'tenantId' => $request->tenantId
+      ,'user_code' => $request->user_code
+      ,'username' => $request->username
+    );
     return $this->startAnonymous()->uri("/oauth2/token")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -2280,8 +2336,13 @@ class FusionAuthClient
    */
   public function introspectAccessTokenWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'tenantId' => $request->tenantId
+      ,'token' => $request->token
+    );
     return $this->startAnonymous()->uri("/oauth2/introspect")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -2315,8 +2376,12 @@ class FusionAuthClient
    */
   public function introspectClientCredentialsAccessTokenWithRequest($request)
   {
+    $post_data = array(
+      'tenantId' => $request->tenantId
+      ,'token' => $request->token
+    );
     return $this->startAnonymous()->uri("/oauth2/introspect")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -4757,8 +4822,12 @@ class FusionAuthClient
    */
   public function retrieveUserCodeUsingAPIKeyWithRequest($request)
   {
+    $post_data = array(
+      'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+      ,'user_code' => $request->user_code
+    );
     return $this->startAnonymous()->uri("/oauth2/device/user-code")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -4775,8 +4844,14 @@ class FusionAuthClient
    */
   public function retrieveUserCodeWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'client_secret' => $request->client_secret
+      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+      ,'user_code' => $request->user_code
+    );
     return $this->startAnonymous()->uri("/oauth2/device/user-code")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
@@ -6525,8 +6600,13 @@ class FusionAuthClient
    */
   public function validateDeviceWithRequest($request)
   {
+    $post_data = array(
+      'client_id' => $request->client_id
+      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
+      ,'user_code' => $request->user_code
+    );
     return $this->startAnonymous()->uri("/oauth2/device/validate")
-        ->bodyHandler(new JSONBodyHandler($request))
+        ->bodyHandler(new FormDataBodyHandler($post_data))
         ->post()
         ->go();
   }
