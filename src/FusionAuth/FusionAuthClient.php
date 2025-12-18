@@ -6710,14 +6710,11 @@ class FusionAuthClient
    */
   public function validateDeviceWithRequest($request)
   {
-    $post_data = array(
-      'client_id' => $request->client_id
-      ,'tenantId' => ($request->tenantId !== null ? (string)$request->tenantId : null)
-      ,'user_code' => $request->user_code
-    );
     return $this->startAnonymous()->uri("/oauth2/device/validate")
-        ->bodyHandler(new FormDataBodyHandler($post_data))
-        ->post()
+        ->urlParameter("client_id", $request->client_id)
+        ->urlParameter("tenantId", $request->tenantId !== null ? (string)$request->tenantId : null)
+        ->urlParameter("user_code", $request->user_code)
+        ->get()
         ->go();
   }
 
