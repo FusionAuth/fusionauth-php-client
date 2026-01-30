@@ -5160,22 +5160,6 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the user for the given Id. This method does not use an API key, instead it uses a JSON Web Token (JWT) for authentication.
-   *
-   * @param string $encodedJWT The encoded JWT (access token).
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function retrieveUserUsingJWT($encodedJWT)
-  {
-    return $this->startAnonymous()->uri("/api/user")
-        ->authorization("Bearer " . $encodedJWT)
-        ->get()
-        ->go();
-  }
-
-  /**
    * Retrieves the FusionAuth version string.
    *
    *
