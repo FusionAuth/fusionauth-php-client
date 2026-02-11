@@ -981,6 +981,24 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a tenant manager identity provider type configuration for the given identity provider type.
+   *
+   * @param array $type The type of the identity provider.
+   * @param array $request The request object that contains all the information used to create the tenant manager identity provider type configuration.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createTenantManagerIdentityProviderTypeConfiguration($type, $request)
+  {
+    return $this->start()->uri("/api/tenant-manager/identity-provider")
+        ->urlSegment($type)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
    *
    * @param string $themeId (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
@@ -1631,6 +1649,22 @@ class FusionAuthClient
     return $this->start()->uri("/api/tenant")
         ->urlSegment($tenantId)
         ->urlParameter("async", true)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the tenant manager identity provider type configuration for the given identity provider type.
+   *
+   * @param array $type The type of the identity provider.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteTenantManagerIdentityProviderTypeConfiguration($type)
+  {
+    return $this->start()->uri("/api/tenant-manager/identity-provider")
+        ->urlSegment($type)
         ->delete()
         ->go();
   }
@@ -6548,6 +6582,24 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/tenant")
         ->urlSegment($tenantId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the tenant manager identity provider type configuration for the given identity provider type.
+   *
+   * @param array $type The type of the identity provider.
+   * @param array $request The request object that contains the updated tenant manager identity provider type configuration.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateTenantManagerIdentityProviderTypeConfiguration($type, $request)
+  {
+    return $this->start()->uri("/api/tenant-manager/identity-provider")
+        ->urlSegment($type)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
