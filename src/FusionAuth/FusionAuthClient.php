@@ -3090,6 +3090,24 @@ class FusionAuthClient
   }
 
   /**
+   * Patches the tenant manager identity provider type configuration for the given identity provider type.
+   *
+   * @param array $type The type of the identity provider.
+   * @param array $request The request object that contains the new tenant manager identity provider type configuration information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchTenantManagerIdentityProviderTypeConfiguration($type, $request)
+  {
+    return $this->start()->uri("/api/tenant-manager/identity-provider")
+        ->urlSegment($type)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the theme with the given Id.
    *
    * @param string $themeId The Id of the theme to update.
