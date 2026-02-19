@@ -1819,6 +1819,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes all of the WebAuthn credentials for the given User Id.
+   *
+   * @param string $userId The unique Id of the User to delete WebAuthn passkeys for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteWebAuthnCredentialsForUser($userId)
+  {
+    return $this->start()->uri("/api/webauthn")
+        ->urlParameter("userId", $userId)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the webhook for the given Id.
    *
    * @param string $webhookId The Id of the webhook to delete.
@@ -2603,7 +2619,7 @@ class FusionAuthClient
   }
 
   /**
-   * Retrieves the identity provider for the given domain. A 200 response code indicates the domain is managed
+   * Retrieves any global identity providers for the given domain. A 200 response code indicates the domain is managed
    * by a registered identity provider. A 404 indicates the domain is not managed.
    *
    * @param string $domain The domain or email address to lookup.
@@ -2615,6 +2631,26 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/identity-provider/lookup")
         ->urlParameter("domain", $domain)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the identity provider for the given domain and tenantId. A 200 response code indicates the domain is managed
+   * by a registered identity provider. A 404 indicates the domain is not managed.
+   *
+   * @param string $domain The domain or email address to lookup.
+   * @param string $tenantId If provided, the API searches for an identity provider scoped to the corresponding tenant that manages the requested domain.
+  *     If no result is found, the API then searches for global identity providers.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function lookupIdentityProviderByTenantId($domain, $tenantId)
+  {
+    return $this->start()->uri("/api/identity-provider/lookup")
+        ->urlParameter("domain", $domain)
+        ->urlParameter("tenantId", $tenantId)
         ->get()
         ->go();
   }
