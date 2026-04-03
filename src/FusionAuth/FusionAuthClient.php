@@ -2446,6 +2446,7 @@ class FusionAuthClient
       'client_id' => $request->client_id
       ,'tenantId' => $request->tenantId
       ,'token' => $request->token
+      ,'token_type_hint' => $request->token_type_hint
     );
     return $this->startAnonymous()->uri("/oauth2/introspect")
         ->bodyHandler(new FormDataBodyHandler($post_data))
