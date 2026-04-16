@@ -35,6 +35,7 @@ services:
       FUSIONAUTH_APP_URL: http://fusionauth:9011
       FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart.json
       SEARCH_TYPE: database
+      FUSIONAUTH_APP_INSTALLATION_SOURCE: fusionauth-php-client/ci
     networks:
       - db_net
     restart: unless-stopped
