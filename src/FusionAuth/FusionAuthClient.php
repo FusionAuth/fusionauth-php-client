@@ -6741,6 +6741,24 @@ class FusionAuthClient
   }
 
   /**
+   * Updates the two-factor method for the given user using a JSON body.
+   *
+   * @param string $userId The Id of the user to update.
+   * @param array $request The request information that contains the name and methodId along with any event information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateTwoFactor($userId, $request)
+  {
+    return $this->start()->uri("/api/user/two-factor")
+        ->urlSegment($userId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
    * Updates the user with the given Id.
    *
    * @param string $userId The Id of the user to update.
