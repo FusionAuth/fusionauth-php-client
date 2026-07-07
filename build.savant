@@ -48,7 +48,7 @@ target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
 
 target(name: "test", description: "Runs the tests", dependsOn: "clean") {
   runCommand("composer", "install")
-  runCommand("vendor/bin/phpunit", "--include-path", "src", "-v", "tests")
+  runCommand("vendor/bin/phpunit", "--include-path", "src", "tests")
 }
 
 target(name: "publish", description: "Update packagist to sync with our GitHub tags", dependsOn: ["clean", "int"]) {
