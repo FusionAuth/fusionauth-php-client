@@ -261,14 +261,8 @@ class RESTClient
                     $response->successResponse = $this->successResponseHandler->call($result);
                 }
             }
-
-            curl_close($curl);
             return $response;
         } catch (\Exception $e) {
-            if (isset($curl)) {
-                curl_close($curl);
-            }
-
             $response->exception = $e;
             return $response;
         }

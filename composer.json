@@ -16,6 +16,7 @@
     }
   ],
   "require": {
+    "php": ">=8.0",
     "ext-curl": "*",
     "ext-json": "*"
   },
