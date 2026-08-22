@@ -5009,54 +5009,6 @@ class FusionAuthClient
    * Retrieve a user_code that is part of an in-progress Device Authorization Grant.
    * 
    * This API is useful if you want to build your own login workflow to complete a device grant.
-   *
-   * @param string $client_id The client Id.
-   * @param string $client_secret The client Id.
-   * @param string $user_code The end-user verification code.
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function retrieveUserCode($client_id, $client_secret, $user_code)
-  {
-    $post_data = array(
-      'client_id' => $client_id,
-      'client_secret' => $client_secret,
-      'user_code' => $user_code
-    );
-    return $this->startAnonymous()->uri("/oauth2/device/user-code")
-        ->bodyHandler(new FormDataBodyHandler($post_data))
-        ->get()
-        ->go();
-  }
-
-  /**
-   * Retrieve a user_code that is part of an in-progress Device Authorization Grant.
-   * 
-   * This API is useful if you want to build your own login workflow to complete a device grant.
-   * 
-   * This request will require an API key.
-   *
-   * @param string $user_code The end-user verification code.
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function retrieveUserCodeUsingAPIKey($user_code)
-  {
-    $post_data = array(
-      'user_code' => $user_code
-    );
-    return $this->startAnonymous()->uri("/oauth2/device/user-code")
-        ->bodyHandler(new FormDataBodyHandler($post_data))
-        ->get()
-        ->go();
-  }
-
-  /**
-   * Retrieve a user_code that is part of an in-progress Device Authorization Grant.
-   * 
-   * This API is useful if you want to build your own login workflow to complete a device grant.
    * 
    * This request will require an API key.
    *
@@ -5609,6 +5561,28 @@ class FusionAuthClient
   }
 
   /**
+   * Searches consents with the specified criteria and pagination.
+   *
+   * @param string $name (Optional) The name of the consent to search for. Supports wildcard search using *.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by. Supported values: id, insertInstant, name.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchConsentsByParameters($name, $numberOfResults, $orderBy, $startRow = NULL)
+  {
+    return $this->start()->uri("/api/consent/search")
+        ->urlParameter("name", $name)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Searches email templates with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -5673,6 +5647,32 @@ class FusionAuthClient
   }
 
   /**
+   * Searches entity grants with the specified criteria and pagination.
+   *
+   * @param string $entityId (Optional) The entity Id to search for grants on.
+   * @param string $name (Optional) The name of the entity grant to search for. Supports wildcard search using *.
+   * @param string $userId (Optional) The user Id to search for grants on.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEntityGrantsByParameters($entityId, $name, $userId, $numberOfResults, $orderBy, $startRow = NULL)
+  {
+    return $this->start()->uri("/api/entity/grant/search")
+        ->urlParameter("entityId", $entityId)
+        ->urlParameter("name", $name)
+        ->urlParameter("userId", $userId)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Searches the entity types with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -5685,6 +5685,28 @@ class FusionAuthClient
     return $this->start()->uri("/api/entity/type/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Searches entity types with the specified criteria and pagination.
+   *
+   * @param string $name The name of the entity type to search for. Use * to return all entity types.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by. Supported values: insertInstant, lastUpdateInstant, name.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchEntityTypesByParameters($name, $numberOfResults, $orderBy, $startRow = NULL)
+  {
+    return $this->start()->uri("/api/entity/type/search")
+        ->urlParameter("name", $name)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->get()
         ->go();
   }
 
@@ -5753,6 +5775,28 @@ class FusionAuthClient
   }
 
   /**
+   * Searches IP access control lists with the specified criteria and pagination.
+   *
+   * @param string $name (Optional) The name of the IP access control list to search for. Supports wildcard search using *.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by. Supported values: id, insertInstant, lastUpdateInstant, name.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchIPAccessControlListsByParameters($name, $numberOfResults, $orderBy, $startRow = NULL)
+  {
+    return $this->start()->uri("/api/ip-acl/search")
+        ->urlParameter("name", $name)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Searches identity providers with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -5769,6 +5813,34 @@ class FusionAuthClient
   }
 
   /**
+   * Searches identity providers with the specified criteria and pagination.
+   *
+   * @param string $applicationId (Optional) The application Id to search for identity providers.
+   * @param string $name (Optional) The name of the identity provider to search for. Supports wildcard search using *.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by. Supported values: enabled, id, insertInstant, name, type.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   * @param string $tenantId (Optional) The tenant Id to restrict the results to.
+   * @param string $type (Optional) The type of identity provider to search for.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchIdentityProvidersByParameters($applicationId, $name, $numberOfResults, $orderBy, $startRow, $tenantId, $type = NULL)
+  {
+    return $this->start()->uri("/api/identity-provider/search")
+        ->urlParameter("applicationId", $applicationId)
+        ->urlParameter("name", $name)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->urlParameter("tenantId", $tenantId)
+        ->urlParameter("type", $type)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Searches keys with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -5781,6 +5853,32 @@ class FusionAuthClient
     return $this->start()->uri("/api/key/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Searches keys with the specified criteria and pagination.
+   *
+   * @param string $algorithm (Optional) The algorithm of the key to search for.
+   * @param string $name (Optional) The name of the key to search for. Supports wildcard search using *.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by. Supported values: algorithm, expiration, id, insertInstant, name, type.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   * @param string $type (Optional) The type of key to search for. Supported values: EC, HMAC, OKP, RSA.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchKeysByParameters($algorithm, $name, $numberOfResults, $orderBy, $startRow, $type = NULL)
+  {
+    return $this->start()->uri("/api/key/search")
+        ->urlParameter("algorithm", $algorithm)
+        ->urlParameter("name", $name)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->urlParameter("type", $type)
+        ->get()
         ->go();
   }
 
@@ -5961,6 +6059,32 @@ class FusionAuthClient
     return $this->start()->uri("/api/webhook/search")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
+        ->go();
+  }
+
+  /**
+   * Searches webhooks with the specified criteria and pagination.
+   *
+   * @param string $description (Optional) The description of the webhook to search for. Supports wildcard search using *.
+   * @param int $numberOfResults (Optional) The number of results to return. Defaults to 25.
+   * @param string $orderBy (Optional) The field to order the results by. Supported values: description, id, insertInstant, url.
+   * @param int $startRow (Optional) The offset into the total results. Defaults to 0.
+   * @param string $tenantId (Optional) The tenant Id to restrict the results to.
+   * @param string $url (Optional) The URL of the webhook to search for. Supports wildcard search using *.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchWebhooksByParameters($description, $numberOfResults, $orderBy, $startRow, $tenantId, $url = NULL)
+  {
+    return $this->start()->uri("/api/webhook/search")
+        ->urlParameter("description", $description)
+        ->urlParameter("numberOfResults", $numberOfResults)
+        ->urlParameter("orderBy", $orderBy)
+        ->urlParameter("startRow", $startRow)
+        ->urlParameter("tenantId", $tenantId)
+        ->urlParameter("url", $url)
+        ->get()
         ->go();
   }
 

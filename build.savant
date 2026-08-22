@@ -14,7 +14,7 @@
  * language governing permissions and limitations under the License.
  */
 
-project(group: "io.fusionauth", name: "fusionauth-php-client", version: "1.68.0", licenses: ["ApacheV2_0"]) {
+project(group: "io.fusionauth", name: "fusionauth-php-client", version: "1.70.0", licenses: ["ApacheV2_0"]) {
   workflow {
     fetch {
       cache()
@@ -48,7 +48,7 @@ target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
 
 target(name: "test", description: "Runs the tests", dependsOn: "clean") {
   runCommand("composer", "install")
-  runCommand("vendor/bin/phpunit", "--include-path", "src", "-v", "tests")
+  runCommand("vendor/bin/phpunit", "--include-path", "src", "tests")
 }
 
 target(name: "publish", description: "Update packagist to sync with our GitHub tags", dependsOn: ["clean", "int"]) {
