@@ -650,6 +650,46 @@ class FusionAuthClient
   }
 
   /**
+   * Creates a CIMD domain. You can optionally provide an Id for the CIMD domain, if not provided one will be generated.
+   *
+   * @param string $domainId (Optional) The Id to use for the CIMD domain. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all the information used to create the CIMD domain.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createCimdDomain($domainId, $request)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Creates a new custom OAuth scope for a CIMD Domain. You must specify the Id of the CIMD domain you are creating the scope for.
+   * You can optionally specify an Id for the OAuth scope on the URL, if not provided one will be generated.
+   *
+   * @param string $domainId The Id of the CIMD domain to create the OAuth scope on.
+   * @param string $scopeId (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
+   * @param array $request The request object that contains all the information used to create the OAuth scope.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function createCimdDomainOAuthScope($domainId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
    *
    * @param string $connectorId (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
@@ -946,7 +986,7 @@ class FusionAuthClient
    *
    * @param string $applicationId The Id of the application to create the OAuth scope on.
    * @param string $scopeId (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
-   * @param array $request The request object that contains all the information used to create the OAuth OAuth scope.
+   * @param array $request The request object that contains all the information used to create the OAuth scope.
    *
    * @return ClientResponse The ClientResponse.
    * @throws \Exception
@@ -1275,6 +1315,58 @@ class FusionAuthClient
         ->urlSegment($applicationId)
         ->urlSegment("role")
         ->urlSegment($roleId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the CIMD client registration for the given Id, along with its refresh tokens.
+   *
+   * @param string $registrationId The Id of the CIMD client registration to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteCimdClientRegistration($registrationId)
+  {
+    return $this->start()->uri("/api/cimd/registration")
+        ->urlSegment($registrationId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Deletes the CIMD domain for the given Id.
+   *
+   * @param string $domainId The Id of the CIMD domain to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteCimdDomain($domainId)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Hard deletes a custom OAuth scope for a CIMD Domain.
+   * OAuth workflows that are still requesting the deleted OAuth scope may fail depending on the CIMD domain's unknown scope policy.
+   *
+   * @param string $domainId The Id of the CIMD domain that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteCimdDomainOAuthScope($domainId, $scopeId)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->delete()
         ->go();
   }
@@ -2783,6 +2875,45 @@ class FusionAuthClient
   }
 
   /**
+   * Updates, via PATCH, the CIMD domain with the given Id.
+   *
+   * @param string $domainId The Id of the CIMD domain to update.
+   * @param array $request The request that contains just the new CIMD domain information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchCimdDomain($domainId, $request)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
+   * Updates, via PATCH, the custom OAuth scope with the given Id for the CIMD domain.
+   *
+   * @param string $domainId The Id of the CIMD domain that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to update.
+   * @param array $request The request that contains just the new OAuth scope information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function patchCimdDomainOAuthScope($domainId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->patch()
+        ->go();
+  }
+
+  /**
    * Updates, via PATCH, the connector with the given Id.
    *
    * @param string $connectorId The Id of the connector to update.
@@ -3622,6 +3753,71 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/system/audit-log")
         ->urlSegment($auditLogId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the CIMD client registration for the given Id.
+   *
+   * @param string $registrationId The Id of the CIMD client registration.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveCimdClientRegistration($registrationId)
+  {
+    return $this->start()->uri("/api/cimd/registration")
+        ->urlSegment($registrationId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves the CIMD domain for the given Id.
+   *
+   * @param string $domainId The Id of the CIMD domain.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveCimdDomain($domainId)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves a custom OAuth scope for a CIMD Domain.
+   *
+   * @param string $domainId The Id of the CIMD domain that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to retrieve.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveCimdDomainOAuthScope($domainId, $scopeId)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
+        ->get()
+        ->go();
+  }
+
+  /**
+   * Retrieves all the CIMD domains for the tenant in context.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveCimdDomains()
+  {
+    return $this->start()->uri("/api/cimd/domain")
         ->get()
         ->go();
   }
@@ -5545,6 +5741,38 @@ class FusionAuthClient
   }
 
   /**
+   * Searches the CIMD client registrations with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchCimdClientRegistrations($request)
+  {
+    return $this->start()->uri("/api/cimd/registration/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Searches the CIMD domains with the specified criteria and pagination.
+   *
+   * @param array $request The search criteria and pagination information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function searchCimdDomains($request)
+  {
+    return $this->start()->uri("/api/cimd/domain/search")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Searches consents with the specified criteria and pagination.
    *
    * @param array $request The search criteria and pagination information.
@@ -6411,6 +6639,45 @@ class FusionAuthClient
         ->urlSegment($applicationId)
         ->urlSegment("role")
         ->urlSegment($roleId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the CIMD domain with the given Id.
+   *
+   * @param string $domainId The Id of the CIMD domain to update.
+   * @param array $request The request that contains all the new CIMD domain information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateCimdDomain($domainId, $request)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->put()
+        ->go();
+  }
+
+  /**
+   * Updates the OAuth scope with the given Id for the CIMD domain.
+   *
+   * @param string $domainId The Id of the CIMD domain that the OAuth scope belongs to.
+   * @param string $scopeId The Id of the OAuth scope to update.
+   * @param array $request The request that contains all the new OAuth scope information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateCimdDomainOAuthScope($domainId, $scopeId, $request)
+  {
+    return $this->start()->uri("/api/cimd/domain")
+        ->urlSegment($domainId)
+        ->urlSegment("scope")
+        ->urlSegment($scopeId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
         ->go();
