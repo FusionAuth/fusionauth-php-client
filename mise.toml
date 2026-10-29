@@ -1,0 +1,13 @@
+[tools]
+php = "8.5"
+
+[tasks.install]
+description="Installs dependencies"
+run = "composer install"
+
+# For whatever reason, on Linux it's not automatically installing these
+[bootstrap.packages]
+"apt:libxml2-dev" = "latest"
+"apt:libcurl4-openssl-dev" = "latest"
+"apt:libpng-dev" = "latest"
+"apt:libgd-dev" = "latest"
